@@ -1,0 +1,443 @@
+<div class="container">
+  <div class="finding-control hide-on-lg form-default" id="calendar-default">
+    <div class="wrapper-find" id="car-finding">
+      <div class="line-form location">
+        <label class="label">Địa điểm</label>
+        <div class="wrap-input wrap-input-transparent">
+          <div class="here-autocomplete">
+            <input
+              placeholder="Thành phố Hà Nội, Việt Nam"
+              ngx-google-places-autocomplete
+              [options]="option"
+              #placesRef="ngx-places"
+              (onAddressChange)="handleAddressChange($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="line-form has-timer me-3">
+        <label class="label">Bắt đầu</label>
+        <div class="wrap-input wrap-input-transparent">
+          <div
+            class="react-bootstrap-daterangepicker-container"
+            style="display: inline-block"
+          >
+            <p-calendar
+              dateFormat="dd/mm/yy"
+              [style]="{ marginLeft: '10px', height: '25px', width: '150px' }"
+              inputId="basic"
+              [(ngModel)]="date1"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="wrap-select">
+          <p-calendar
+            [style]="{ marginLeft: '10px', height: '25px', width: '100px' }"
+            [(ngModel)]="time1"
+            [timeOnly]="true"
+            inputId="timeonly"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="line-form has-timer ms-3">
+        <label class="label">Kết thúc</label>
+        <div class="wrap-input wrap-input-transparent">
+          <div
+            class="react-bootstrap-daterangepicker-container"
+            style="display: inline-block"
+          >
+            <p-calendar
+              dateFormat="dd/mm/yy"
+              [style]="{ marginLeft: '10px', height: '25px', width: '150px' }"
+              inputId="basic"
+              [(ngModel)]="date2"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="wrap-select">
+          <p-calendar
+            [style]="{ marginLeft: '10px', height: '25px', width: '100px' }"
+            [(ngModel)]="time2"
+            [timeOnly]="true"
+            inputId="timeonly"
+          ></p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 pe-0">
+      <div class="content-filter" style="background-color: white">
+        <div class="sort mb-3">
+          <h3 class="title-filter">Sắp xếp</h3>
+          <p-dropdown
+            [options]="sorts"
+            placeholder="Sắp xếp"
+            optionLabel="name"
+            [showClear]="true"
+          ></p-dropdown>
+        </div>
+        <div class="price-filter mb-3">
+          <h3 class="title-filter">Mức giá</h3>
+          <p-slider [(ngModel)]="prices" [range]="true"></p-slider>
+          <h6 class="text-end mt-2" style="font-size: 12px">
+            {{
+              prices[0] == 0
+                ? "Bất kì"
+                : (prices[0] * 30000 | currency : "VND" : "")
+            }}
+            -
+            {{
+              prices[1] == 100
+                ? "Bất kì"
+                : (prices[1] * 30000 | currency : "VND" : "")
+            }}
+          </h6>
+        </div>
+        <div class="car-category">
+          <h3 class="title-filter">Loại xe</h3>
+          <div class="vehicle-type">
+            <div class="squaredFour have-label">
+              <input type="checkbox" name="vt_3" id="vt_3" value="3" /><label
+                class="description"
+                for="vt_3"
+                ><div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-mini.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>4 chỗ (Mini)</span><span class="extra-info"></span
+              ></label>
+            </div>
+            <div class="squaredFour have-label">
+              <input type="checkbox" name="vt_1" id="vt_1" value="1" /><label
+                class="description"
+                for="vt_1"
+                ><div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-sedan.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>4 chỗ (Sedan)</span><span class="extra-info"></span
+              ></label>
+            </div>
+            <div class="squaredFour have-label">
+              <input type="checkbox" name="vt_4" id="vt_4" value="4" /><label
+                class="description"
+                for="vt_4"
+                ><div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-hatchback.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>4 chỗ (Hatchback)</span><span class="extra-info"></span
+              ></label>
+            </div>
+            <div class="squaredFour have-label">
+              <input type="checkbox" name="vt_5" id="vt_5" value="5" /><label
+                class="description"
+                for="vt_5"
+                ><div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-5-suv.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>5 chỗ (Gầm cao)</span><span class="extra-info"></span
+              ></label>
+            </div>
+            <div class="squaredFour have-label">
+              <input type="checkbox" name="vt_2" id="vt_2" value="2" /><label
+                class="description"
+                for="vt_2"
+                ><div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-7-suv.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>7 chỗ (Gầm cao)</span><span class="extra-info"></span
+              ></label>
+            </div>
+            <div class="squaredFour have-label">
+              <input type="checkbox" name="vt_6" id="vt_6" value="6" /><label
+                class="description"
+                for="vt_6"
+                ><div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-7-mpv.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>7 chỗ (Gầm thấp)</span><span class="extra-info"></span
+              ></label>
+            </div>
+            <div class="squaredFour have-label">
+              <input type="checkbox" name="vt_7" id="vt_7" value="7" /><label
+                class="description"
+                for="vt_7"
+                ><div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-pickup.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>Bán tải</span><span class="extra-info"></span
+              ></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8 ps-0">
+      <google-map
+        *ngIf="!show"
+        #myMap
+        width="100%"
+        height="100%"
+        [options]="options"
+        ><map-marker
+          *ngFor="let marker of markers; let i = index"
+          #mapMarker="mapMarker"
+          [position]="marker.position"
+          [icon]="marker.icon"
+          [label]="marker.label"
+          (mapClick)="openInfoWindow(mapMarker, i)"
+          ><map-info-window>
+            <div class="mark">
+              <div class="mark-image">
+                <img
+                  width="100px"
+                  height="100%"
+                  src="{{ markers[index].image }}"
+                  alt=""
+                />
+              </div>
+              <div class="mark-label">
+                <label>{{ markers[index].name }}</label
+                ><br />
+                <span>5.0</span>
+                <span style="margin: 0 3px" class="fa fa-star checked"></span>
+                <span>- 3 chuyến</span><br />
+                <div class="price">
+                  <label
+                    ><span style="color: #00a550; font-size: 18px">{{
+                      markers[index].label.text
+                    }}</span>
+                    <span style="color: #b0b0b0">/ngày</span></label
+                  >
+                </div>
+              </div>
+            </div>
+          </map-info-window></map-marker
+        ></google-map
+      >
+      <div *ngIf="show" class="list-car">
+        <div class="row">
+          <div class="col-6 mb-3">
+            <a href=""
+              ><div class="item-car bg-white">
+                <div class="img-car">
+                  <img
+                    src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hanoi/kia_morning_si_2014/p/g/2022/11/12/13/OS3RvUJbMSKaE3r-v0Z_eA.jpg"
+                  />
+                  <div class="item-car__detail">
+                    <div class="car-name">
+                      <h2>KIA MORNING SI 2014</h2>
+                      <span>5.0</span>
+                      <span
+                        style="margin: 0 3px; color: #00a550"
+                        class="fa fa-star checked"
+                      ></span>
+                      <span>- 3 chuyến</span><br />
+                    </div>
+                  </div>
+                </div>
+                <div class="item-car__desc">
+                  <div class="car-gadgets">
+                    <div class="group-label">
+                      <div class="car-gadgets__item">Số tự động</div>
+                      <div class="car-gadgets__item">Giao xe tận nơi</div>
+                    </div>
+                    <div class="location">
+                      <p>
+                        <i class="ic ic-sm-car-location"></i>Quận Hoàn Kiếm, Hà
+                        Nội
+                      </p>
+                    </div>
+                  </div>
+                  <div class="car-prices">
+                    <div class="price-special">520K</div>
+                  </div>
+                </div>
+              </div></a
+            >
+          </div>
+          <div class="col-6 mb-3">
+            <a href=""
+              ><div class="item-car bg-white">
+                <div class="img-car">
+                  <img
+                    src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hanoi/kia_morning_si_2014/p/g/2022/11/12/13/OS3RvUJbMSKaE3r-v0Z_eA.jpg"
+                  />
+                  <div class="item-car__detail">
+                    <div class="car-name">
+                      <h2>KIA MORNING SI 2014</h2>
+                      <span>5.0</span>
+                      <span
+                        style="margin: 0 3px; color: #00a550"
+                        class="fa fa-star checked"
+                      ></span>
+                      <span>- 3 chuyến</span><br />
+                    </div>
+                  </div>
+                </div>
+                <div class="item-car__desc">
+                  <div class="car-gadgets">
+                    <div class="group-label">
+                      <div class="car-gadgets__item">Số tự động</div>
+                      <div class="car-gadgets__item">Giao xe tận nơi</div>
+                    </div>
+                    <div class="location">
+                      <p>
+                        <i class="ic ic-sm-car-location"></i>Quận Hoàn Kiếm, Hà
+                        Nội
+                      </p>
+                    </div>
+                  </div>
+                  <div class="car-prices">
+                    <div class="price-special">520K</div>
+                  </div>
+                </div>
+              </div></a
+            >
+          </div>
+          <div class="col-6 mb-3">
+            <a href=""
+              ><div class="item-car bg-white">
+                <div class="img-car">
+                  <img
+                    src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hanoi/kia_morning_si_2014/p/g/2022/11/12/13/OS3RvUJbMSKaE3r-v0Z_eA.jpg"
+                  />
+                  <div class="item-car__detail">
+                    <div class="car-name">
+                      <h2>KIA MORNING SI 2014</h2>
+                      <span>5.0</span>
+                      <span
+                        style="margin: 0 3px; color: #00a550"
+                        class="fa fa-star checked"
+                      ></span>
+                      <span>- 3 chuyến</span><br />
+                    </div>
+                  </div>
+                </div>
+                <div class="item-car__desc">
+                  <div class="car-gadgets">
+                    <div class="group-label">
+                      <div class="car-gadgets__item">Số tự động</div>
+                      <div class="car-gadgets__item">Giao xe tận nơi</div>
+                    </div>
+                    <div class="location">
+                      <p>
+                        <i class="ic ic-sm-car-location"></i>Quận Hoàn Kiếm, Hà
+                        Nội
+                      </p>
+                    </div>
+                  </div>
+                  <div class="car-prices">
+                    <div class="price-special">520K</div>
+                  </div>
+                </div>
+              </div></a
+            >
+          </div>
+          <div class="col-6 mb-3">
+            <a href=""
+              ><div class="item-car bg-white">
+                <div class="img-car">
+                  <img
+                    src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hanoi/kia_morning_si_2014/p/g/2022/11/12/13/OS3RvUJbMSKaE3r-v0Z_eA.jpg"
+                  />
+                  <div class="item-car__detail">
+                    <div class="car-name">
+                      <h2>KIA MORNING SI 2014</h2>
+                      <span>5.0</span>
+                      <span
+                        style="margin: 0 3px; color: #00a550"
+                        class="fa fa-star checked"
+                      ></span>
+                      <span>- 3 chuyến</span><br />
+                    </div>
+                  </div>
+                </div>
+                <div class="item-car__desc">
+                  <div class="car-gadgets">
+                    <div class="group-label">
+                      <div class="car-gadgets__item">Số tự động</div>
+                      <div class="car-gadgets__item">Giao xe tận nơi</div>
+                    </div>
+                    <div class="location">
+                      <p>
+                        <i class="ic ic-sm-car-location"></i>Quận Hoàn Kiếm, Hà
+                        Nội
+                      </p>
+                    </div>
+                  </div>
+                  <div class="car-prices">
+                    <div class="price-special">520K</div>
+                  </div>
+                </div>
+              </div></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-box">
+      <a (click)="showClick()" *ngIf="show" class="map-view"
+        ><div class="wrapper-svg">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_10597_172)">
+              <path
+                d="M19.8207 0.422181C19.7096 0.354773 19.5711 0.35181 19.4567 0.412181L13.3333 3.65403L7.21037 0.412181C7.20556 0.409588 7.2 0.408847 7.19518 0.406625C7.17741 0.398106 7.15926 0.39181 7.14074 0.386255C7.13037 0.383292 7.12037 0.379958 7.11 0.377736C7.08963 0.373662 7.06889 0.372181 7.04778 0.37144C7.03852 0.371069 7.02926 0.369958 7.01963 0.370329C6.99963 0.37144 6.98 0.375144 6.96037 0.379588C6.94926 0.38181 6.93815 0.383292 6.92741 0.386625C6.92481 0.387366 6.92222 0.387366 6.92 0.388107L0.253333 2.61033C0.101852 2.6607 0 2.80218 0 2.96181V18.8877C0 19.0066 0.057037 19.1185 0.154074 19.1885C0.217778 19.234 0.293704 19.2581 0.37037 19.2581C0.40963 19.2581 0.449259 19.2518 0.487407 19.2388L7.02296 17.0603L13.1922 19.6007C13.1974 19.6029 13.2033 19.6022 13.2085 19.604C13.2493 19.6185 13.2907 19.6285 13.3333 19.6285C13.3667 19.6285 13.3996 19.6229 13.4319 19.614C13.4422 19.6111 13.4519 19.6062 13.4622 19.6025C13.477 19.597 13.4926 19.5929 13.5067 19.5855L19.803 16.2522C19.9241 16.1881 20 16.0618 20 15.9248V0.739588C20 0.609588 19.9319 0.489218 19.8207 0.422181ZM0.740741 3.22885L6.66667 1.25366V16.3988L0.740741 18.3737V3.22885ZM7.40741 1.35477L12.963 4.29588C12.963 9.31278 12.9633 13.7436 12.9633 18.7051L7.40741 16.4174V1.35477ZM19.2593 15.7014L13.7037 18.6425C13.7037 13.7997 13.7037 9.14898 13.7037 4.29588L19.2593 1.35477V15.7014Z"
+                fill="white"
+              ></path>
+            </g>
+            <defs>
+              <clipPath id="clip0_10597_172">
+                <rect width="20" height="20" fill="white"></rect>
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <p class="content">Bản đồ</p></a
+      >
+      <a (click)="showClick()" *ngIf="!show" class="map-view"
+        ><div class="wrapper-svg">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.38889 11.1111C7.7696 11.1111 8.88889 12.2304 8.88889 13.6111V17.5C8.88889 18.8807 7.7696 20 6.38889 20H2.5C1.11929 20 0 18.8807 0 17.5V13.6111C0 12.2304 1.11929 11.1111 2.5 11.1111H6.38889ZM17.5 11.1111C18.8807 11.1111 20 12.2304 20 13.6111V17.5C20 18.8807 18.8807 20 17.5 20H13.6111C12.2304 20 11.1111 18.8807 11.1111 17.5V13.6111C11.1111 12.2304 12.2304 11.1111 13.6111 11.1111H17.5ZM6.38889 12.7778H2.5C2.03977 12.7778 1.66667 13.1509 1.66667 13.6111V17.5C1.66667 17.9602 2.03977 18.3333 2.5 18.3333H6.38889C6.84912 18.3333 7.22222 17.9602 7.22222 17.5V13.6111C7.22222 13.1509 6.84912 12.7778 6.38889 12.7778ZM17.5 12.7778H13.6111C13.1509 12.7778 12.7778 13.1509 12.7778 13.6111V17.5C12.7778 17.9602 13.1509 18.3333 13.6111 18.3333H17.5C17.9602 18.3333 18.3333 17.9602 18.3333 17.5V13.6111C18.3333 13.1509 17.9602 12.7778 17.5 12.7778ZM6.38889 0C7.7696 0 8.88889 1.11929 8.88889 2.5V6.38889C8.88889 7.7696 7.7696 8.88889 6.38889 8.88889H2.5C1.11929 8.88889 0 7.7696 0 6.38889V2.5C0 1.11929 1.11929 0 2.5 0H6.38889ZM17.5 0C18.8807 0 20 1.11929 20 2.5V6.38889C20 7.7696 18.8807 8.88889 17.5 8.88889H13.6111C12.2304 8.88889 11.1111 7.7696 11.1111 6.38889V2.5C11.1111 1.11929 12.2304 0 13.6111 0H17.5ZM6.38889 1.66667H2.5C2.03977 1.66667 1.66667 2.03977 1.66667 2.5V6.38889C1.66667 6.84912 2.03977 7.22222 2.5 7.22222H6.38889C6.84912 7.22222 7.22222 6.84912 7.22222 6.38889V2.5C7.22222 2.03977 6.84912 1.66667 6.38889 1.66667ZM17.5 1.66667H13.6111C13.1509 1.66667 12.7778 2.03977 12.7778 2.5V6.38889C12.7778 6.84912 13.1509 7.22222 13.6111 7.22222H17.5C17.9602 7.22222 18.3333 6.84912 18.3333 6.38889V2.5C18.3333 2.03977 17.9602 1.66667 17.5 1.66667Z"
+              fill="white"
+            ></path>
+          </svg>
+        </div>
+        <p class="content">Danh sách</p></a
+      >
+    </div>
+  </div>
+</div>

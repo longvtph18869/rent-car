@@ -1,0 +1,170 @@
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  margin: 0 auto;
+  width: 100%;
+}
+.modal-header {
+  display: inline !important;
+  position: relative;
+  padding-bottom: 40px;
+  color: #141414;
+  font-size: 1.5em;
+  line-height: 1.5;
+  font-weight: 700;
+  text-align: center;
+}
+.modal-content .modal-body {
+  position: relative;
+  padding: 0 20px 48px;
+  font-size: 0.875em;
+}
+.modal-title {
+  font-size: 1.25em;
+}
+.modal-dialog.modal-sm {
+  max-width: 570px;
+}
+.modal-content .modal-body {
+  position: relative;
+  padding: 0 20px 48px;
+  font-size: 0.875em;
+}
+.form-default.form-s {
+  max-width: 420px;
+  margin: 0 auto;
+}
+.line-form {
+  margin-bottom: 20px;
+}
+.form-default .line-form .wrap-input.has-ico {
+  position: relative;
+}
+.form-default .line-form .wrap-input {
+  background-color: #fff;
+  height: 45px;
+  border: 1px solid #e8eaef;
+  border-radius: 3px;
+}
+.form-default .line-form .wrap-input.has-ico i {
+  position: absolute;
+  top: 9px;
+  left: 13px;
+  z-index: 1;
+}
+.form-default .line-form .wrap-input.has-ico input {
+  background-color: initial;
+  padding-left: 44px !important;
+  border: none;
+  box-shadow: none;
+  line-height: 1rem;
+  padding: 14px 20px 13px;
+  width: 100%;
+  font-family: "Sanomat Sans", "Encode Sans Expanded", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+.form-default .line-form .wrap-input.has-ico input:focus {
+  outline: none;
+}
+.ic.ic-email-fill {
+  background-position: -143px -48px;
+  width: 23px;
+}
+.ic.ic-lock-fill {
+  background-position: -144px -24px;
+}
+.ic {
+  display: inline-block;
+  background-image: url(https://www.mioto.vn/static/media/main_sprites.a58f006e.png);
+  background-repeat: no-repeat;
+  background-size: 400px 400px;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  text-indent: -9999px;
+}
+.form-default a.forgot-password {
+  float: right;
+  display: block;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+}
+a,
+a:hover {
+  color: #141414;
+  cursor: pointer;
+}
+.form-default .btn-primary {
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  margin-bottom: 20px;
+  font-size: 1.125rem;
+}
+.btn.btn--m {
+  height: 46px;
+  line-height: 46px;
+  padding: 0 20px;
+  font-size: 1rem;
+}
+.btn.btn-primary {
+  color: #fff;
+  background-color: #00a550;
+  box-shadow: none;
+}
+.clear {
+  clear: both;
+}
+.form-default p {
+  margin: 0 0 20px;
+  color: #a9aaad;
+  font-size: 1em;
+}
+.form-default .line {
+  display: block;
+  margin: 0 0 20px;
+  border-bottom: 1px solid #e8eaef;
+}
+.form-default p {
+  margin: 0 0 20px;
+  color: #a9aaad;
+  font-size: 1em;
+}
+.textAlign-center {
+  text-align: center;
+}
+.form-default .wr-btn-share {
+  margin: 0 -15px;
+}
+.form-default .wr-btn-share .wr-btn {
+  float: left;
+  width: 50%;
+  padding: 0 15px;
+}
+.form-default .wr-btn-share .btn.btn-facebook {
+  background-color: #4267b2;
+  color: #fff;
+  font-size: 14px;
+}
+.form-default .wr-btn-share .btn {
+  display: block;
+  width: 100%;
+  box-shadow: none;
+}
+.borderRadius-m,
+.form-default .wr-btn-share .btn {
+  border-radius: 5px;
+}
+.ic.ic-facebook {
+  background-position: -24px 0;
+}
+.form-default .wr-btn-share .btn.btn-google {
+  background-color: #f34a38;
+  color: #fff;
+  font-size: 14px;
+}
+.ic.ic-google {
+  background-position: -166px 0;
+}

@@ -1,0 +1,358 @@
+.finding-control {
+  width: 100%;
+  background: #fff;
+  position: relative;
+  z-index: 11;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.finding-control .wrapper-find {
+  width: 100%;
+  padding: 20px 30px;
+  max-width: 1260px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  margin: 0 auto;
+  align-items: center;
+}
+.finding-control .line-form.location {
+  width: calc(30% - 3rem);
+  margin-right: 3rem;
+  position: relative;
+  max-width: 290px;
+}
+.finding-control .line-form {
+  margin-bottom: 0;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 0.125rem;
+  display: flex;
+  align-items: center;
+}
+.finding-control .line-form.location label.label {
+  width: 22%;
+}
+.finding-control .line-form label.label {
+  margin-bottom: 0;
+  color: #00a550;
+  font-weight: 500;
+  text-align: left;
+  font-size: 14px;
+}
+.form-default .line-form .label {
+  display: block;
+  margin-bottom: 10px;
+  color: #141414;
+  font-size: 0.875em;
+}
+.finding-control .line-form.location .wrap-input {
+  width: 78%;
+}
+.finding-control .line-form .wrap-input {
+  font-size: 0.875rem;
+  line-height: 21px;
+}
+.line-form .wrap-input.wrap-input-transparent {
+  background: transparent;
+  height: auto;
+  padding: 0;
+  border: none;
+}
+input,
+select,
+textarea {
+  display: inline-block;
+  padding: 0;
+  background-color: #fff;
+  width: 100%;
+  padding: 14px 20px 13px;
+  font-size: 0.875rem;
+  font-family: "Sanomat Sans", "Encode Sans Expanded", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  border: none;
+  box-shadow: none;
+}
+input:focus {
+  outline: none;
+}
+.line-form .wrap-input.wrap-input-transparent input {
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* HTML marker styles */
+.price-tag {
+  background-color: #4285f4;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px 15px;
+  position: relative;
+}
+
+.price-tag::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #4285f4;
+}
+
+[class$="api-load-alpha-banner"] {
+  display: none;
+}
+.mark {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* background-color: white !important; */
+}
+.mark-label label {
+  font-weight: bold;
+  line-height: 1.5;
+}
+.checked {
+  color: orange;
+}
+.price {
+  margin-top: 20px;
+}
+.p-calendar-w-btn {
+  width: 100px;
+}
+:host ::ng-deep .p-inputtext {
+  border: none !important;
+  font-size: 14px !important;
+}
+.content-filter {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+.content-filter {
+  padding: 20px;
+  height: calc(100vh - 120px);
+}
+:host ::ng-deep .p-dropdown {
+  width: 100% !important;
+}
+.title-filter {
+  margin-bottom: 10px !important;
+  font-weight: 700 !important;
+}
+:host ::ng-deep .p-slider {
+  width: 100%;
+}
+:host ::ng-deep .p-slider-handle {
+  background-color: black !important;
+  border-radius: 20px !important;
+  border: none !important;
+}
+:host ::ng-deep .p-slider-range {
+  background: #00a550 !important;
+}
+.vehicle-type {
+  display: flex;
+  flex-wrap: wrap;
+}
+.vehicle-type .squaredFour {
+  padding-left: 0;
+  display: block;
+  width: calc(33.33333% - 10px);
+  margin: 0 10px 20px 0;
+  cursor: pointer;
+}
+.squaredFour input[type="checkbox"] {
+  visibility: hidden;
+}
+.vehicle-type .squaredFour .description {
+  text-align: center;
+  display: block;
+  position: relative;
+  padding-left: 0;
+  font-size: 0.8125rem;
+}
+.vehicle-type .squaredFour .description:hover {
+  cursor: pointer;
+}
+.vehicle-type .thumbnail {
+  border-radius: 50%;
+  background-color: #f8f9fb;
+  border: 1px solid transparent;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+  padding: 0.5rem;
+}
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+.vehicle-type .squaredFour .description span {
+  display: block;
+  max-width: 60px;
+  margin: 0 auto;
+}
+.vehicle-type .squaredFour .description span {
+  display: block;
+  max-width: 60px;
+  margin: 0 auto;
+}
+.vehicle-type
+  .squaredFour
+  input[type="checkbox"]:checked
+  + label.description
+  .thumbnail {
+  background-color: initial;
+  border: 1px solid #141414;
+}
+.vehicle-type
+  .squaredFour
+  input[type="checkbox"]:checked
+  + label.description
+  span:first-of-type {
+  font-weight: 500;
+}
+.map-view {
+  position: absolute;
+  bottom: 30px;
+  right: 200px;
+  font-weight: 600;
+  display: inline-flex;
+  background-color: #fff;
+  border-radius: 999px;
+  z-index: 99;
+  padding: 5px 10px 5px 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  color: #141414;
+}
+.map-view .wrapper-svg {
+  display: flex;
+  background: #00a550;
+  padding: 5px;
+  border-radius: 100%;
+  margin-right: 5px;
+}
+.map-view .wrapper-svg svg {
+  padding: 2px;
+}
+.map-view p {
+  margin: 0;
+}
+.img-car {
+  position: relative;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  margin-bottom: 20px;
+  border-radius: 5px 5px 0 0;
+}
+.item-car {
+  border-radius: 5px;
+}
+.img-car img {
+  width: 100%;
+  border-radius: 5px;
+}
+.list-car {
+  padding: 8px;
+  height: calc(100vh - 120px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.car-name h2 {
+  color: white;
+  margin: 0;
+}
+.car-name span {
+  color: white;
+}
+.item-car__detail {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 20, 0),
+    rgba(20, 20, 20, 0.469167) 27.4%,
+    rgba(20, 20, 20, 0.8) 80%
+  );
+  width: 100%;
+  padding: 15px 15px 5px;
+}
+.item-car__desc {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 15px 0;
+}
+.item-car__desc .car-gadgets {
+  width: 70%;
+  max-width: calc(100% - 80px);
+}
+.item-car .group-label {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item-car .location {
+  width: 100%;
+}
+.item-car .location p {
+  font-size: 0.75rem;
+  color: #141414;
+  margin-left: -3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ic.ic-sm-car-location {
+  background-position: -147px -220px;
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  margin-right: 3px;
+}
+.item-car__desc .car-gadgets__item {
+  font-size: 0.75rem;
+  color: #6e6e6e;
+  background: #e8eaef;
+  padding: 5px 8px 4px;
+  margin-right: 8px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  border-radius: 4px;
+  line-height: normal;
+}
+.ic {
+  display: inline-block;
+  background-image: url(https://www.mioto.vn/static/media/main_sprites.a58f006e.png);
+  background-repeat: no-repeat;
+  background-size: 400px 400px;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  text-indent: -9999px;
+}
+.item-car__desc .car-prices {
+  width: 30%;
+  min-width: 80px;
+  text-align: right;
+}
+.item-car__desc .car-prices .price-special {
+  display: inline;
+  color: #00a550;
+  font-size: 1rem;
+  font-weight: 700;
+}

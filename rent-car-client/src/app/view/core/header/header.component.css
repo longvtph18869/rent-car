@@ -1,0 +1,73 @@
+.top {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 45%, 0% 58%);
+}
+.bottom {
+  clip-path: polygon(0% 55%, 100% 50%, 100% 100%, 0% 100%);
+  color: transparent;
+  background: -webkit-linear-gradient(177deg, black 53%, var(--text-color) 65%);
+  background: linear-gradient(177deg, black 53%, var(--text-color) 65%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transform: translateX(-0.02em);
+}
+.wrapper {
+  display: grid;
+  place-content: center;
+  --text-color: hsl(0, 0%, 100%);
+  --background-color: black;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.wrapper > div {
+  grid-area: 1/1/-1/-1;
+}
+.login {
+  display: block;
+  height: 60px;
+  padding: 0 18px;
+  line-height: 60px;
+  color: #f8f9fb;
+  font-size: 1em;
+}
+.register {
+  display: block;
+  height: 44px;
+  padding: 0 18px;
+  margin: 8px 0 8px 18px;
+  line-height: 44px;
+  font-weight: 400;
+  text-transform: none;
+  color: #f8f9fb;
+  font-size: 1em;
+  border-radius: 3px;
+  border: 1px solid white;
+}
+.login:hover {
+  color: #00a550;
+}
+.register:hover {
+  color: #00a550;
+  border: 1px solid #00a550;
+}
+.become-owner {
+  color: #fff;
+  padding: 10px 20px;
+  line-height: 24px;
+  height: 40px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.become-owner:hover {
+  color: #00a550;
+}
+.become-owner:hover svg path {
+  fill: #00a550;
+}
+a:hover {
+  cursor: pointer;
+}
