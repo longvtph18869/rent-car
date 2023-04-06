@@ -247,9 +247,7 @@ body {
   border-radius: 100%;
   margin-right: 5px;
 }
-.map-view .wrapper-svg svg {
-  padding: 2px;
-}
+
 .map-view p {
   margin: 0;
 }
