@@ -1,153 +1,135 @@
-import { Component, ViewChild } from '@angular/core';
-import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
-
-interface MarkerProperties {
-  position: {
-    lat: number;
-    lng: number;
-  };
-  icon: string;
-  label: any;
-  name: string;
-  image: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CarService } from 'src/app/service/car.service';
+import { MoneyPipePipe } from 'src/app/money-pipe.pipe';
+import { Router } from '@angular/router';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+declare const mapboxgl: any;
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css'],
 })
-export class PageComponent {
-  @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
-  date1: Date = new Date();
-  time1: Date = new Date();
-
-  date2: Date = new Date();
-  time2: Date = new Date();
-  options!: google.maps.MapOptions;
-  @ViewChild('myMap') mapElement!: GoogleMap;
+export class PageComponent implements OnInit {
+  cars: any[] = [];
+  pickupDate: Date = new Date();
+  minpickupDate: Date = new Date();
+  returnDate: Date = new Date();
+  minreturnDate: Date = new Date();
   sorts!: any[];
   prices: number[] = [0, 100];
   show: boolean = true;
-  styleMap: google.maps.MapTypeStyle[] = [
-    {
-      featureType: 'administrative',
-      elementType: 'geometry',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'poi',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'road',
-      elementType: 'labels.icon',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-    {
-      featureType: 'transit',
-      stylers: [
-        {
-          visibility: 'off',
-        },
-      ],
-    },
-  ];
-  constructor() {
+  map: any;
+  constructor(
+    private http: HttpClient,
+    private carService: CarService,
+    private router: Router,
+    private moneyPipe: MoneyPipePipe
+  ) {
     this.sorts = [
       { name: 'Khoảng cách gần nhất', code: 1 },
       { name: 'Giá thấp nhất', code: 2 },
       { name: 'Giá cao nhất', code: 3 },
       { name: 'Đánh giá tốt nhất', code: 4 },
     ];
-    this.options = {
-      center: { lat: 21.018853843837093, lng: 105.81610684403171 },
+  }
+  ngOnInit(): void {
+    this.returnDate.setDate(this.returnDate.getDate() + 1);
+    this.minreturnDate.setDate(this.minreturnDate.getDate() + 1);
+    // this.carService.getAllCars().subscribe((data) => {
+    //   this.cars = data;
+    // });
+    this.map = new mapboxgl.Map({
+      accessToken:
+        'pk.eyJ1IjoibG9uZ3BoMTg4NjkiLCJhIjoiY2xnZHFwdzR4MWxlYjNocGNza2IybXlzbyJ9.ZZj7I092TSffFAFTbu7y5w',
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [105.81610684403171, 21.018853843837093],
       zoom: 15,
-      styles: this.styleMap,
-    };
-  }
-  markers: MarkerProperties[] = [
-    {
-      position: { lat: 21.018853843837093, lng: 105.81610684403171 },
-      icon: 'https://cdn-icons-png.flaticon.com/64/4611/4611919.png',
-      label: {
-        text: '300K',
-        color: 'yellow',
-        fontSize: '18px',
-        fontWeight: 'bold',
-      },
-      name: 'KIA SORENTO 2020',
-      image:
-        'https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hanoi/kia_sorento_2020/p/g/2021/01/24/19/Iiqr69IFKKPB2ZdN9diSLw.jpg',
-    },
-    {
-      position: { lat: 21.023808266877527, lng: 105.80957430667394 },
-      icon: 'https://cdn-icons-png.flaticon.com/64/4611/4611919.png',
-      label: {
-        text: '1200K',
-        color: 'yellow',
-        fontSize: '18px',
-        fontWeight: 'bold',
-      },
-      name: 'KIA SORENTO 2020',
-      image:
-        'https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hanoi/kia_rondo_2016/p/g/2022/03/24/07/cxq_NzJ7mMp42ce4jTZF0Q.jpg',
-    },
-    {
-      position: { lat: 21.030525057951962, lng: 105.82901872875755 },
-      icon: 'https://cdn-icons-png.flaticon.com/64/4611/4611919.png',
-      label: {
-        text: '560K',
-        color: 'yellow',
-        fontSize: '18px',
-        fontWeight: 'bold',
-      },
-      name: 'KIA SORENTO 2020',
-      image:
-        'https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hanoi/honda_city_2017/p/g/2023/01/01/17/ntZZ6kQpgg2SoFODbAb5PA.jpg',
-    },
-  ];
-  index: number = 0;
+    });
+    const geocoder = new MapboxGeocoder({
+      accessToken:
+        'pk.eyJ1IjoibG9uZ3BoMTg4NjkiLCJhIjoiY2xnZHFwdzR4MWxlYjNocGNza2IybXlzbyJ9.ZZj7I092TSffFAFTbu7y5w',
+      mapboxgl: mapboxgl,
+      marker: false,
+      placeholder: 'Thành phố Hà Nội, Việt Nam',
+    });
+    document.getElementById('geocoder')!.appendChild(geocoder.onAdd(this.map));
+    this.carService.getAllCars().subscribe({
+      next: (res) => {
+        this.cars = res;
+        console.log(this.cars);
+        this.cars.forEach((car) => {
+          const el = document.createElement('div');
+          el.style.backgroundImage =
+            'url(https://cdn-icons-png.flaticon.com/64/4611/4611919.png)';
+          el.style.width = '45px';
+          el.style.height = '45px';
+          el.style.backgroundSize = 'cover';
+          const text = document.createElement('span');
+          text.innerHTML = this.moneyPipe.transform(car.rentalPrice);
+          text.style.color = 'white';
+          text.style.fontSize = '12px';
+          text.style.fontWeight = 'bold';
+          text.style.textAlign = 'center';
+          text.style.width = '100%';
+          text.style.position = 'absolute';
+          text.style.bottom = '14px';
 
-  openInfoWindow(marker: MapMarker, i: number) {
-    this.index = i;
-    this.infoWindow.open(marker);
-  }
-  public handleAddressChange(address: Address) {
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode(
-      { address: address.formatted_address },
-      (results, status) => {
-        if (status === 'OK' && results && results.length > 0) {
-          const location = results[0].geometry.location;
-          this.options.center = { lat: location.lat(), lng: location.lng() };
-          this.mapElement?.googleMap!.setOptions(this.options);
-        } else {
-          console.log(
-            'Geocode was not successful for the following reason: ' + status
+          el.appendChild(text);
+          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+            `<a  routerLink="/car/${
+              car.id
+            }" style="color: #000;  cursor: pointer;">
+              <div style="display: grid;
+              grid-template-columns: 1fr 1fr;">
+                <div class="mark-image">
+                  <img
+                    width="100px"
+                    height="100%"
+                    src="assets/image/${car.carImage[0].image}"
+                    alt=""
+                  />
+                </div>
+                <div style="font-weight: bold;
+                line-height: 1.5;">
+                  <label>${car.name}</label
+                  ><br />
+                  <span>5.0</span>
+                  <span style="margin: 0 3px; color: orange"" class="fa fa-star"></span>
+                  <span>- 3 chuyến</span><br />
+                  <div style="margin-top: 20px">
+                    <label><span style="color: #00a550; font-size: 18px">${this.moneyPipe.transform(
+                      car.rentalPrice
+                    )}</span>
+                      <span style="color: #b0b0b0">/ngày</span></label>
+                  </div>
+                </div>
+              </div>
+            </a>`
           );
-        }
-      }
-    );
-  }
-  option: any = {
-    types: [],
-    componentRestrictions: { country: 'VN' },
-  };
 
+          const marker = new mapboxgl.Marker(el)
+            .setLngLat([car.location.longitude, car.location.latitude])
+            .setPopup(popup)
+            .addTo(this.map);
+          // popup.getElement().addEventListener('click', () => {
+          //   this.router.navigate(['/car', car.id]);
+          // });
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
   showClick() {
     this.show = !this.show;
+  }
+  visible: boolean = false;
+
+  showDialog(car: any) {
+    console.log(car);
+    this.visible = true;
   }
 }

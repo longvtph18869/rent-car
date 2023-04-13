@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name="location")
 public class Location {
@@ -22,7 +24,9 @@ public class Location {
     private String longitude;
     @Column(length=1)
     private boolean status;
-    @OneToOne(mappedBy = "location")
+    @OneToOne
+	@JoinColumn(name = "car_id")
+    @JsonBackReference
     private Car car;
 
     public Location() {

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name="manufacturer")
 public class Manufacturer{
     @Id
@@ -18,6 +20,7 @@ public class Manufacturer{
     @Column(length=255)
     private String name;
     @OneToMany(mappedBy="manufacturer")
+    @JsonBackReference
     private List<Car> car;
 
     public Manufacturer() {
