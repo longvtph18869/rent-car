@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,54 +14,66 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Entity(name="car")
-public class Car{
+import com.example.rent.enums.CarColor;
+import com.example.rent.enums.CarType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false, precision=10)
-    private int id;
-    @Column(name="license_plates", length=50)
-    private String licensePlates;
-    @Column(name="year_of_manufacture", precision=10)
-    private int yearOfManufacture;
-    @Column(length=255)
-    private String color;
-    @Column(length=255)
-    private String type;
-    @Column(name="rental_price", precision=10)
-    private BigDecimal rentalPrice;
-    @Column(length=255)
-    private String description;
-    @Column(length=1)
-    private boolean status;
-    @ManyToOne
-    @JoinColumn(name="owner_id")
-    private User user;
-    @ManyToOne
-    @JoinColumn(name="manufacturer_id")
-    private Manufacturer manufacturer;
-    @OneToOne
-    @JoinColumn(name="location_id")
-    private Location location;
-    @OneToMany(mappedBy="car")
-    private List<CarImage> carImage;
-    @OneToMany(mappedBy="car")
-    private List<Contract> contract;
-    @OneToMany(mappedBy="car")
-    private List<RentalSchedule> rentalSchedule;
-    @OneToMany(mappedBy="car")
-    private List<RentCar> rentCar;
+@Entity(name = "car")
+public class Car {
 
-    public Car() {
-        super();
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false, precision = 10)
+	private int id;
+	@Column(name = "license_plates", length = 50)
+	private String licensePlates;
+	@Column(name = "name", columnDefinition = "varchar(255) CHARACTER SET utf8")
+	private String name;
+	@Column(name = "year_of_manufacture", precision = 10)
+	private int yearOfManufacture;
+	@Column(length = 255)
+	@Enumerated(EnumType.STRING)
+	private CarColor color;
+	@Column(length = 255)
+	@Enumerated(EnumType.STRING)
+	private CarType type;
+	@Column(name = "rental_price", precision = 10)
+	private BigDecimal rentalPrice;
+	@Column(length = 255)
+	private String description;
+	@Column(length = 1)
+	private boolean status;
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	private User user;
+	@ManyToOne
+	@JoinColumn(name = "manufacturer_id")
+	@JsonManagedReference
+	private Manufacturer manufacturer;
+	@OneToOne(mappedBy = "car")
+	@JsonManagedReference
+	private Location location;
+	@OneToMany(mappedBy = "car")
+	@JsonManagedReference
+	private List<CarImage> carImage;
+	@OneToMany(mappedBy = "car")
+	private List<Contract> contract;
+	@OneToMany(mappedBy = "car")
+	private List<RentalSchedule> rentalSchedule;
+	@OneToMany(mappedBy = "car")
+	private List<RentCar> rentCar;
 
-	public Car(int id, String licensePlates, int yearOfManufacture, String color, String type, BigDecimal rentalPrice,
-			String description, boolean status, User user, Manufacturer manufacturer, Location location) {
+	public Car() {
+		super();
+	}
+
+	public Car(int id, String licensePlates, String name, int yearOfManufacture, CarColor color, CarType type,
+			BigDecimal rentalPrice, String description, boolean status, User user, Manufacturer manufacturer,
+			Location location) {
 		super();
 		this.id = id;
 		this.licensePlates = licensePlates;
+		this.name = name;
 		this.yearOfManufacture = yearOfManufacture;
 		this.color = color;
 		this.type = type;
@@ -87,6 +101,14 @@ public class Car{
 		this.licensePlates = licensePlates;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getYearOfManufacture() {
 		return yearOfManufacture;
 	}
@@ -95,19 +117,19 @@ public class Car{
 		this.yearOfManufacture = yearOfManufacture;
 	}
 
-	public String getColor() {
+	public CarColor getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(CarColor color) {
 		this.color = color;
 	}
 
-	public String getType() {
+	public CarType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(CarType type) {
 		this.type = type;
 	}
 
@@ -191,5 +213,4 @@ public class Car{
 		this.rentCar = rentCar;
 	}
 
-	
 }

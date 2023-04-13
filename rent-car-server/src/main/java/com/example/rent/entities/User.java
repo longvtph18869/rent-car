@@ -18,11 +18,11 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false, precision=10)
     private int id;
-    @Column(length=255)
+    @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String fullName;
-    @Column(length=50)
+    @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String phoneNumber;
-    @Column(length=255)
+    @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String address;
     @Column(length=255)
     private String username;
