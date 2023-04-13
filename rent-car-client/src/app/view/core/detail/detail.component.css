@@ -1,0 +1,287 @@
+.modal-content .modal-header {
+  position: relative;
+  padding: 0;
+}
+.info-car {
+  display: flex;
+  align-items: center;
+}
+.title-car {
+  font-size: 30px;
+  color: #fff;
+  text-align: left;
+  font-weight: 700;
+}
+:host ::ng-deep .p-dialog {
+  border: none;
+}
+:host ::ng-deep .p-dialog .p-dialog-header {
+  border-bottom: none !important;
+  background: inherit !important;
+  color: #212529;
+  padding: 1rem;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: inherit !important;
+}
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon {
+  color: white;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+}
+.func-remove-x {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  outline: inherit !important;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  z-index: 1350;
+  right: 45px;
+}
+.ic {
+  display: inline-block;
+  background-image: url(https://www.mioto.vn/static/media/main_sprites.a58f006e.png);
+  background-repeat: no-repeat;
+  background-size: 400px 400px;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  text-indent: -9999px;
+}
+.ic.ic-remove-wh {
+  background-position: -400px -144px;
+  background-size: 600px;
+  width: 35px;
+  height: 35px;
+}
+.carousel-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fix-img {
+  padding-bottom: 50% !important;
+  position: relative;
+  max-width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+:host ::ng-deep .p-carousel-container {
+  height: 325px !important;
+}
+:host ::ng-deep .p-carousel-prev {
+  display: none;
+}
+:host ::ng-deep .p-carousel-next {
+  display: none;
+}
+.rent-box {
+  background-color: white;
+  padding: 20px;
+}
+.rent-box .price {
+  position: relative;
+  display: flex;
+  color: #00a550;
+  margin-bottom: 5px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.rent-box .price h3 {
+  font-weight: 700;
+  font-size: 30px;
+}
+.rent-box .price span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #67737f;
+}
+.line-form label {
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: none;
+  display: block;
+  margin-bottom: 5px;
+  color: #141414;
+}
+:host ::ng-deep .p-calendar {
+  width: 100% !important;
+  height: 35px !important;
+  margin-left: 0 !important;
+}
+:host ::ng-deep .p-inputtext {
+  border-radius: 0 !important;
+}
+:host ::ng-deep .p-datepicker table td {
+  padding: 0 !important;
+}
+:host ::ng-deep .p-datepicker table td > span.p-highlight {
+  color: #ffffff;
+  background: #00a550 !important;
+}
+:host ::ng-deep .p-datepicker .p-datepicker-header {
+  padding: 0 !important;
+}
+:host ::ng-deep .p-datepicker .p-timepicker {
+  padding: 0 !important;
+}
+.icsvg {
+  fill: #141414;
+  width: 24px;
+  height: 24px;
+}
+:host ::ng-deep .p-carousel .p-carousel-indicators {
+  padding: 0 !important;
+}
+:host ::ng-deep .p-highlight button {
+  background: #00a550 !important;
+  color: #ffffff;
+}
+.content-detail {
+  background: transparent;
+}
+.info-car-desc {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 2px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+  margin-bottom: 25px;
+}
+.group {
+  margin-bottom: 25px;
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.lstitle-new {
+  color: #a9aaad;
+  font-size: 0.875em;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.5;
+  width: 25%;
+  padding-right: 5px;
+}
+.ctn-desc-new {
+  width: 75%;
+}
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+.features li {
+  width: 50%;
+  margin-bottom: 1rem;
+  position: relative;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+.features li .ic.ic-chair {
+  background-position: -115px -281px;
+  width: 32px;
+}
+.features li .ic.ic-trans {
+  background-position: -239px -281px;
+  width: 32px;
+}
+.ic.ic-chair,
+.ic.ic-trans {
+  background: url(https://www.mioto.vn/static/media/main_sprites.a58f006e.png);
+  background-repeat: no-repeat;
+  background-size: 450px;
+  height: 24px;
+  margin-right: 5px;
+}
+.ctn-desc-new pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 15px;
+  line-height: 24px;
+  text-align: justify;
+}
+.pickup {
+  font-size: 13px;
+}
+pre {
+  border: 0;
+  font: inherit;
+  vertical-align: initial;
+  margin: 0;
+  padding: 0;
+}
+.car-bill {
+  width: 100%;
+  font-size: 14px;
+}
+.car-bill h4 {
+  font-size: 14px;
+  font-weight: 700;
+}
+.car-bill .bill-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.car-bill .bill-wrap .group-bill {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  line-height: 30px;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.group-bill p {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}
+.group-bill span {
+  font-size: 14px;
+  padding: 0;
+}
+.has-line {
+  border-top: 1px solid #ccc;
+}
+.wrap-btn {
+  margin: 0;
+  width: 100%;
+}
+.wrap-btn .btn--m {
+  margin: 0;
+  border-radius: 0 0 2px 2px;
+  width: 100%;
+}
+.ic.ic-thunderbolt-wh {
+  background-position: -96px -221px;
+}

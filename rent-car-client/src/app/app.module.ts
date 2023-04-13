@@ -15,12 +15,16 @@ import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
 import { SliderModule } from 'primeng/slider';
+import { MoneyPipePipe } from './money-pipe.pipe';
+import { DetailComponent } from './view/core/detail/detail.component';
+import { NoComponent } from './view/core/no/no.component';
+import { CarouselModule } from 'primeng/carousel';
+import { RentComponent } from './view/core/rent/rent.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +33,10 @@ import { SliderModule } from 'primeng/slider';
     PageComponent,
     HeaderComponent,
     LoginComponent,
+    MoneyPipePipe,
+    DetailComponent,
+    NoComponent,
+    RentComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,15 +48,15 @@ import { SliderModule } from 'primeng/slider';
     BrowserAnimationsModule,
     CalendarModule,
     FormsModule,
-    GoogleMapsModule,
     CommonModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    GooglePlaceModule,
     DropdownModule,
     SliderModule,
+    CarouselModule,
+    RadioButtonModule,
   ],
-  providers: [],
+  providers: [MoneyPipePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

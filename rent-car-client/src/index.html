@@ -19,8 +19,29 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkryRJkNkCD_zt05BavQuk-YAWn8os_0A&libraries=places&language=vi"></script>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+      type="text/css"
+    />
   </head>
+  <style>
+    .mapboxgl-ctrl-geocoder,
+    .mapboxgl-ctrl-geocoder .suggestions {
+      box-shadow: none !important;
+      font-size: 14px;
+    }
+    .mapboxgl-ctrl-geocoder input:focus {
+      outline: none !important;
+    }
+  </style>
   <body class="mat-typography">
     <app-root></app-root>
   </body>

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name="car_image")
 public class CarImage {
     @Id
@@ -18,17 +20,17 @@ public class CarImage {
     private String image;
     @ManyToOne
     @JoinColumn(name="car_id")
+    @JsonBackReference
     private Car car;
 
     public CarImage() {
         super();
     }
 
-	public CarImage(int id, String image, Car car) {
+	public CarImage(int id, String image) {
 		super();
 		this.id = id;
 		this.image = image;
-		this.car = car;
 	}
 
 	public int getId() {

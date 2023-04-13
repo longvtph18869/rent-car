@@ -1,0 +1,244 @@
+<div class="modal-backdrop">
+  <p-dialog
+    [visible]="true"
+    [modal]="true"
+    [style]="{ width: '100%', height: '100%' }"
+    [draggable]="false"
+    [resizable]="false"
+    [showHeader]="false"
+  >
+    <button routerLink="/find" class="func-remove-x">
+      <i class="ic ic-remove-wh"></i>
+    </button>
+    <div class="container">
+      <div class="modal-header">
+        <div class="info-car">
+          <h1 class="title-car">{{ car.name }} {{ car.yearOfManufacture }}</h1>
+          <span>5.0</span>
+          <span style="margin: 0 3px" class="fa fa-star checked"></span>
+          <span>- 3 chuyến</span><br />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7">
+          <div class="car-image">
+            <p-carousel
+              [value]="car.carImage"
+              [numVisible]="1"
+              [numScroll]="1"
+              [circular]="true"
+              [autoplayInterval]="3000"
+            >
+              <ng-template let-car pTemplate="item">
+                <div class="fix-img">
+                  <img
+                    class="carousel-img"
+                    [src]="'assets/image/' + car.image"
+                  />
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+          <div class="content-detail">
+            <div class="info-car-desc">
+              <div class="group">
+                <span class="lstitle-new">ĐẶC ĐIỂM</span>
+                <div class="ctn-desc-new">
+                  <ul class="features">
+                    <li><i class="ic ic-chair"></i> Số ghế: 7</li>
+                    <li><i class="ic ic-trans"></i> Truyền động: Số tự động</li>
+                    <li>
+                      <span
+                        style="
+                          display: inline-block;
+                          width: 18px;
+                          height: 18px;
+                          background-color: white;
+                          border: 1px solid rgb(131, 131, 131);
+                          margin-right: 10px;
+                          margin-left: 7px;
+                        "
+                      ></span>
+                      Màu sắc: Trắng
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="group">
+                <span class="lstitle-new">MÔ TẢ</span>
+                <div class="ctn-desc-new">
+                  <pre>
+TOYOTA FORTUNER V 2016
+Xe rất tiết kiệm nhiên liệu, ghế da theo hãng, hàng ghế sau và trước rộng rãi ngồi rất thoải mái, hạn chế say xe.
+Có bản đồ Vietmap hỗ trợ dẫn đường và cảnh báo tốc độ, điểm bắn tốc độ.
+Xe gia đình mình sử dụng ít, vệ sinh thường xuyên, có tinh dầu thơm và sạch sẽ. Xe có sẵn:
+- Tấm lưới che nắng
+- Đệm ghế sau
+- Khăn giấy khô &amp; ướt</pre
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="rent-box">
+            <div class="rent-box-detail">
+              <div class="price">
+                <h3>{{ car.rentalPrice | moneyPipe }} <span> / ngày</span></h3>
+              </div>
+              <div class="line-form has-timer me-3 mb-3">
+                <label class="label">Ngày nhận xe</label>
+                <div class="row p-0 m-0">
+                  <div class="col-8 p-0 m-0">
+                    <p-calendar
+                      dateFormat="dd/mm/yy"
+                      [style]="{
+                        marginLeft: '10px',
+                        height: '25px',
+                        width: '150px'
+                      }"
+                      [minDate]="minpickupDate"
+                      [(ngModel)]="pickupDate"
+                      inputId="basic"
+                      [readonlyInput]="true"
+                      (onSelect)="onDateSelect($event)"
+                    ></p-calendar>
+                  </div>
+                  <div class="col-4 p-0 m-0">
+                    <p-calendar
+                      [style]="{
+                        marginLeft: '10px',
+                        height: '25px',
+                        width: '100px'
+                      }"
+                      [minDate]="minpickupDate"
+                      [(ngModel)]="pickupDate"
+                      [timeOnly]="true"
+                      inputId="timeonly"
+                      [readonlyInput]="true"
+                      (onSelect)="onDateSelect($event)"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="line-form has-timer me-3 mb-3">
+                <label class="label">Ngày trả xe</label>
+                <div class="row p-0 m-0">
+                  <div class="col-8 p-0 m-0">
+                    <p-calendar
+                      dateFormat="dd/mm/yy"
+                      [style]="{
+                        marginLeft: '10px',
+                        height: '25px',
+                        width: '150px'
+                      }"
+                      [minDate]="minreturnDate"
+                      [(ngModel)]="returnDate"
+                      inputId="basic"
+                      [readonlyInput]="true"
+                      (onSelect)="onDateSelect($event)"
+                    ></p-calendar>
+                  </div>
+                  <div class="col-4 p-0 m-0">
+                    <p-calendar
+                      [style]="{
+                        marginLeft: '10px',
+                        height: '25px',
+                        width: '100px'
+                      }"
+                      [minDate]="minreturnDate"
+                      [(ngModel)]="returnDate"
+                      [timeOnly]="true"
+                      inputId="timeonly"
+                      [readonlyInput]="true"
+                      (onSelect)="onDateSelect($event)"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="line-form local">
+                <label>Địa điểm giao nhận xe</label>
+                <div class="note">
+                  <p class="pickup">
+                    <svg
+                      class="icsvg undefined"
+                      viewBox="0 0 30 30"
+                      style="fill: none"
+                    >
+                      <path
+                        d="m12 22.5c5.799 0 10.5-4.701 10.5-10.5 0-5.799-4.701-10.5-10.5-10.5-5.799 0-10.5 4.701-10.5 10.5 0 5.799 4.701 10.5 10.5 10.5zm0 1.5c6.6274 0 12-5.3726 12-12 0-6.6274-5.3726-12-12-12-6.6274 0-12 5.3726-12 12 0 6.6274 5.3726 12 12 12z"
+                        clip-rule="evenodd"
+                        fill="#141414"
+                        fill-rule="evenodd"
+                      ></path>
+                      <path
+                        d="m7.5 10.494c0-2.4778 2.0187-4.4937 4.5-4.4937 2.4813 0 4.5 2.0159 4.5 4.4937 0 1.2789-0.7204 2.918-2.1412 4.8719-1.0399 1.4301-2.0635 2.484-2.1066 2.5281-0.0662 0.068-0.1572 0.1063-0.2522 0.1063s-0.186-0.0383-0.2522-0.1063c-0.0431-0.0442-1.0667-1.098-2.1066-2.5281-1.4208-1.9539-2.1412-3.593-2.1412-4.8719zm4.5095 1.5064c0.9955 0 1.8025-0.8059 1.8025-1.8 0-0.99411-0.807-1.8-1.8025-1.8s-1.8025 0.80589-1.8025 1.8c0 0.9941 0.807 1.8 1.8025 1.8z"
+                        clip-rule="evenodd"
+                        fill="#141414"
+                        fill-rule="evenodd"
+                      ></path>
+                    </svg>
+                    {{ car?.location?.name }}
+                  </p>
+                </div>
+              </div>
+              <div class="car-bill">
+                <h4 class="text-start mb-0">Chi tiết giá</h4>
+                <div class="bill-wrap">
+                  <div class="group-bill">
+                    <p>Đơn giá thuê</p>
+                    <span
+                      ><span
+                        >{{ car.rentalPrice | moneyPipe }} / ngày</span
+                      ></span
+                    >
+                  </div>
+                  <div class="group-bill">
+                    <p>Phí dịch vụ</p>
+                    <span
+                      ><span
+                        >{{ car.rentalPrice * servicePrice | moneyPipe }} /
+                        ngày</span
+                      ></span
+                    >
+                  </div>
+                  <div class="group-bill has-line">
+                    <p>Tổng phí thuê xe</p>
+                    <span
+                      ><span
+                        >{{
+                          car.rentalPrice - car.rentalPrice * servicePrice
+                            | moneyPipe
+                        }}
+                        x <strong>{{ diffDays }} ngày</strong></span
+                      ></span
+                    >
+                  </div>
+                  <div class="group-bill has-line">
+                    <p><strong>Tổng cộng</strong></p>
+                    <span
+                      ><span
+                        ><strong
+                          ><span>{{ sum | moneyPipe }}</span></strong
+                        ></span
+                      ></span
+                    >
+                  </div>
+                </div>
+                <div class="wrap-btn">
+                  <a
+                    routerLink="/rent"
+                    (click)="rent()"
+                    class="btn btn-success btn--m"
+                    ><i class="ic ic-thunderbolt-wh"></i>ĐẶT XE</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

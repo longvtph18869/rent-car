@@ -1,0 +1,86 @@
+<div class="modal-backdrop">
+  <p-dialog
+    [visible]="true"
+    [modal]="true"
+    [style]="{ width: '100%', height: '100%' }"
+    [draggable]="false"
+    [resizable]="false"
+    [showHeader]="false"
+  >
+    <button routerLink="/find" class="func-remove-x">
+      <i class="ic ic-remove-wh"></i>
+    </button>
+    <div class="container">
+      <div class="row m-0">
+        <div class="col-lg-7 pb-5 pe-lg-5">
+          <div class="row">
+            <div class="col-12 p-5">
+              <img
+                [src]="'assets/image/' + rental.car.carImage[0].image"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 p-0 ps-lg-4">
+          <div class="row m-0">
+            <div class="col-12 px-4">
+              <div class="d-flex align-items-end mt-4 mb-2">
+                <p class="h4 m-0">
+                  <span class="pe-1">{{
+                    rental.car.name + " " + rental.car.yearOfManufacture
+                  }}</span>
+                </p>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <p class="textmuted fw-bold mt-2">Tổng tiền</p>
+                <div class="d-flex align-text-top">
+                  <span class="fas fa-dollar-sign mt-1 pe-1 fs-14"></span
+                  ><span class="h4"
+                    >{{
+                      rental.car.rentalPrice | currency : "VND" : "" : "1.0-0"
+                    }}
+                    VNĐ</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-12 px-0">
+              <div class="row bg-light m-0">
+                <div class="payment-methods">
+                  <h2>Các hình thức thanh toán</h2>
+                  <ul>
+                    <li>
+                      <a>
+                        <img
+                          src="https://sandbox.vnpayment.vn/paymentv2/images/icons/mics/64x64-vnpay-qr.svg"
+                          alt="VNPAY"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <img
+                          src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/ncb.svg"
+                          alt="BIDV"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <img
+                          src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/mbbank.svg"
+                          alt="BIDV"
+                        />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>
