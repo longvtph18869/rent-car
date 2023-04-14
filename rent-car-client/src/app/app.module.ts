@@ -25,7 +25,6 @@ import { NoComponent } from './view/core/no/no.component';
 import { CarouselModule } from 'primeng/carousel';
 import { RentComponent } from './view/core/rent/rent.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { TestComponent } from './view/test/test.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +37,6 @@ import { TestComponent } from './view/test/test.component';
     DetailComponent,
     NoComponent,
     RentComponent,
-    TestComponent,
   ],
   imports: [
     BrowserModule,
