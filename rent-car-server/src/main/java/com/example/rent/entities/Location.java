@@ -16,7 +16,7 @@ public class Location {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false, precision=10)
     private int id;
-    @Column(length=255)
+    @Column(length=255,columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String name;
     @Column(length=255)
     private String latitude;
