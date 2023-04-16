@@ -19,9 +19,9 @@ public class Location {
     @Column(length=255,columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String name;
     @Column(length=255)
-    private String latitude;
+    private Double latitude;
     @Column(length=255)
-    private String longitude;
+    private Double longitude;
     @Column(length=1)
     private boolean status;
     @OneToOne
@@ -49,19 +49,21 @@ public class Location {
 		this.name = name;
 	}
 
-	public String getLatitude() {
+	
+
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
