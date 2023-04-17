@@ -38,7 +38,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { RegisterComponent } from './view/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +57,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MycarsComponent,
     CalendarsComponent,
     RegisterCarComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -82,8 +85,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatCardModule,
     ReactiveFormsModule,
+    ToastModule
   ],
-  providers: [MoneyPipePipe],
+  providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

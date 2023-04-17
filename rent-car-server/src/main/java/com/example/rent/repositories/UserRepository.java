@@ -10,4 +10,7 @@ import com.example.rent.entities.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT u FROM user u WHERE u.username = :username")
 	User findByUsername(@Param("username") String username);
+	
+	@Query("SELECT u FROM user u WHERE u.id = :id")
+	User findById(@Param("id") int id);
 }

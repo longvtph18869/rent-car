@@ -1,8 +1,5 @@
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-black" style="height: 52px">
-  <!-- Container wrapper -->
   <div class="container">
-    <!-- Navbar brand -->
     <a class="navbar-brand me-5" href="">
       <section class="wrapper">
         <div class="top">RIDER</div>
@@ -22,31 +19,61 @@
         >
       </li>
     </ul>
-    <div class="d-flex align-items-center">
-      <a routerLink="owner/registerCar" class="become-owner me-5"
-        ><svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M12.75 20.4674C17.0931 20.0877 20.5 16.4417 20.5 12C20.5 10.9 20.291 9.84874 19.9106 8.88384L14.9342 11.3721C14.9773 11.5746 15 11.7846 15 12C15 13.3979 14.0439 14.5725 12.75 14.9055V20.4674ZM11.25 20.4674C6.90686 20.0877 3.5 16.4417 3.5 12C3.5 10.9001 3.7089 9.84906 4.08919 8.88428L9.06572 11.3725C9.02266 11.5749 9 11.7848 9 12C9 13.3979 9.95608 14.5725 11.25 14.9055V20.4674ZM14.2631 10.0306L19.2389 7.54264C17.742 5.11678 15.0598 3.5 12 3.5C8.94001 3.5 6.25767 5.11695 4.76082 7.54305L9.73659 10.0309C10.2866 9.39926 11.0967 9 12 9C12.9032 9 13.7131 9.3991 14.2631 10.0306ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12 13.5C12.8284 13.5 13.5 12.8284 13.5 12C13.5 11.1716 12.8284 10.5 12 10.5C11.1716 10.5 10.5 11.1716 10.5 12C10.5 12.8284 11.1716 13.5 12 13.5Z"
-            fill="lightgray"
-          ></path>
-        </svg>
-        Trở thành chủ xe</a
-      >
-      <a class="login ms-5" (click)="showDialog()"> Đăng nhập </a>
-      <a class="register" href="">Đăng ký</a>
+    <a href="" class="become-owner me-5"
+    ><svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M12.75 20.4674C17.0931 20.0877 20.5 16.4417 20.5 12C20.5 10.9 20.291 9.84874 19.9106 8.88384L14.9342 11.3721C14.9773 11.5746 15 11.7846 15 12C15 13.3979 14.0439 14.5725 12.75 14.9055V20.4674ZM11.25 20.4674C6.90686 20.0877 3.5 16.4417 3.5 12C3.5 10.9001 3.7089 9.84906 4.08919 8.88428L9.06572 11.3725C9.02266 11.5749 9 11.7848 9 12C9 13.3979 9.95608 14.5725 11.25 14.9055V20.4674ZM14.2631 10.0306L19.2389 7.54264C17.742 5.11678 15.0598 3.5 12 3.5C8.94001 3.5 6.25767 5.11695 4.76082 7.54305L9.73659 10.0309C10.2866 9.39926 11.0967 9 12 9C12.9032 9 13.7131 9.3991 14.2631 10.0306ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12 13.5C12.8284 13.5 13.5 12.8284 13.5 12C13.5 11.1716 12.8284 10.5 12 10.5C11.1716 10.5 10.5 11.1716 10.5 12C10.5 12.8284 11.1716 13.5 12 13.5Z"
+        fill="lightgray"
+      ></path>
+    </svg>
+    Trở thành chủ xe</a
+  >
+    <div *ngIf="isLoggedIn" class="d-flex align-items-center">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
+        <li class="dropdown nav-item">
+          <div id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <div class="avatar avatar--s">
+                <div class="avatar-img" style="background-image: url('../../../../assets/image/6.jpg');"></div>
+             </div>
+             <div class="snippet">
+                <div class="item-title"><span>Trung Toàn</span></div>
+             </div>
+          </div>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width: 10vw;">
+             <ul>
+                <li><a href="/account">Tài khoản</a></li>
+                <li><a href="/myfavs">Xe yêu thích</a></li>
+                <li><a href="/mycars">Xe của tôi </a></li>
+                <li><a><span class="">Chuyến của tôi</span></a></li>
+                <li><a href="/myaddress">Địa chỉ của tôi</a></li>
+                <li><a href="/mycard">Thẻ của tôi </a></li>
+                <li><a><span class="">Khuyến mãi</span></a></li>
+                <li><a href="/sharedcode">Giới thiệu bạn mới</a></li>
+                <li><a href="/myreward">Quà tặng</a></li>
+                <li><a>Đổi mật khẩu</a></li>
+                <li><a>Đăng xuất</a></li>
+             </ul>
+          </div>
+       </li>
+      </ul>
+    </div>
+    <div *ngIf="!isLoggedIn" class="d-flex align-items-center">
+      <a class="login ms-5" (click)="showLoginDialog()"> Đăng nhập </a>
+      <a class="register" (click)="showRegisterDialog()">Đăng ký</a>
     </div>
   </div>
 </nav>
 <p-dialog
-  [(visible)]="visible"
+  [(visible)]="loginDialogVisible"
+  *ngIf="loginDialogVisible"
   [modal]="true"
   [style]="{ width: '500px' }"
   [draggable]="false"
@@ -56,5 +83,20 @@
     'overflow-x': 'hidden'
   }"
 >
-  <app-login></app-login>
+  <app-login (loginSuccess)="onLoginSuccess($event)" (displayRegisterDialog)="onDisplayRegisterDialog($event)"></app-login>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="registerDialogVisible"
+  *ngIf="registerDialogVisible"
+  [modal]="true"
+  [style]="{ width: '500px' }"
+  [draggable]="false"
+  [resizable]="false"
+  [contentStyle]="{
+    'overflow-y': 'hidden',
+    'overflow-x': 'hidden'
+  }"
+>
+  <app-register></app-register>
 </p-dialog>

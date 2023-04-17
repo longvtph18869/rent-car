@@ -96,6 +96,9 @@ a:hover {
   color: #141414;
   cursor: pointer;
 }
+.register-now {
+  color: #141414;
+}
 .form-default .btn-primary {
   display: block;
   width: 100%;
@@ -167,4 +170,8 @@ a:hover {
 }
 .ic.ic-google {
   background-position: -166px 0;
+}
+:host ::ng-deep .p-toast-top-right {
+  top: 10px;
+  right: -450px;
 }
