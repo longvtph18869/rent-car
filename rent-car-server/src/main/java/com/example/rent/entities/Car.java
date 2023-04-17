@@ -36,7 +36,7 @@ public class Car {
 	@Enumerated(EnumType.STRING)
 	private CarColor color;
 	@Column(length = 255)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private CarType type;
 	@Column(name = "rental_price", precision = 10)
 	private BigDecimal rentalPrice;

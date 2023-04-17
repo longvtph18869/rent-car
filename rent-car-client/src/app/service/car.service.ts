@@ -27,4 +27,11 @@ export class CarService {
 
     return this.http.get(environment.apiUrl + '/car/filter', { params });
   }
+
+  enums(): Observable<any> {
+    return this.http.get(environment.apiUrl + '/car/enums');
+  }
+  getAllManufacturers(): Observable<any> {
+    return this.http.get(environment.apiUrl + '/car/manufacturers');
+  }
 }

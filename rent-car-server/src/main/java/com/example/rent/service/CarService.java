@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.rent.entities.Car;
+import com.example.rent.entities.Manufacturer;
 import com.example.rent.repositories.CarRepository;
+import com.example.rent.repositories.ManufacturerRepository;
 
 @Service
 public class CarService {
 	@Autowired
 	CarRepository carRepository;
+	@Autowired
+	ManufacturerRepository manufacturerRepository;
 	
 	public List<Car> getAllCar() {
         return carRepository.findAll();
@@ -29,5 +33,8 @@ public class CarService {
         double maxLong = Double.parseDouble(longitude)  + delta;
 
         return carRepository.filter(minLat, maxLat, minLong, maxLong);
+    }
+	public List<Manufacturer> getAllManufacturers() {
+        return manufacturerRepository.findAll();
     }
 }

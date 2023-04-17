@@ -39,8 +39,11 @@
                 <mat-form-field appearance="fill">
                   <mat-label>Chọn hãng xe</mat-label>
                   <mat-select formControlName="manufacturer" required>
-                    <mat-option value="one">TOYOTA</mat-option>
-                    <mat-option value="two">KIA</mat-option>
+                    <mat-option
+                      *ngFor="let manufacturer of manufacturers"
+                      [value]="manufacturer.id"
+                      >{{ manufacturer.name }}</mat-option
+                    >
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -58,10 +61,9 @@
                 <mat-form-field appearance="fill">
                   <mat-label>Số chỗ</mat-label>
                   <mat-select formControlName="seats" required>
-                    <mat-option value="two">2 chỗ</mat-option>
-                    <mat-option value="four">4 chỗ</mat-option>
-                    <mat-option value="five">5 chỗ</mat-option>
-                    <mat-option value="seven">7 chỗ</mat-option>
+                    <mat-option *ngFor="let seat of enums.seats" [value]="seat"
+                      >{{ seat }} chỗ</mat-option
+                    >
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -69,40 +71,16 @@
                 <mat-form-field appearance="fill">
                   <mat-label>Màu sắc</mat-label>
                   <mat-select formControlName="colors" required>
-                    <mat-option value="red">
+                    <mat-option
+                      *ngFor="let color of enums.colors"
+                      [value]="color"
+                    >
                       <span
                         class="color-square"
-                        style="background-color: red"
-                      ></span>
-                      Đỏ
-                    </mat-option>
-                    <mat-option value="blue">
-                      <span
-                        class="color-square"
-                        style="background-color: blue"
-                      ></span>
-                      Xanh dương
-                    </mat-option>
-                    <mat-option value="green">
-                      <span
-                        class="color-square"
-                        style="background-color: green"
-                      ></span>
-                      Xanh lá
-                    </mat-option>
-                    <mat-option value="black">
-                      <span
-                        class="color-square"
-                        style="background-color: black"
-                      ></span>
-                      Đen
-                    </mat-option>
-                    <mat-option value="white">
-                      <span
-                        class="color-square"
-                        style="background-color: white"
-                      ></span>
-                      Trắng
+                        [style.background-color]="color"
+                      >
+                      </span>
+                      {{ color }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>

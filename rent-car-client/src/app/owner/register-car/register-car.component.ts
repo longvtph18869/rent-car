@@ -1,14 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { CarService } from 'src/app/service/car.service';
 declare const mapboxgl: any;
 @Component({
   selector: 'app-register-car',
   templateUrl: './register-car.component.html',
   styleUrls: ['./register-car.component.css'],
 })
-export class RegisterCarComponent implements AfterViewInit {
+export class RegisterCarComponent implements OnInit, AfterViewInit {
   map: any;
+  enums: any = {};
+  manufacturers: any = [];
+
   @ViewChild('mapContainer', { static: false }) mapContainer: any;
   yearList: number[] = [];
   form = this._formBuilder.group({
@@ -29,11 +34,35 @@ export class RegisterCarComponent implements AfterViewInit {
     rentalPrice: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
   });
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private http: HttpClient,
+    private CarService: CarService
+  ) {
     const currentYear = new Date().getFullYear();
     for (let year = 1980; year <= currentYear; year++) {
       this.yearList.push(year);
     }
+  }
+  ngOnInit(): void {
+    this.CarService.enums().subscribe({
+      next: (res) => {
+        this.enums = res;
+        console.log(this.enums);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+    this.CarService.getAllManufacturers().subscribe({
+      next: (res) => {
+        this.manufacturers = res;
+        console.log(this.manufacturers);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
   ngAfterViewInit(): void {
     this.map = new mapboxgl.Map({
