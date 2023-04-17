@@ -1,4 +1,4 @@
-<div class="modal-content" role="document">
+<form (ngSubmit)="onSubmit($event)" class="modal-content" role="document">
   <div class="modal-header">
     <h4 class="modal-title">Đăng nhập</h4>
   </div>
@@ -8,7 +8,7 @@
         <div class="wrap-input has-ico">
           <i class="ic ic-email-fill"></i
           ><input
-            type="text"
+            type="text" [(ngModel)]="user.username"
             placeholder="Số điện thoại hoặc email"
             name="ip_username"
           />
@@ -17,13 +17,13 @@
       <div class="line-form">
         <div class="wrap-input has-ico">
           <i class="ic ic-lock-fill"></i
-          ><input type="password" placeholder="Mật Khẩu" name="ip_password" />
+          ><input type="password" [(ngModel)]="user.password" placeholder="Mật Khẩu" name="ip_password" />
         </div>
       </div>
       <a class="forgot-password">Quên mật khẩu?</a>
       <div class="clear"></div>
-      <a class="btn btn-primary btn--m">Đăng nhập </a>
-      <p>Bạn chưa là thành viên? <a href="/signup">Hãy đăng kí ngay!</a></p>
+      <button type="submit" class="btn btn-primary btn--m">Đăng nhập</button>
+      <p>Bạn chưa là thành viên? <a class="register-now" (click)="displayRegister()">Hãy đăng ký ngay!</a></p>
       <span class="line"></span>
       <p class="text-center" style="cursor: pointer">
         Hoặc đăng nhập bằng tài khoản
@@ -42,4 +42,6 @@
       </div>
     </div>
   </div>
-</div>
+</form>
+<p-toast></p-toast>
+

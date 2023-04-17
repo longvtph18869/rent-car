@@ -1,70 +1,43 @@
-package com.example.rent.entities;
+package com.example.rent.DTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import com.example.rent.entities.Car;
+import com.example.rent.entities.Contract;
+import com.example.rent.entities.DrivingLicense;
+import com.example.rent.entities.Feedback;
+import com.example.rent.entities.Payments;
+import com.example.rent.entities.RentCar;
+import com.example.rent.entities.User;
 
-@Entity(name="user")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false, precision=10)
+public class UserDTO {
     private int id;
-    @Column(length=255)
     private String avatar;
-    @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String fullName;
-    @Column(name="date_of_birth")
     private LocalDateTime dateOfBirth;
-    @Column(length=1, columnDefinition = "default 1")
     private boolean gender;
-    @Column(name="join_date")
     private LocalDateTime joinDate;
-    @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String phoneNumber;
-    @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String address;
-    @Column(length=255)
-    private String username;
-    @Column(length=255)
-    private String password;
-    @Column(length=50)
     private String role;
-    @Column(length=1)
     private boolean status;
-    @OneToMany(mappedBy="user")
-    private List<Car> car;
-    @OneToMany(mappedBy="user")
+    private List<Car> cars;
     private List<Contract> contract_user;
-    @OneToMany(mappedBy="owner")
     private List<Contract> contract_owner;
-    @OneToMany(mappedBy="user")
     private List<Feedback> feedback;
-    @OneToMany(mappedBy="user")
     private List<Payments> payments;
-    @OneToMany(mappedBy="user")
     private List<RentCar> rentCar;
-    @OneToOne
-    @JoinColumn(name="driving_license_id")
     private DrivingLicense drivingLicense;
-
-    public User() {
-        super();
-    }
-
-	public User(int id, String avatar, String fullName, LocalDateTime dateOfBirth, boolean gender,
-			LocalDateTime joinDate, String phoneNumber, String address, String username, String password, String role,
-			boolean status, List<Car> car, List<Contract> contract_user, List<Contract> contract_owner,
-			List<Feedback> feedback, List<Payments> payments, List<RentCar> rentCar, DrivingLicense drivingLicense) {
+    
+	public UserDTO() {
+		super();
+	}
+	
+	public UserDTO(int id, String avatar, String fullName, LocalDateTime dateOfBirth, boolean gender,
+			LocalDateTime joinDate, String phoneNumber, String address, String role, boolean status, List<Car> cars,
+			List<Contract> contract_user, List<Contract> contract_owner, List<Feedback> feedback,
+			List<Payments> payments, List<RentCar> rentCar, DrivingLicense drivingLicense) {
 		super();
 		this.id = id;
 		this.avatar = avatar;
@@ -74,11 +47,9 @@ public class User {
 		this.joinDate = joinDate;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
-		this.username = username;
-		this.password = password;
 		this.role = role;
 		this.status = status;
-		this.car = car;
+		this.cars = cars;
 		this.contract_user = contract_user;
 		this.contract_owner = contract_owner;
 		this.feedback = feedback;
@@ -87,6 +58,24 @@ public class User {
 		this.drivingLicense = drivingLicense;
 	}
 
+//	public UserDTO(User user) {
+//		super();
+//		if (user != null) {
+//			this.id = user.getId();
+//			this.avatar = user.getAvatar();
+//			this.fullName = user.getFullName();
+//			this.dateOfBirth = user.getDateOfBirth();
+//			this.gender = user.isGender();
+//			this.joinDate = user.getJoinDate();
+//			this.phoneNumber = user.getPhoneNumber();
+//			this.address = user.getAddress();
+//			this.role = user.getRole();
+//			this.status = user.isStatus();
+//			
+//			this.drivingLicense = user.getDrivingLicense();
+//		}
+//	}
+
 	public int getId() {
 		return id;
 	}
@@ -94,13 +83,21 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getAvatar() {
 		return avatar;
 	}
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public LocalDateTime getDateOfBirth() {
@@ -127,14 +124,6 @@ public class User {
 		this.joinDate = joinDate;
 	}
 
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -149,22 +138,6 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getRole() {
@@ -182,13 +155,13 @@ public class User {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
-	public List<Car> getCar() {
-		return car;
+	
+	public List<Car> getCars() {
+		return cars;
 	}
 
-	public void setCar(List<Car> car) {
-		this.car = car;
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
 	}
 
 	public List<Contract> getContract_user() {
@@ -238,5 +211,4 @@ public class User {
 	public void setDrivingLicense(DrivingLicense drivingLicense) {
 		this.drivingLicense = drivingLicense;
 	}
-
 }

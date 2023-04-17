@@ -25,6 +25,9 @@ import { NoComponent } from './view/core/no/no.component';
 import { CarouselModule } from 'primeng/carousel';
 import { RentComponent } from './view/core/rent/rent.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { RegisterComponent } from './view/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +40,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     DetailComponent,
     NoComponent,
     RentComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -55,8 +59,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     SliderModule,
     CarouselModule,
     RadioButtonModule,
+    ToastModule
   ],
-  providers: [MoneyPipePipe],
+  providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
