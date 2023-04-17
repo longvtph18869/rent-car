@@ -52,7 +52,24 @@ export class PageComponent implements OnInit {
         'pk.eyJ1IjoibG9uZ3BoMTg4NjkiLCJhIjoiY2xnZHFwdzR4MWxlYjNocGNza2IybXlzbyJ9.ZZj7I092TSffFAFTbu7y5w',
       mapboxgl: mapboxgl,
       marker: false,
+      bbox: [102.17, 8.54, 109.3, 23.38],
+      proximity: { longitude: 105, latitude: 21 },
       placeholder: 'Thành phố Hà Nội, Việt Nam',
+    });
+    geocoder.on('result', (ev) => {
+      const latitude = ev.result.center[1];
+      const longitude = ev.result.center[0];
+      this.carService
+        .filter(latitude, longitude, this.pickupDate, this.returnDate)
+        .subscribe({
+          next: (res) => {
+            this.cars = res;
+            console.log(this.cars);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
     });
     document.getElementById('geocoder')!.appendChild(geocoder.onAdd(this.map));
     this.carService.getAllCars().subscribe({

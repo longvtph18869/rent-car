@@ -10,15 +10,16 @@ body {
 }
 a {
   text-decoration: none;
+  color: #141414;
 }
 a:hover {
   color: #00a550;
+  cursor: pointer;
 }
 
 html,
 body {
   height: 100%;
-  overflow: hidden;
 }
 body {
   margin: 0;

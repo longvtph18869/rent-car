@@ -1,0 +1,139 @@
+.module-register {
+  background-color: #e8eaef;
+  padding: 100px 0;
+  height: auto;
+}
+
+.module-register .register-container {
+  position: relative;
+  background-color: hsl(0, 0%, 100%);
+  max-width: 770px;
+  margin: 0 auto 20px;
+  padding: 0;
+}
+.module-register .register-container .content-register {
+  padding: 0 50px;
+}
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: #00a550 !important;
+}
+::ng-deep.mat-horizontal-stepper-header-container {
+  margin-bottom: 20px;
+}
+.register-title {
+  display: block;
+  margin-bottom: 20px;
+  color: #141414;
+  font-size: 1.125em;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.color-square {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  margin-right: 8px;
+}
+::ng-deep .mat-mdc-form-field {
+  display: block !important;
+}
+::ng-deep
+  .mdc-text-field--no-label:not(.mdc-text-field--textarea)
+  .mat-mdc-form-field-input-control.mdc-text-field__input,
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+  height: 150px !important;
+}
+.btn {
+  width: 100%;
+  border-radius: 3px !important;
+}
+.btn.btn--m {
+  height: 46px;
+  line-height: 46px;
+  padding: 0 20px;
+  font-size: 1rem;
+  color: #fff;
+  box-shadow: none;
+}
+.btn.btn-secondary {
+  color: #fff;
+  background-color: #141414;
+  box-shadow: none;
+}
+::ng-deep .mapboxgl-ctrl-geocoder {
+  width: 100% !important;
+}
+.upload__box {
+  padding: 40px;
+  background-color: #f8f9fb;
+}
+.upload__inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.upload__btn {
+  display: inline-block;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  min-width: 116px;
+  padding: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid;
+  background-color: #00a550;
+  border-color: #00a550;
+  border-radius: 10px;
+  line-height: 26px;
+  font-size: 14px;
+}
+.upload__btn:hover {
+  background-color: unset;
+  color: #4045ba;
+  transition: all 0.3s ease;
+}
+.upload__btn-box {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.upload__img-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+.upload__img-box {
+  width: 200px;
+  padding: 0 10px;
+  margin-bottom: 12px;
+}
+.upload__img-close {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  text-align: center;
+  line-height: 24px;
+  z-index: 1;
+  cursor: pointer;
+}
+.upload__img-close:after {
+  content: "✖";
+  font-size: 14px;
+  color: white;
+}
+
+.img-bg {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  padding-bottom: 100%;
+}

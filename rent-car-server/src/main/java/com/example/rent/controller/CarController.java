@@ -1,5 +1,6 @@
 package com.example.rent.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rent.entities.Car;
@@ -26,6 +28,17 @@ public class CarController {
 	        Optional<Car> optional= carService.findByID(id);
 	        Car car = optional.get();
 	        return ResponseEntity.ok().body(car);
+	    } catch (Exception e) {
+	    	System.out.println(e);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
+	
+	@GetMapping("/filter")
+	public ResponseEntity<List<Car>> filter(@RequestParam String latitude, @RequestParam String longitude) {
+	    try {
+	    	List<Car> carList = carService.filter(latitude,longitude);
+	        return ResponseEntity.ok().body(carList);
 	    } catch (Exception e) {
 	    	System.out.println(e);
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

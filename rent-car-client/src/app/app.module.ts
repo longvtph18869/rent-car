@@ -25,6 +25,19 @@ import { NoComponent } from './view/core/no/no.component';
 import { CarouselModule } from 'primeng/carousel';
 import { RentComponent } from './view/core/rent/rent.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { OwnerComponent } from './owner/owner.component';
+import { MycarsComponent } from './owner/mycars/mycars.component';
+import { CalendarsComponent } from './owner/calendars/calendars.component';
+import { OwnerRoutingModule } from './owner/owner-routing.module';
+import { RegisterCarComponent } from './owner/register-car/register-car.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RegisterComponent } from './view/register/register.component';
@@ -40,10 +53,15 @@ import { RegisterComponent } from './view/register/register.component';
     DetailComponent,
     NoComponent,
     RentComponent,
+    OwnerComponent,
+    MycarsComponent,
+    CalendarsComponent,
+    RegisterCarComponent,
     RegisterComponent
   ],
   imports: [
     BrowserModule,
+    OwnerRoutingModule,
     AppRoutingModule,
     ButtonModule,
     MenubarModule,
@@ -59,6 +77,14 @@ import { RegisterComponent } from './view/register/register.component';
     SliderModule,
     CarouselModule,
     RadioButtonModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatSelectModule,
+    MatCardModule,
+    ReactiveFormsModule,
     ToastModule
   ],
   providers: [MoneyPipePipe, MessageService],

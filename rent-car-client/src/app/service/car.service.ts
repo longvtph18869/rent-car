@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 @Injectable({
@@ -12,5 +12,19 @@ export class CarService {
   }
   findCar(id: string): Observable<any> {
     return this.http.get(environment.apiUrl + '/car/' + id);
+  }
+  filter(
+    lat: number,
+    lng: number,
+    pickupDate: Date,
+    returnDate: Date
+  ): Observable<any> {
+    const params = new HttpParams()
+      .set('latitude', lat.toString())
+      .set('longitude', lng.toString())
+      .set('pickupDate', pickupDate.toLocaleDateString())
+      .set('returnDate', returnDate.toLocaleDateString());
+
+    return this.http.get(environment.apiUrl + '/car/filter', { params });
   }
 }
