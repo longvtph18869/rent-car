@@ -10,7 +10,6 @@ export class HeaderComponent implements OnInit {
   loginDialogVisible: boolean = false;
   registerDialogVisible: boolean = false;
   isShow: boolean = false;
-  showImage: boolean = false;
   user: any = {};
   isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -19,18 +18,17 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
 
+    if(isLoggedIn === 'true') {
+      this.isLoggedIn.next(true);
+    }
+
+  }
+
+  ngAfterContentChecked() {
     const userString = localStorage.getItem('user');
 
     if(userString !== null) {
       this.user = JSON.parse(userString);
-
-      if(this.user.avatar !== null) {
-        this.showImage = true;
-      }
-    }
-
-    if(isLoggedIn === 'true') {
-      this.isLoggedIn.next(true);
     }
   }
 

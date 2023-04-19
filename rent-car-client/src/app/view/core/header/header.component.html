@@ -49,7 +49,7 @@
           <div class="avatar avatar--s">
               <div
                 class="avatar-img"
-                [style.background-image]="showImage ? 'url(' + user.avatar + ')' : 'url(\'../../../../assets/image/avatar_default.jpg\')'"
+                [style.background-image]="user.avatar ? 'url(' + user.avatar + ')' : 'url(\'../../../../assets/image/avatar_default.jpg\')'"
               ></div>
           </div>
             <div class="snippet">
