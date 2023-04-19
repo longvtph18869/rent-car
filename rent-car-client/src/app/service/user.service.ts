@@ -5,10 +5,10 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class UserService {
   constructor(private http: HttpClient) {}
 
-  login(loginRequest: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/user/login', loginRequest);
+  getUserByUserName(username: string): Observable<any> {
+    return this.http.get<any>(environment.apiUrl + '/user/' + username);
   }
 }
