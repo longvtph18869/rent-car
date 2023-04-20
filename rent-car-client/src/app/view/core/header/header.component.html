@@ -19,7 +19,7 @@
         >
       </li>
     </ul>
-    <a href="owner/registerCar" class="become-owner me-5"
+    <a routerLink="owner/registerCar" class="become-owner me-5"
       ><svg
         width="24"
         height="24"
@@ -36,7 +36,7 @@
       </svg>
       Trở thành chủ xe</a
     >
-    <div *ngIf="(isLoggedIn)" class="d-flex align-items-center">
+    <div *ngIf="isLoggedIn" class="d-flex align-items-center">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
         <li class="dropdown nav-item">
           <div
@@ -46,21 +46,27 @@
             aria-expanded="false"
             (click)="isShow = !isShow"
           >
-          <div class="avatar avatar--s">
+            <div class="avatar avatar--s">
               <div
                 class="avatar-img"
-                [style.background-image]="user.avatar ? 'url(' + user.avatar + ')' : 'url(\'../../../../assets/image/avatar_default.jpg\')'"
+                [style.background-image]="
+                  user.avatar
+                    ? 'url(' + user.avatar + ')'
+                    : 'url(\'../../../../assets/image/avatar_default.jpg\')'
+                "
               ></div>
-          </div>
+            </div>
             <div class="snippet">
-              <div class="item-title"><span>{{ user.fullName }}</span></div>
+              <div class="item-title">
+                <span>{{ user.fullName }}</span>
+              </div>
             </div>
           </div>
           <app-menu-bar *ngIf="isShow"></app-menu-bar>
         </li>
       </ul>
     </div>
-    <div *ngIf="!(isLoggedIn)" class="d-flex align-items-center">
+    <div *ngIf="!isLoggedIn" class="d-flex align-items-center">
       <a class="login ms-5" (click)="showLoginDialog()"> Đăng nhập </a>
       <a class="register" (click)="showRegisterDialog()">Đăng ký</a>
     </div>
@@ -98,4 +104,3 @@
 >
   <app-register></app-register>
 </p-dialog>
-

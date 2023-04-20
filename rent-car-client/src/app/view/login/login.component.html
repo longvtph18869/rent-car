@@ -8,7 +8,8 @@
         <div class="wrap-input has-ico">
           <i class="ic ic-email-fill"></i
           ><input
-            type="text" [(ngModel)]="account.username"
+            type="text"
+            [(ngModel)]="account.username"
             placeholder="Số điện thoại hoặc email"
             name="ip_username"
           />
@@ -17,13 +18,23 @@
       <div class="line-form">
         <div class="wrap-input has-ico">
           <i class="ic ic-lock-fill"></i
-          ><input type="password" [(ngModel)]="account.password" placeholder="Mật Khẩu" name="ip_password" />
+          ><input
+            type="password"
+            [(ngModel)]="account.password"
+            placeholder="Mật Khẩu"
+            name="ip_password"
+          />
         </div>
       </div>
       <a class="forgot-password">Quên mật khẩu?</a>
       <div class="clear"></div>
       <button type="submit" class="btn btn-primary btn--m">ĐĂNG NHẬP</button>
-      <p>Bạn chưa là thành viên? <a class="register-now" (click)="displayRegister()">Hãy đăng ký ngay!</a></p>
+      <p>
+        Bạn chưa là thành viên?
+        <a class="register-now" (click)="displayRegister()"
+          >Hãy đăng ký ngay!</a
+        >
+      </p>
       <span class="line"></span>
       <p class="text-center" style="cursor: pointer">
         Hoặc đăng nhập bằng tài khoản
@@ -44,4 +55,3 @@
   </div>
 </form>
 <p-toast></p-toast>
-

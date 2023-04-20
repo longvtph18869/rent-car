@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   token: string = '';
   isLoggedIn: string | null = null;
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService) {}
 
   getToken() {
     this.token = this.cookieService.get('token');
@@ -22,11 +22,11 @@ export class AuthService {
   }
 
   setLoggedIn(value: string) {
-    if( value === 'true') {
+    if (value === 'true') {
       localStorage.setItem('isLoggedIn', 'true');
-    } 
+    }
 
-    if( value === 'false') {
+    if (value === 'false') {
       localStorage.setItem('isLoggedIn', 'false');
     }
   }
