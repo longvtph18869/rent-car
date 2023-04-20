@@ -41,12 +41,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RegisterComponent } from './view/register/register.component';
+
 import {
   CloudinaryModule,
   CloudinaryConfiguration,
 } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { SeatPipe } from './seat.pipe';
+import { MenuBarComponent } from './view/menu-bar/menu-bar.component';
+import { ChangePasswordComponent } from './view/change-password/change-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +68,8 @@ import { SeatPipe } from './seat.pipe';
     RegisterCarComponent,
     RegisterComponent,
     SeatPipe,
+    MenuBarComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {

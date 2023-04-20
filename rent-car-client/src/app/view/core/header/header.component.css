@@ -76,6 +76,7 @@ a:hover {
   padding-left: 54px;
   padding-right: 30px;
   display: flex;
+  cursor: pointer;
 }
 
 #dropdownMenuButton:before {
