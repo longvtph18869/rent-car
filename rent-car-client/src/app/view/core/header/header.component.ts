@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { MenuItem } from 'primeng/api';
-import { LoginService } from 'src/app/service/login.service';
-LoginService;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,13 +12,16 @@ export class HeaderComponent implements OnInit {
   registerDialogVisible: boolean = false;
   isShow: boolean = false;
   user: any = {};
-  isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoggedIn: boolean = false;
 
-  constructor(private LoginService: LoginService) {}
+  constructor(private authService : AuthService) {}
 
   ngOnInit(): void {
-    this.isLoggedIn.next(this.LoginService.isLoggedIn());
-  }
+    const isLoggedIn = this.authService.getLoggedIn();
+
+    if(isLoggedIn === 'true') {
+      this.isLoggedIn = true;
+    }
 
   ngAfterContentChecked() {
     const userString = localStorage.getItem('user');
@@ -28,7 +30,6 @@ export class HeaderComponent implements OnInit {
       this.user = JSON.parse(userString);
     }
   }
-
   ngAfterViewChecked() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
 

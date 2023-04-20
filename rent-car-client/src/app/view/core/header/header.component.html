@@ -36,7 +36,7 @@
       </svg>
       Trở thành chủ xe</a
     >
-    <div *ngIf="(isLoggedIn | async)" class="d-flex align-items-center">
+    <div *ngIf="(isLoggedIn)" class="d-flex align-items-center">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
         <li class="dropdown nav-item">
           <div
@@ -60,7 +60,7 @@
         </li>
       </ul>
     </div>
-    <div *ngIf="!(isLoggedIn | async)" class="d-flex align-items-center">
+    <div *ngIf="!(isLoggedIn)" class="d-flex align-items-center">
       <a class="login ms-5" (click)="showLoginDialog()"> Đăng nhập </a>
       <a class="register" (click)="showRegisterDialog()">Đăng ký</a>
     </div>
