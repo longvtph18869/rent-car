@@ -34,4 +34,7 @@ export class CarService {
   getAllManufacturers(): Observable<any> {
     return this.http.get(environment.apiUrl + '/car/manufacturers');
   }
+  resisterCar(carData: any): Observable<any> {
+    return this.http.post(environment.apiUrl + '/car/registerCar', carData);
+  }
 }

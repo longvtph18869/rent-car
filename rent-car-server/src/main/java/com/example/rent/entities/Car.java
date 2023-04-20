@@ -19,7 +19,18 @@ import com.example.rent.enums.CarColor;
 import com.example.rent.enums.CarType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity(name = "car")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Car {
 
 	@Id
@@ -40,7 +51,7 @@ public class Car {
 	private CarType type;
 	@Column(name = "rental_price", precision = 10)
 	private BigDecimal rentalPrice;
-	@Column(length = 255)
+	@Column(length = 65535,columnDefinition = "varchar(65535) CHARACTER SET utf8")
 	private String description;
 	@Column(length = 1)
 	private boolean status;
@@ -51,8 +62,8 @@ public class Car {
 	@JoinColumn(name = "manufacturer_id")
 	@JsonManagedReference
 	private Manufacturer manufacturer;
-	@OneToOne(mappedBy = "car")
-	@JsonManagedReference
+    @OneToOne(mappedBy = "car")
+    @JsonManagedReference
 	private Location location;
 	@OneToMany(mappedBy = "car")
 	@JsonManagedReference
@@ -63,155 +74,5 @@ public class Car {
 	private List<RentalSchedule> rentalSchedule;
 	@OneToMany(mappedBy = "car")
 	private List<RentCar> rentCar;
-
-	public Car() {
-		super();
-	}
-
-	public Car(int id, String licensePlates, String name, int yearOfManufacture, CarColor color, CarType type,
-			BigDecimal rentalPrice, String description, boolean status, User user, Manufacturer manufacturer,
-			Location location) {
-		super();
-		this.id = id;
-		this.licensePlates = licensePlates;
-		this.name = name;
-		this.yearOfManufacture = yearOfManufacture;
-		this.color = color;
-		this.type = type;
-		this.rentalPrice = rentalPrice;
-		this.description = description;
-		this.status = status;
-		this.user = user;
-		this.manufacturer = manufacturer;
-		this.location = location;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getLicensePlates() {
-		return licensePlates;
-	}
-
-	public void setLicensePlates(String licensePlates) {
-		this.licensePlates = licensePlates;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getYearOfManufacture() {
-		return yearOfManufacture;
-	}
-
-	public void setYearOfManufacture(int yearOfManufacture) {
-		this.yearOfManufacture = yearOfManufacture;
-	}
-
-	public CarColor getColor() {
-		return color;
-	}
-
-	public void setColor(CarColor color) {
-		this.color = color;
-	}
-
-	public CarType getType() {
-		return type;
-	}
-
-	public void setType(CarType type) {
-		this.type = type;
-	}
-
-	public BigDecimal getRentalPrice() {
-		return rentalPrice;
-	}
-
-	public void setRentalPrice(BigDecimal rentalPrice) {
-		this.rentalPrice = rentalPrice;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	public List<CarImage> getCarImage() {
-		return carImage;
-	}
-
-	public void setCarImage(List<CarImage> carImage) {
-		this.carImage = carImage;
-	}
-
-	public List<Contract> getContract() {
-		return contract;
-	}
-
-	public void setContract(List<Contract> contract) {
-		this.contract = contract;
-	}
-
-	public List<RentalSchedule> getRentalSchedule() {
-		return rentalSchedule;
-	}
-
-	public void setRentalSchedule(List<RentalSchedule> rentalSchedule) {
-		this.rentalSchedule = rentalSchedule;
-	}
-
-	public List<RentCar> getRentCar() {
-		return rentCar;
-	}
-
-	public void setRentCar(List<RentCar> rentCar) {
-		this.rentCar = rentCar;
-	}
 
 }

@@ -31,10 +31,7 @@
             >
               <ng-template let-car pTemplate="item">
                 <div class="fix-img">
-                  <img
-                    class="carousel-img"
-                    [src]="'assets/image/' + car.image"
-                  />
+                  <img class="carousel-img" [src]="car.image" />
                 </div>
               </ng-template>
             </p-carousel>
@@ -45,21 +42,23 @@
                 <span class="lstitle-new">ĐẶC ĐIỂM</span>
                 <div class="ctn-desc-new">
                   <ul class="features">
-                    <li><i class="ic ic-chair"></i> Số ghế: 7</li>
-                    <li><i class="ic ic-trans"></i> Truyền động: Số tự động</li>
+                    <li>
+                      <i class="ic ic-chair"></i> Số ghế:
+                      {{ car.type | seat }}
+                    </li>
                     <li>
                       <span
                         style="
                           display: inline-block;
                           width: 18px;
                           height: 18px;
-                          background-color: white;
                           border: 1px solid rgb(131, 131, 131);
                           margin-right: 10px;
                           margin-left: 7px;
                         "
+                        [ngStyle]="{ backgroundColor: car.color }"
                       ></span>
-                      Màu sắc: Trắng
+                      Màu sắc: {{ car.color }}
                     </li>
                   </ul>
                 </div>
@@ -67,14 +66,9 @@
               <div class="group">
                 <span class="lstitle-new">MÔ TẢ</span>
                 <div class="ctn-desc-new">
-                  <pre>
-TOYOTA FORTUNER V 2016
-Xe rất tiết kiệm nhiên liệu, ghế da theo hãng, hàng ghế sau và trước rộng rãi ngồi rất thoải mái, hạn chế say xe.
-Có bản đồ Vietmap hỗ trợ dẫn đường và cảnh báo tốc độ, điểm bắn tốc độ.
-Xe gia đình mình sử dụng ít, vệ sinh thường xuyên, có tinh dầu thơm và sạch sẽ. Xe có sẵn:
-- Tấm lưới che nắng
-- Đệm ghế sau
-- Khăn giấy khô &amp; ướt</pre
+                  <pre
+                    >{{ car.name + " " + car.yearOfManufacture }}
+{{ car.description }}</pre
                   >
                 </div>
               </div>

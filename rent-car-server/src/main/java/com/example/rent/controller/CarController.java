@@ -12,10 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.rent.DTO.CarDTO;
 import com.example.rent.entities.Car;
 import com.example.rent.entities.Manufacturer;
 import com.example.rent.enums.CarColor;
@@ -76,4 +79,14 @@ public class CarController {
 		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		    }
 		}
+	 @PostMapping(value = "/registerCar")
+	 public ResponseEntity<Car> registerCar(@RequestBody CarDTO carDTO) {
+		 try {
+	        Car savedCar = carService.registeCar(carDTO);
+	        return ResponseEntity.ok().body(savedCar);
+		 } catch (Exception e) {
+		    	System.out.println(e);
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+	    }
 }

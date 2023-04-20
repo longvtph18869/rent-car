@@ -41,6 +41,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RegisterComponent } from './view/register/register.component';
+import {
+  CloudinaryModule,
+  CloudinaryConfiguration,
+} from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
+import { SeatPipe } from './seat.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,9 +63,16 @@ import { RegisterComponent } from './view/register/register.component';
     MycarsComponent,
     CalendarsComponent,
     RegisterCarComponent,
-    RegisterComponent
+    RegisterComponent,
+    SeatPipe,
   ],
   imports: [
+    CloudinaryModule.forRoot({ Cloudinary }, {
+      cloud_name: 'dyje74rxj',
+      api_key: '971146142641585',
+      api_secret: 'uD6000Yf2dnHzEDBiukL8MXPUQU',
+      upload_preset: 'ml_default',
+    } as CloudinaryConfiguration),
     BrowserModule,
     OwnerRoutingModule,
     AppRoutingModule,
@@ -85,7 +98,7 @@ import { RegisterComponent } from './view/register/register.component';
     MatSelectModule,
     MatCardModule,
     ReactiveFormsModule,
-    ToastModule
+    ToastModule,
   ],
   providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],

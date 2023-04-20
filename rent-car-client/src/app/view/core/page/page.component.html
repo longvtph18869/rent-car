@@ -202,7 +202,7 @@
             <a routerLink="/car/{{ car.id }}"
               ><div class="item-car bg-white">
                 <div class="img-car">
-                  <img [src]="'assets/image/' + car.carImage[0]?.image" />
+                  <img [src]="car.carImage[0]?.image" />
                   <div class="item-car__detail">
                     <div class="car-name">
                       <h2>{{ car.name }} {{ car.yearOfManufacture }}</h2>
@@ -225,7 +225,9 @@
                     <div class="location">
                       <p>
                         <i class="ic ic-sm-car-location"></i
-                        >{{ car.location.name }}
+                        >{{
+                          car.location.name != null ? car.location.name : ""
+                        }}
                       </p>
                     </div>
                   </div>

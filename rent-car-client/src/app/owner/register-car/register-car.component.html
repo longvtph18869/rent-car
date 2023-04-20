@@ -1,7 +1,7 @@
 <div class="module-register">
   <div class="register-container">
     <div class="content-register pt-4">
-      <mat-stepper orientation="horizontal" [linear]="true" #stepper>
+      <mat-stepper orientation="horizontal" [linear]="false" #stepper>
         <mat-step [stepControl]="form">
           <form [formGroup]="form">
             <ng-template matStepLabel>Thông tin</ng-template>
@@ -13,20 +13,22 @@
                   <input
                     matInput
                     placeholder="29C-123.45"
-                    formControlName="licensePlate"
+                    formControlName="licensePlates"
                     required
                   />
                   <mat-error
                     *ngIf="
-                      form.get('licensePlate')!.invalid &&
-                      (form.get('licensePlate')!.dirty ||
-                        form.get('licensePlate')!.touched)
+                      form.get('licensePlates')!.invalid &&
+                      (form.get('licensePlates')!.dirty ||
+                        form.get('licensePlates')!.touched)
                     "
                   >
-                    <div *ngIf="form.get('licensePlate')!.hasError('required')">
+                    <div
+                      *ngIf="form.get('licensePlates')!.hasError('required')"
+                    >
                       Biển số xe là bắt buộc.
                     </div>
-                    <div *ngIf="form.get('licensePlate')!.hasError('pattern')">
+                    <div *ngIf="form.get('licensePlates')!.hasError('pattern')">
                       Biển số xe không hợp lệ.
                     </div>
                   </mat-error>
@@ -35,10 +37,21 @@
             </div>
             <div class="row mb-5">
               <h6 class="register-title">Thông tin cơ bản</h6>
+              <div class="col-12">
+                <mat-form-field appearance="fill">
+                  <mat-label>Tên xe</mat-label>
+                  <input
+                    matInput
+                    placeholder="VinFast Lux SA2.0"
+                    formControlName="name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
               <div class="col-6">
                 <mat-form-field appearance="fill">
                   <mat-label>Chọn hãng xe</mat-label>
-                  <mat-select formControlName="manufacturer" required>
+                  <mat-select formControlName="manufacturerId" required>
                     <mat-option
                       *ngFor="let manufacturer of manufacturers"
                       [value]="manufacturer.id"
@@ -60,7 +73,7 @@
               <div class="col-6">
                 <mat-form-field appearance="fill">
                   <mat-label>Số chỗ</mat-label>
-                  <mat-select formControlName="seats" required>
+                  <mat-select formControlName="type" required>
                     <mat-option *ngFor="let seat of enums.seats" [value]="seat"
                       >{{ seat }} chỗ</mat-option
                     >
@@ -70,7 +83,7 @@
               <div class="col-6">
                 <mat-form-field appearance="fill">
                   <mat-label>Màu sắc</mat-label>
-                  <mat-select formControlName="colors" required>
+                  <mat-select formControlName="color" required>
                     <mat-option
                       *ngFor="let color of enums.colors"
                       [value]="color"
@@ -89,7 +102,7 @@
             <div class="row">
               <h6 class="register-title">Mô tả</h6>
               <div class="col-12">
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" class="des">
                   <textarea
                     matInput
                     formControlName="description"
@@ -155,9 +168,18 @@ Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe t
             </div>
             <div class="row mb-5">
               <h6 class="register-title">Địa chỉ xe</h6>
-              <div class="col-12" style="height: 200px">
-                <div id="geocoder" class="geocoder"></div>
-                <div #mapContainer style="width: 100%; height: 100%"></div>
+              <div class="col-12" style="height: 300px">
+                <mat-form-field appearance="fill">
+                  <input
+                    id="location"
+                    matInput
+                    placeholder="Chọn địa chỉ trên bản đồ"
+                    formControlName="location"
+                    required
+                    [readonly]="true"
+                  />
+                </mat-form-field>
+                <div #mapContainer style="width: 100%; height: 85%"></div>
               </div>
             </div>
             <div class="row">
@@ -182,8 +204,12 @@ Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe t
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="formSecond">
-          <form [formGroup]="formSecond">
+        <mat-step [stepControl]="formThird">
+          <form
+            [formGroup]="formThird"
+            (ngSubmit)="onSubmit()"
+            enctype="multipart/form-data"
+          >
             <ng-template matStepLabel>Hình ảnh</ng-template>
             <div class="row mb-5">
               <h6 class="register-title">Hình ảnh</h6>
@@ -210,7 +236,6 @@ Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe t
                     <div
                       class="img-bg"
                       [style.background-image]="'url(' + image.url + ')'"
-                      [attr.data-file]="image.name"
                     >
                       <div
                         class="upload__img-close"
@@ -233,6 +258,7 @@ Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe t
               </div>
               <div class="col-6">
                 <button
+                  type="submit"
                   mat-button
                   matStepperNext
                   class="btn btn-success btn--m"

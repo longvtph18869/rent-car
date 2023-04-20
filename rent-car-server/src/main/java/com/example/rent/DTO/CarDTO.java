@@ -1,133 +1,51 @@
 package com.example.rent.DTO;
 
 import java.math.BigDecimal;
-import java.time.Year;
+import java.util.List;
 
-import com.example.rent.entities.Location;
-import com.example.rent.entities.Manufacturer;
-import com.example.rent.entities.User;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import com.example.rent.enums.CarColor;
 import com.example.rent.enums.CarType;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CarDTO {
-	private int id;
-	private String name;
-	private Year yearOfManufacture;
-	private CarColor color;
-	private CarType type;
-	private BigDecimal rentalPrice;
-	private String description;
-	private boolean status;
-	private User user;
-	private Manufacturer manufacturer;
-	private Location location;
-
-	public CarDTO() {
-		super();
-	}
-
-	public CarDTO(int id, String name, Year yearOfManufacture, CarColor color, CarType type, BigDecimal rentalPrice,
-			String description, boolean status, User user, Manufacturer manufacturer, Location location) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.yearOfManufacture = yearOfManufacture;
-		this.color = color;
-		this.type = type;
-		this.rentalPrice = rentalPrice;
-		this.description = description;
-		this.status = status;
-		this.user = user;
-		this.manufacturer = manufacturer;
-		this.location = location;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Year getYearOfManufacture() {
-		return yearOfManufacture;
-	}
-
-	public void setYearOfManufacture(Year yearOfManufacture) {
-		this.yearOfManufacture = yearOfManufacture;
-	}
-
-	public CarColor getColor() {
-		return color;
-	}
-
-	public void setColor(CarColor color) {
-		this.color = color;
-	}
-
-	public CarType getType() {
-		return type;
-	}
-
-	public void setType(CarType type) {
-		this.type = type;
-	}
-
-	public BigDecimal getRentalPrice() {
-		return rentalPrice;
-	}
-
-	public void setRentalPrice(BigDecimal rentalPrice) {
-		this.rentalPrice = rentalPrice;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+	@NotBlank
+    private String licensePlates;
+    @NotBlank
+    private String name;
+    @Min(1980)
+    private int yearOfManufacture;
+    @NotBlank
+    private CarColor color;
+    @NotBlank
+    private int type;
+    @Positive
+    private BigDecimal rentalPrice;
+    @NotBlank
+    private String description;
+    @NotNull
+    private int manufacturerId;
+    @NotBlank
+    private String location;
+    @NotNull
+    private double latitude;
+    @NotNull
+    private double longitude;
+	@NotEmpty
+    private List<String> carImages;
 
 }
