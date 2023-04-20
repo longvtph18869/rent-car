@@ -41,9 +41,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RegisterComponent } from './view/register/register.component';
+
+import {
+  CloudinaryModule,
+  CloudinaryConfiguration,
+} from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
+import { SeatPipe } from './seat.pipe';
 import { MenuBarComponent } from './view/menu-bar/menu-bar.component';
 import { ChangePasswordComponent } from './view/change-password/change-password.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,10 +67,17 @@ import { ChangePasswordComponent } from './view/change-password/change-password.
     CalendarsComponent,
     RegisterCarComponent,
     RegisterComponent,
+    SeatPipe,
     MenuBarComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
   imports: [
+    CloudinaryModule.forRoot({ Cloudinary }, {
+      cloud_name: 'dyje74rxj',
+      api_key: '971146142641585',
+      api_secret: 'uD6000Yf2dnHzEDBiukL8MXPUQU',
+      upload_preset: 'ml_default',
+    } as CloudinaryConfiguration),
     BrowserModule,
     OwnerRoutingModule,
     AppRoutingModule,
@@ -90,7 +103,7 @@ import { ChangePasswordComponent } from './view/change-password/change-password.
     MatSelectModule,
     MatCardModule,
     ReactiveFormsModule,
-    ToastModule
+    ToastModule,
   ],
   providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],

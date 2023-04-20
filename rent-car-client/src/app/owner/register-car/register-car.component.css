@@ -39,9 +39,10 @@
   display: block !important;
 }
 ::ng-deep
-  .mdc-text-field--no-label:not(.mdc-text-field--textarea)
+  .des
+  > .mdc-text-field--no-label:not(.mdc-text-field--textarea)
   .mat-mdc-form-field-input-control.mdc-text-field__input,
-.mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+.des > .mat-mdc-text-field-wrapper {
   height: 150px !important;
 }
 .btn {
@@ -63,6 +64,7 @@
 }
 ::ng-deep .mapboxgl-ctrl-geocoder {
   width: 100% !important;
+  max-width: 500px !important;
 }
 .upload__box {
   padding: 40px;
@@ -136,4 +138,10 @@
   background-size: cover;
   position: relative;
   padding-bottom: 100%;
+}
+::ng-deep .mapboxgl-ctrl-bottom-left {
+  display: none !important;
+}
+::ng-deep .mapboxgl-ctrl-bottom-right {
+  display: none !important;
 }

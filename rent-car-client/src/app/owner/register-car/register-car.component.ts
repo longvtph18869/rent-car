@@ -3,6 +3,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { CarService } from 'src/app/service/car.service';
+import { CloudinaryService } from 'src/app/service/cloudinary.service';
 declare const mapboxgl: any;
 @Component({
   selector: 'app-register-car',
@@ -13,31 +14,36 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
   map: any;
   enums: any = {};
   manufacturers: any = [];
-
+  latitude: any;
+  longitude: any;
+  location: any;
   @ViewChild('mapContainer', { static: false }) mapContainer: any;
   yearList: number[] = [];
   form = this._formBuilder.group({
-    licensePlate: [
+    licensePlates: [
       '',
       [
         Validators.required,
         Validators.pattern(/^[0-9]{2}[A-Z]-[0-9]{3,4}\.[0-9]{2}$/i),
       ],
     ],
-    manufacturer: ['', Validators.required],
+    name: ['', Validators.required],
+    manufacturerId: ['', Validators.required],
     yearOfManufacture: ['', Validators.required],
-    seats: ['', Validators.required],
-    colors: ['', Validators.required],
+    type: ['', Validators.required],
+    color: ['', Validators.required],
     description: ['', Validators.required],
   });
   formSecond = this._formBuilder.group({
     rentalPrice: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+    location: ['', Validators.required],
   });
-
+  formThird = this._formBuilder.group({});
   constructor(
     private _formBuilder: FormBuilder,
     private http: HttpClient,
-    private CarService: CarService
+    private CarService: CarService,
+    private cloudinaryService: CloudinaryService
   ) {
     const currentYear = new Date().getFullYear();
     for (let year = 1980; year <= currentYear; year++) {
@@ -83,37 +89,36 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
       placeholder:
         'Food House 85 Thái Hà, 85 Thái Hà, Hà Nội, 116700, Việt Nam',
     });
+    let marker = new mapboxgl.Marker();
     geocoder.on('result', (event) => {
       const result = event.result;
       const lng = result.center[0];
       const lat = result.center[1];
-
-      new mapboxgl.Marker().setLngLat([lng, lat]).addTo(this.map);
+      marker.remove();
+      marker.setLngLat([lng, lat]).addTo(this.map);
+      const input = document.getElementById('location') as HTMLInputElement;
+      input!.value = result.place_name;
+      this.formSecond.get('location')?.setValue(input.value);
+      this.location = result.place_name;
+      this.latitude = lat;
+      this.longitude = lng;
     });
-    document.getElementById('geocoder')!.appendChild(geocoder.onAdd(this.map));
+    this.map.addControl(geocoder);
   }
 
-  images: { url: string; name: string }[] = [];
+  images: any[] = [];
+  imagesCar: File[] = [];
   onFileSelected(event: any) {
-    const files = event.target.files;
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (!file.type.match('image.*')) {
-        continue;
-      }
+    const files: File[] = event.target.files;
+    for (const file of files) {
+      this.imagesCar.push(file);
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const image = {
-          url: e.target.result,
-          name: file.name,
-        };
+        const image = { url: e.target.result };
         this.images.push(image);
-        const formData = new FormData();
-        formData.append('file', file, file.name);
       };
       reader.readAsDataURL(file);
     }
-    console.log(this.images);
   }
 
   removeImage(image: any) {
@@ -122,5 +127,31 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
       this.images.splice(index, 1);
     }
     console.log(this.images);
+  }
+  async onSubmit() {
+    const carImages = await this.cloudinaryService.uploadImages(this.imagesCar);
+    const carData = {
+      licensePlates: this.form.value.licensePlates,
+      name: this.form.value.name,
+      yearOfManufacture: this.form.value.yearOfManufacture,
+      color: this.form.value.color,
+      type: this.form.value.type,
+      rentalPrice: this.formSecond.value.rentalPrice,
+      description: this.form.value.description,
+      manufacturerId: this.form.value.manufacturerId,
+      location: this.location,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      carImages: carImages,
+    };
+    console.log(carData);
+    this.CarService.resisterCar(carData).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

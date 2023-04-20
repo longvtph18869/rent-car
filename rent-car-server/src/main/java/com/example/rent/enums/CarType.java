@@ -12,4 +12,5 @@ public enum CarType {
 	public int getValue() {
 		return value;
 	}
+	
 }

@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="driving_license")
 public class DrivingLicense {
@@ -33,7 +36,7 @@ public class DrivingLicense {
     private String issuingAuthority;
     @Column(length=1)
     private boolean status;
-    @OneToOne(mappedBy="drivingLicense")
+    @OneToOne(mappedBy = "drivingLicense")
     private User user;
 
     public DrivingLicense() {

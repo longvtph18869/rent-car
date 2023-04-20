@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
-
+import { BehaviorSubject } from 'rxjs';
+import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,13 +22,19 @@ export class HeaderComponent implements OnInit {
     if(isLoggedIn === 'true') {
       this.isLoggedIn = true;
     }
-  }
 
   ngAfterContentChecked() {
     const userString = localStorage.getItem('user');
 
-    if(userString !== null) {
+    if (userString !== null) {
       this.user = JSON.parse(userString);
+    }
+  }
+  ngAfterViewChecked() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (isLoggedIn !== 'true') {
+      this.isLoggedIn.next(false);
     }
   }
 

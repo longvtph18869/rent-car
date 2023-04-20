@@ -104,7 +104,7 @@ export class PageComponent implements OnInit {
                   <img
                     width="100px"
                     height="100%"
-                    src="assets/image/${car.carImage[0]?.image}"
+                    src="${car.carImage[0]?.image}"
                     alt=""
                   />
                 </div>

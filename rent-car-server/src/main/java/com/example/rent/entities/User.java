@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name="user")
 public class User {
@@ -25,7 +28,7 @@ public class User {
     private String fullName;
     @Column(name="date_of_birth")
     private LocalDateTime dateOfBirth;
-    @Column(length=1, columnDefinition = "default 1")
+    @Column(name="gender", columnDefinition = "tinyint(1) default 1")
     private boolean gender;
     @Column(name="join_date")
     private LocalDateTime joinDate;
@@ -41,6 +44,9 @@ public class User {
     private String role;
     @Column(length=1)
     private boolean status;
+    @OneToOne
+	@JoinColumn(name = "drivingLicense_id")
+    private DrivingLicense drivingLicense;
     @OneToMany(mappedBy="user")
     private List<Car> car;
     @OneToMany(mappedBy="user")
@@ -53,9 +59,6 @@ public class User {
     private List<Payments> payments;
     @OneToMany(mappedBy="user")
     private List<RentCar> rentCar;
-    @OneToOne
-    @JoinColumn(name="driving_license_id")
-    private DrivingLicense drivingLicense;
 
     public User() {
         super();
