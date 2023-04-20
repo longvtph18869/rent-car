@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { HeaderComponent } from '../core/header/header.component';
 import { LoginService } from 'src/app/service/login.service';
+import { UserService } from 'src/app/service/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 
@@ -12,7 +14,8 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   token: string = '';
-  user: any = { username: '', password: '' };
+  account: any = { username: '', password: '' };
+  user: any = {};
 
   @Output() loginSuccess = new EventEmitter<boolean>();
   @Output() displayRegisterDialog = new EventEmitter<boolean>();
@@ -20,7 +23,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private cookieService: CookieService,
-    private messageService: MessageService
+    private userService: UserService,
+    private messageService: MessageService,
+    private headerComponent: HeaderComponent
   ) {}
   ngOnInit(): void {}
 
@@ -30,11 +35,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit(event: Event) {
     event.preventDefault();
-    this.loginService.login(this.user).subscribe({
+    this.loginService.login(this.account).subscribe({
       next: (res) => {
         this.loginSuccess.emit(true);
         this.token = res.tokenType + ' ' + res.accessToken;
         this.cookieService.set('token', this.token, 1, '/');
+        this.headerComponent.isLoggedIn.next(true);
+        localStorage.setItem('isLoggedIn', 'true');
       },
       error: () => {
         this.messageService.add({
@@ -43,6 +50,19 @@ export class LoginComponent implements OnInit {
           detail: 'Vui lòng kiểm tra lại thông tin đăng nhập và mật khẩu!',
         });
       },
+    });
+
+    this.userService.getUserByUserName(this.account.username).subscribe({
+      next: (res) => {
+        this.user = {
+          avatar: res.avatar,
+          fullName: res.fullName
+        };
+        localStorage.setItem('user', JSON.stringify(this.user));
+      },
+      error: (err) => {
+        console.log(err);
+      }
     });
   }
 }

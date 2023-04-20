@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-header',
@@ -8,10 +9,35 @@ import { MenuItem } from 'primeng/api';
 export class HeaderComponent implements OnInit {
   loginDialogVisible: boolean = false;
   registerDialogVisible: boolean = false;
-  isLoggedIn: boolean = false;
+  isShow: boolean = false;
+  user: any = {};
+  isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  constructor() {}
 
   ngOnInit(): void {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
 
+    if(isLoggedIn === 'true') {
+      this.isLoggedIn.next(true);
+    }
+
+  }
+
+  ngAfterContentChecked() {
+    const userString = localStorage.getItem('user');
+
+    if(userString !== null) {
+      this.user = JSON.parse(userString);
+    }
+  }
+
+  ngAfterViewChecked() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if(isLoggedIn !== 'true') {
+      this.isLoggedIn.next(false);
+    }
   }
 
   showLoginDialog() {
@@ -24,7 +50,6 @@ export class HeaderComponent implements OnInit {
 
   onLoginSuccess(success: boolean) {
     this.loginDialogVisible = !success;
-    this.isLoggedIn = success;
   }
 
   onDisplayRegisterDialog(show: boolean) {

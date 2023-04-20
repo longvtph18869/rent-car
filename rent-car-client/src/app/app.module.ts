@@ -41,6 +41,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RegisterComponent } from './view/register/register.component';
+import { MenuBarComponent } from './view/menu-bar/menu-bar.component';
+import { ChangePasswordComponent } from './view/change-password/change-password.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,9 @@ import { RegisterComponent } from './view/register/register.component';
     MycarsComponent,
     CalendarsComponent,
     RegisterCarComponent,
-    RegisterComponent
+    RegisterComponent,
+    MenuBarComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

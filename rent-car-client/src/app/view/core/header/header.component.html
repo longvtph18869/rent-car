@@ -36,7 +36,7 @@
       </svg>
       Trở thành chủ xe</a
     >
-    <div *ngIf="isLoggedIn" class="d-flex align-items-center">
+    <div *ngIf="(isLoggedIn | async)" class="d-flex align-items-center">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
         <li class="dropdown nav-item">
           <div
@@ -44,44 +44,23 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            (click)="isShow = !isShow"
           >
-            <div class="avatar avatar--s">
+          <div class="avatar avatar--s">
               <div
                 class="avatar-img"
-                style="background-image: url('../../../../assets/image/6.jpg')"
+                [style.background-image]="user.avatar ? 'url(' + user.avatar + ')' : 'url(\'../../../../assets/image/avatar_default.jpg\')'"
               ></div>
-            </div>
+          </div>
             <div class="snippet">
-              <div class="item-title"><span>Trung Toàn</span></div>
+              <div class="item-title"><span>{{ user.fullName }}</span></div>
             </div>
           </div>
-          <div
-            class="dropdown-menu"
-            aria-labelledby="dropdownMenuButton"
-            style="min-width: 10vw"
-          >
-            <ul>
-              <li><a href="/account">Tài khoản</a></li>
-              <li><a href="/myfavs">Xe yêu thích</a></li>
-              <li><a href="/mycars">Xe của tôi </a></li>
-              <li>
-                <a><span class="">Chuyến của tôi</span></a>
-              </li>
-              <li><a href="/myaddress">Địa chỉ của tôi</a></li>
-              <li><a href="/mycard">Thẻ của tôi </a></li>
-              <li>
-                <a><span class="">Khuyến mãi</span></a>
-              </li>
-              <li><a href="/sharedcode">Giới thiệu bạn mới</a></li>
-              <li><a href="/myreward">Quà tặng</a></li>
-              <li><a>Đổi mật khẩu</a></li>
-              <li><a>Đăng xuất</a></li>
-            </ul>
-          </div>
+          <app-menu-bar *ngIf="isShow"></app-menu-bar>
         </li>
       </ul>
     </div>
-    <div *ngIf="!isLoggedIn" class="d-flex align-items-center">
+    <div *ngIf="!(isLoggedIn | async)" class="d-flex align-items-center">
       <a class="login ms-5" (click)="showLoginDialog()"> Đăng nhập </a>
       <a class="register" (click)="showRegisterDialog()">Đăng ký</a>
     </div>
@@ -119,3 +98,4 @@
 >
   <app-register></app-register>
 </p-dialog>
+
