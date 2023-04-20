@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from '../core/header/header.component';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-menu-bar',
@@ -8,10 +10,13 @@ import { Component } from '@angular/core';
 export class MenuBarComponent {
   visible: boolean = false;
 
-  constructor() {}
+  constructor(private headerComponent: HeaderComponent,
+              private authService: AuthService
+    ) {}
 
   logout() {
-    localStorage.setItem('isLoggedIn', 'false');
+    this.authService.setLoggedIn('false');
+    this.headerComponent.isLoggedIn = false;
   }
 
   showChangePasswordDialog() {

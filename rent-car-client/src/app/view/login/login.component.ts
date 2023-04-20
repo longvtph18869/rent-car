@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { HeaderComponent } from '../core/header/header.component';
 import { LoginService } from 'src/app/service/login.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
+    private authService: AuthService,
     private cookieService: CookieService,
     private userService: UserService,
     private messageService: MessageService,
@@ -39,9 +41,9 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         this.loginSuccess.emit(true);
         this.token = res.tokenType + ' ' + res.accessToken;
-        this.cookieService.set('token', this.token, 1, '/');
-        this.headerComponent.isLoggedIn.next(true);
-        localStorage.setItem('isLoggedIn', 'true');
+        this.authService.saveToken(this.token);
+        this.authService.setLoggedIn('true');
+        this.headerComponent.isLoggedIn = true;
       },
       error: () => {
         this.messageService.add({
