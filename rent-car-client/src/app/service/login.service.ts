@@ -3,12 +3,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(loginRequest: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/user/login', loginRequest);
+    return this.http.post<any>(
+      environment.apiUrl + '/user/login',
+      loginRequest
+    );
+  }
+
+  public isLoggedIn(): boolean {
+    const token = localStorage.getItem('isLoggedIn');
+    return token !== null;
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MenuItem } from 'primeng/api';
+import { LoginService } from 'src/app/service/login.service';
+LoginService;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,21 +15,16 @@ export class HeaderComponent implements OnInit {
   user: any = {};
   isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor() {}
+  constructor(private LoginService: LoginService) {}
 
   ngOnInit(): void {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-
-    if(isLoggedIn === 'true') {
-      this.isLoggedIn.next(true);
-    }
-
+    this.isLoggedIn.next(this.LoginService.isLoggedIn());
   }
 
   ngAfterContentChecked() {
     const userString = localStorage.getItem('user');
 
-    if(userString !== null) {
+    if (userString !== null) {
       this.user = JSON.parse(userString);
     }
   }
@@ -35,7 +32,7 @@ export class HeaderComponent implements OnInit {
   ngAfterViewChecked() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-    if(isLoggedIn !== 'true') {
+    if (isLoggedIn !== 'true') {
       this.isLoggedIn.next(false);
     }
   }
