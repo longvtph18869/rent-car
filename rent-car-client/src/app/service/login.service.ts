@@ -14,9 +14,4 @@ export class LoginService {
       loginRequest
     );
   }
-
-  public isLoggedIn(): boolean {
-    const token = localStorage.getItem('isLoggedIn');
-    return token !== null;
-  }
 }

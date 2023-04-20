@@ -14,15 +14,15 @@ export class HeaderComponent implements OnInit {
   user: any = {};
   isLoggedIn: boolean = false;
 
-  constructor(private authService : AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     const isLoggedIn = this.authService.getLoggedIn();
 
-    if(isLoggedIn === 'true') {
+    if (isLoggedIn === 'true') {
       this.isLoggedIn = true;
     }
-
+  }
   ngAfterContentChecked() {
     const userString = localStorage.getItem('user');
 
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
 
     if (isLoggedIn !== 'true') {
-      this.isLoggedIn.next(false);
+      this.isLoggedIn = false;
     }
   }
 
