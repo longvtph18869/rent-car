@@ -1,20 +1,39 @@
 <div
-   class="dropdown-menu"
-   aria-labelledby="dropdownMenuButton"
-   style="min-width: 10vw"
-   >
-   <ul>
+  *ngIf="!isAdmin"
+  class="dropdown-menu"
+  aria-labelledby="dropdownMenuButton"
+  style="min-width: 10vw"
+  >
+  <ul>
       <li><a href="/account">Tài khoản</a></li>
       <li><a href="/myfavs">Xe yêu thích</a></li>
       <li><a href="/mycars">Xe cho thuê</a></li>
-      <li>
-         <a><span class="">Xe đã thuê</span></a>
-      </li>
+      <li><a><span class="">Xe đã thuê</span></a></li>
       <li><a href="/myaddress">Địa chỉ của tôi</a></li>
       <li><a href="/mycard">Thẻ của tôi </a></li>
       <li><a (click)="showChangePasswordDialog()">Đổi mật khẩu</a></li>
       <li><a (click)="logout()">Đăng xuất</a></li>
-   </ul>
+  </ul>
+</div>
+<div
+  *ngIf="isAdmin"
+  class="dropdown-menu"
+  aria-labelledby="dropdownMenuButton"
+  style="min-width: 10vw"
+   >
+  <ul>
+      <li><a href="/account">Tài khoản</a></li>
+      <li><a href="/order">Đơn hàng</a></li>
+      <li><a href="/customer">Khách hàng</a></li>
+      <li><a href="/car-owner">Chủ xe</a></li>
+      <li><a href="/myfavs">Xe yêu thích</a></li>
+      <li><a href="/mycars">Xe cho thuê</a></li>
+      <li><a><span class="/rentedcars">Xe đã thuê</span></a></li>
+      <li><a href="/myaddress">Địa chỉ của tôi</a></li>
+      <li><a href="/mycard">Thẻ của tôi </a></li>
+      <li><a (click)="showChangePasswordDialog()">Đổi mật khẩu</a></li>
+      <li><a (click)="logout()">Đăng xuất</a></li>
+  </ul>
 </div>
 
 <p-dialog

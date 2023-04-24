@@ -93,5 +93,4 @@ public class Payments {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 }

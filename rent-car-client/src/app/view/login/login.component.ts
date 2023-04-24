@@ -3,7 +3,6 @@ import { HeaderComponent } from '../core/header/header.component';
 import { LoginService } from 'src/app/service/login.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
-import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -12,8 +11,6 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  username: string = '';
-  password: string = '';
   token: string = '';
   account: any = { username: '', password: '' };
   user: any = {};
@@ -24,7 +21,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private authService: AuthService,
-    private cookieService: CookieService,
     private userService: UserService,
     private messageService: MessageService,
     private headerComponent: HeaderComponent
@@ -58,7 +54,9 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         this.user = {
           avatar: res.avatar,
-          fullName: res.fullName
+          username: res.username,
+          fullName: res.fullName,
+          role: res.role
         };
         localStorage.setItem('user', JSON.stringify(this.user));
       },

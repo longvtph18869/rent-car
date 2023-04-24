@@ -89,7 +89,5 @@ public class Feedback{
 
 	public void setRentCar(RentCar rentCar) {
 		this.rentCar = rentCar;
-	}
-
-    
+	}  
 }

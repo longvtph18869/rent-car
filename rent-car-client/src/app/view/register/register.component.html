@@ -1,4 +1,4 @@
-<form class="modal-content" role="document">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="modal-content" role="document">
     <div class="modal-header">
       <h4 class="modal-title">Đăng ký tài khoản</h4>
     </div>
@@ -9,20 +9,43 @@
             <i class="ic ic-phone-fill"></i
             ><input
               type="text"
+              id="username"
               placeholder="Số điện thoại hoặc email"
-              name="ip_username"
+              formControlName="username"
+              required
             />
+          </div>
+          <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" class="error">
+            <div *ngIf="registerForm.get('username')?.errors?.['required']">Username không được để trống.</div>
+          </div>
+          <div *ngIf="registerForm.get('username')?.hasError('pattern')">
+            Số điện thoại hoặc email không hợp lệ.
           </div>
         </div>
         <div class="line-form">
           <div class="wrap-input has-ico">
             <i class="ic ic-user-fill"></i
-            ><input type="text" placeholder="Tên hiển thị" name="ip_name" />
+            ><input type="text" placeholder="Tên hiển thị" id="fullName" formControlName="fullName" required/>
+          </div>
+          <div *ngIf="registerForm.get('fullName')?.invalid && (registerForm.get('fullName')?.dirty || registerForm.get('fullName')?.touched)" class="error">
+            <div *ngIf="registerForm.get('fullName')?.errors?.['required']">Tên hiển thị không được để trống.</div>
           </div>
         </div>
         <div class="line-form has-2input">
-          <div class="wrap-input"><input type="password" name="ip_password" placeholder="Mật khẩu"></div>
-          <div class="wrap-input"><input type="password" name="ip_password_confirm" placeholder="Xác nhận mật khẩu"></div>
+          <div class="wrap-input"><input type="password" id="password" formControlName="password" placeholder="Mật khẩu" required></div>
+          <div class="wrap-input"><input type="password" id="password_confirm" formControlName="password_confirm" placeholder="Xác nhận mật khẩu" required></div>
+          <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" class="error">
+            <div *ngIf="registerForm.get('password')?.errors?.['required']">Mật khẩu không được để trống.</div>
+          </div>
+          <div *ngIf="registerForm.get('password_confirm')?.invalid && (registerForm.get('password_confirm')?.dirty || registerForm.get('password_confirm')?.touched)" class="error">
+            <div *ngIf="registerForm.get('password_confirm')?.errors?.['required']">Mật khẩu xác nhận không được để trống.</div>
+          </div>
+          <div *ngIf="registerForm.get('password')?.hasError('minlength')">
+            Mật khẩu cần tối thiếu 6 ký tự.
+          </div>
+          <div *ngIf="registerForm.get('password_confirm')?.hasError('mismatch')">
+            Mật khẩu xác nhận không khớp
+          </div>
        </div>
       <div class="line-form">
         <div class="wrap-input"><input type="text" name="ip_sharecode" placeholder="Nhập mã giới thiệu nếu có"></div>

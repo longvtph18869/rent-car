@@ -8,8 +8,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+import com.example.rent.entities.User;
 import com.example.rent.enums.CarColor;
 import com.example.rent.enums.CarType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,5 +50,4 @@ public class CarDTO {
     private double longitude;
 	@NotEmpty
     private List<String> carImages;
-
 }

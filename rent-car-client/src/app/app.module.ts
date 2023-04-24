@@ -50,6 +50,7 @@ import { Cloudinary } from 'cloudinary-core';
 import { SeatPipe } from './seat.pipe';
 import { MenuBarComponent } from './view/menu-bar/menu-bar.component';
 import { ChangePasswordComponent } from './view/change-password/change-password.component';
+import { AccountComponent } from './view/account/account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { ChangePasswordComponent } from './view/change-password/change-password.
     SeatPipe,
     MenuBarComponent,
     ChangePasswordComponent,
+    AccountComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {

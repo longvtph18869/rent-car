@@ -212,8 +212,8 @@ input, select, textarea {
   outline: none;
 }
 
-  :host ::ng-deep .p-toast-top-right {
-    top: 10px;
-    right: -450px;
-  }
+:host ::ng-deep .p-toast-top-right {
+  top: 10px;
+  right: -450px;
+}
   
