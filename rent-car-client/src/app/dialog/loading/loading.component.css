@@ -1,0 +1,13 @@
+::ng-deep .mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #00ff7b !important;
+}
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  box-shadow: none !important;
+}
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: transparent !important;
+}
+::ng-deep .mat-spinner {
+  width: 60px !important;
+  height: 60px !important;
+}

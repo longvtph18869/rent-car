@@ -8,4 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OwnerService {
   constructor(private http: HttpClient) {}
+  myCars(userId: any): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/owner/mycars?user=${userId}`);
+  }
 }

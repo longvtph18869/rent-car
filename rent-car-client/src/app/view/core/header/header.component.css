@@ -30,7 +30,7 @@
   height: 60px;
   padding: 0 18px;
   line-height: 60px;
-  color: #f8f9fb;
+  color: #f8f9fb !important;
   font-size: 1em;
 }
 .register {
@@ -41,16 +41,16 @@
   line-height: 44px;
   font-weight: 400;
   text-transform: none;
-  color: #f8f9fb;
+  color: #f8f9fb !important;
   font-size: 1em;
   border-radius: 3px;
   border: 1px solid white;
 }
 .login:hover {
-  color: #00a550;
+  color: #00a550 !important;
 }
 .register:hover {
-  color: #00a550;
+  color: #00a550 !important;
   border: 1px solid #00a550;
 }
 .become-owner {
@@ -84,7 +84,8 @@ a:hover {
   top: 50%;
   right: 5px;
   content: "";
-  background: url(https://www.mioto.vn/static/media/main_sprites.a58f006e.png) 0 -96px no-repeat;
+  background: url(https://www.mioto.vn/static/media/main_sprites.a58f006e.png) 0 -96px
+    no-repeat;
   background-size: 400px 400px;
   width: 24px;
   height: 24px;
@@ -95,7 +96,7 @@ a:hover {
   position: absolute;
   top: 8px;
   left: 0;
-  border: 2px solid hsla(0,0%,100%,.25);
+  border: 2px solid hsla(0, 0%, 100%, 0.25);
 }
 .avatar--s {
   width: 44px;
@@ -106,7 +107,9 @@ a:hover {
   position: relative;
   margin-right: 10px;
 }
-.avatar, .avatar-img, .borderRadius-circle {
+.avatar,
+.avatar-img,
+.borderRadius-circle {
   border-radius: 100%;
 }
 
@@ -118,7 +121,12 @@ a:hover {
   width: 100%;
   height: 100%;
 }
-.avatar-img, .backgroundCover--center, .cover-profile, .cover .cover-container, .module-explorer, .not-your-typical {
+.avatar-img,
+.backgroundCover--center,
+.cover-profile,
+.cover .cover-container,
+.module-explorer,
+.not-your-typical {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50%;
@@ -129,4 +137,11 @@ a:hover {
   color: #fff;
   -webkit-user-select: none;
   user-select: none;
+}
+
+.icon-close {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  padding: 15px;
 }

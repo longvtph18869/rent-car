@@ -109,7 +109,7 @@
                     class="img-fluid"
                   />
                 </div>
-                <span>4 chỗ (Mini)</span><span class="extra-info"></span
+                <span>2 chỗ</span><span class="extra-info"></span
               ></label>
             </div>
             <div class="squaredFour have-label">
@@ -122,7 +122,7 @@
                     class="img-fluid"
                   />
                 </div>
-                <span>4 chỗ (Sedan)</span><span class="extra-info"></span
+                <span>4 chỗ</span><span class="extra-info"></span
               ></label>
             </div>
             <div class="squaredFour have-label">
@@ -135,7 +135,7 @@
                     class="img-fluid"
                   />
                 </div>
-                <span>4 chỗ (Hatchback)</span><span class="extra-info"></span
+                <span>5 chỗ</span><span class="extra-info"></span
               ></label>
             </div>
             <div class="squaredFour have-label">
@@ -148,7 +148,7 @@
                     class="img-fluid"
                   />
                 </div>
-                <span>5 chỗ (Gầm cao)</span><span class="extra-info"></span
+                <span>6 chỗ</span><span class="extra-info"></span
               ></label>
             </div>
             <div class="squaredFour have-label">
@@ -161,7 +161,7 @@
                     class="img-fluid"
                   />
                 </div>
-                <span>7 chỗ (Gầm cao)</span><span class="extra-info"></span
+                <span>7 chỗ</span><span class="extra-info"></span
               ></label>
             </div>
             <div class="squaredFour have-label">
@@ -174,20 +174,7 @@
                     class="img-fluid"
                   />
                 </div>
-                <span>7 chỗ (Gầm thấp)</span><span class="extra-info"></span
-              ></label>
-            </div>
-            <div class="squaredFour have-label">
-              <input type="checkbox" name="vt_7" id="vt_7" value="7" /><label
-                class="description"
-                for="vt_7"
-                ><div class="thumbnail" style="padding: 0.5rem">
-                  <img
-                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-pickup.png"
-                    class="img-fluid"
-                  />
-                </div>
-                <span>Bán tải</span><span class="extra-info"></span
+                <span>16 chỗ</span><span class="extra-info"></span
               ></label>
             </div>
           </div>
@@ -197,50 +184,56 @@
     <div class="col-8 ps-0">
       <div [hidden]="show" id="map" style="width: 100%; height: 100%"></div>
       <div [hidden]="!show" class="list-car">
-        <div class="row">
-          <div *ngFor="let car of cars" class="col-6 mb-3">
-            <a routerLink="/car/{{ car.id }}"
-              ><div class="item-car bg-white">
-                <div class="img-car">
-                  <img [src]="car.carImage[0]?.image" />
-                  <div class="item-car__detail">
-                    <div class="car-name">
-                      <h2>{{ car.name }} {{ car.yearOfManufacture }}</h2>
-                      <span>5.0</span>
-                      <span
-                        style="margin: 0 3px; color: #00a550"
-                        class="fa fa-star checked"
-                      ></span>
-                      <span>- 3 chuyến</span><br />
-                    </div>
-                  </div>
-                </div>
-                <div class="item-car__desc">
-                  <div class="car-gadgets">
-                    <div class="group-label">
-                      <div class="car-gadgets__item">Số tự động</div>
-                      <div class="car-gadgets__item">GPS</div>
-                      <div class="car-gadgets__item">Bluetooth</div>
-                    </div>
-                    <div class="location">
-                      <p>
-                        <i class="ic ic-sm-car-location"></i
-                        >{{
-                          car.location.name != null ? car.location.name : ""
-                        }}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="car-prices">
-                    <div class="price-special">
-                      {{ car.rentalPrice | moneyPipe }}
-                    </div>
-                  </div>
-                </div>
-              </div></a
-            >
-          </div>
+        <div *ngIf="loading; else carList">
+          <div class="loading-spinner"></div>
         </div>
+        <ng-template #carList>
+          <div class="row">
+            <div *ngIf="cars.length == 0">Không có xe</div>
+            <div *ngFor="let car of cars" class="col-6 mb-3">
+              <a routerLink="/car/{{ car.id }}"
+                ><div class="item-car bg-white">
+                  <div class="img-car">
+                    <img [src]="car.carImage[0]?.image" />
+                    <div class="item-car__detail">
+                      <div class="car-name">
+                        <h2>{{ car.name }} {{ car.yearOfManufacture }}</h2>
+                        <span>5.0</span>
+                        <span
+                          style="margin: 0 3px; color: #00a550"
+                          class="fa fa-star checked"
+                        ></span>
+                        <span>- 3 chuyến</span><br />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-car__desc">
+                    <div class="car-gadgets">
+                      <div class="group-label">
+                        <div class="car-gadgets__item">Số tự động</div>
+                        <div class="car-gadgets__item">GPS</div>
+                        <div class="car-gadgets__item">Bluetooth</div>
+                      </div>
+                      <div class="location">
+                        <p>
+                          <i class="ic ic-sm-car-location"></i
+                          >{{
+                            car.location.name != null ? car.location.name : ""
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="car-prices">
+                      <div class="price-special">
+                        {{ car.rentalPrice | moneyPipe }}
+                      </div>
+                    </div>
+                  </div>
+                </div></a
+              >
+            </div>
+          </div>
+        </ng-template>
       </div>
       <div class="tab-box">
         <a (click)="showClick()" *ngIf="show" class="map-view"

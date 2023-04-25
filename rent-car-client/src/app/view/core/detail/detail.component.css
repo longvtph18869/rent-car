@@ -36,7 +36,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 9998;
+  z-index: 15;
 }
 .func-remove-x {
   background: none;
@@ -284,4 +284,21 @@ pre {
 }
 .ic.ic-thunderbolt-wh {
   background-position: -96px -221px;
+}
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

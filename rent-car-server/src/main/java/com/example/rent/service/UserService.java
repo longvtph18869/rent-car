@@ -11,7 +11,33 @@ import com.example.rent.repositories.UserRepository;
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
-	
+	public UserDTO findById(int id) {
+		UserDTO dto;
+		User user = userRepository.findById(id);
+		if (user != null) {
+			dto = new UserDTO();
+			dto.setId(user.getId());
+			dto.setAvatar(user.getAvatar());
+			dto.setFullName(user.getFullName());
+			dto.setDateOfBirth(user.getDateOfBirth());
+			dto.setGender(user.isGender());
+			dto.setJoinDate(user.getJoinDate());
+			dto.setPhoneNumber(user.getPhoneNumber());
+			dto.setAddress(user.getAddress());
+			dto.setRole(user.getRole());
+			dto.setStatus(user.isStatus());
+			dto.setCars(user.getCar());
+			dto.setContract_user(user.getContract_user());
+			dto.setContract_owner(user.getContract_owner());
+			dto.setFeedback(user.getFeedback());
+			dto.setPayments(user.getPayments());
+			dto.setRentCar(user.getRentCar());
+			dto.setDrivingLicense(user.getDrivingLicense());
+			return dto;
+		}
+		return null;
+		
+	}
 //	public UserDTO saveOne(UserDTO dto) {
 //		if(dto != null){
 //			User user = null;

@@ -16,7 +16,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClientJsonpModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { DropdownModule } from 'primeng/dropdown';
 import { SliderModule } from 'primeng/slider';
 import { MoneyPipePipe } from './money-pipe.pipe';
@@ -41,7 +45,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RegisterComponent } from './view/register/register.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import {
   CloudinaryModule,
   CloudinaryConfiguration,
@@ -50,6 +54,10 @@ import { Cloudinary } from 'cloudinary-core';
 import { SeatPipe } from './seat.pipe';
 import { MenuBarComponent } from './view/menu-bar/menu-bar.component';
 import { ChangePasswordComponent } from './view/change-password/change-password.component';
+import { TokeninterceptorService } from './interceptor/tokeninterceptor.service';
+import { DialogSuccessComponent } from './dialog/success/success.component';
+import { DialogLoadingComponent } from './dialog/loading/loading.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +78,8 @@ import { ChangePasswordComponent } from './view/change-password/change-password.
     SeatPipe,
     MenuBarComponent,
     ChangePasswordComponent,
+    DialogSuccessComponent,
+    DialogLoadingComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {
@@ -104,6 +114,8 @@ import { ChangePasswordComponent } from './view/change-password/change-password.
     MatCardModule,
     ReactiveFormsModule,
     ToastModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],

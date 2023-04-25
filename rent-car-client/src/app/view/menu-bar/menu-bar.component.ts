@@ -5,17 +5,18 @@ import { AuthService } from 'src/app/service/auth.service';
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
-  styleUrls: ['./menu-bar.component.css']
+  styleUrls: ['./menu-bar.component.css'],
 })
 export class MenuBarComponent {
   visible: boolean = false;
 
-  constructor(private headerComponent: HeaderComponent,
-              private authService: AuthService
-    ) {}
+  constructor(
+    private headerComponent: HeaderComponent,
+    private authService: AuthService
+  ) {}
 
   logout() {
-    this.authService.setLoggedIn('false');
+    this.authService.logout();
     this.headerComponent.isLoggedIn = false;
   }
 

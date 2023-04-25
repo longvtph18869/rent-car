@@ -1,1 +1,108 @@
-<p>mycars works!</p>
+<div class="list-mycars">
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <div class="filter-trips">
+          <div class="content-filter">
+            <div class="rent-car">
+              <div class="line-form">
+                <label class="label">Trạng Thái </label>
+                <div class="wrap-select">
+                  <select>
+                    <option value="0">Tất cả</option>
+                    <option value="2">Đang hoạt động</option>
+                    <option value="1">Đang chờ duyệt</option>
+                    <option value="3">Đã bị từ chối</option>
+                    <option value="5">Đang tạm ngừng</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-9">
+        <div *ngFor="let car of mycars" class="listview-car">
+          <div class="card">
+            <div class="blog-widget row">
+              <div class="col-4">
+                <div class="blog-img">
+                  <a href="">
+                    <img
+                      [src]="car.carImages[0]"
+                      class="img-fluid"
+                      alt="blog-img"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div class="col-8">
+                <div class="blog-list-head d-flex">
+                  <div class="blog-list-title">
+                    <h3>{{ car.name }}</h3>
+                    <h6>{{ getManufacturerName(car.manufacturerId) }}</h6>
+                  </div>
+                  <div class="blog-list-rate">
+                    <div class="list-rating">
+                      <i class="fa fa-star filled"></i>
+                      <i class="fa fa-star filled"></i>
+                      <i class="fa fa-star filled"></i>
+                      <i class="fa fa-star filled"></i>
+                      <i class="fa fa-star filled"></i>
+                      <span>(5.0) - 3 chuyến</span>
+                    </div>
+                    <h6>{{ car.rentalPrice | moneyPipe }}<span>/ Day</span></h6>
+                  </div>
+                </div>
+                <div class="listing-details-group mb-3">
+                  <div class="car-gadgets">
+                    <div class="group-label">
+                      <div class="car-gadgets__item">Số tự động</div>
+                      <div class="car-gadgets__item">GPS</div>
+                      <div class="car-gadgets__item">Bluetooth</div>
+                      <div class="car-gadgets__item">Điều hòa</div>
+                      <div class="car-gadgets__item">Đèn pha tự động</div>
+                      <div class="car-gadgets__item">Hệ thống âm thanh</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="blog-list-head list-head-bottom d-flex">
+                  <div class="blog-list-title">
+                    <div class="address-info">
+                      <h6>
+                        <i class="fa fa-car me-2"></i>{{ car.licensePlates }}
+                      </h6>
+                      <h6>
+                        <i
+                          style="margin-right: 12px"
+                          class="fa fa-map-marker ms-1"
+                        ></i
+                        >{{ car.location }}
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="listing-button">
+                    <a href="" type="sumit" class="btn btn-order"
+                      ><span><i class="feather-calendar me-2"></i></span>Xem chi
+                      tiết</a
+                    >
+                  </div>
+                </div>
+                <h6
+                  style="
+                    font-style: italic;
+                    margin: 0;
+                    text-align: end;
+                    font-size: 12px;
+                  "
+                >
+                  đã thêm 3 ngày trước
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

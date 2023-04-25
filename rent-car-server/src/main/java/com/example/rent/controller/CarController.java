@@ -82,7 +82,7 @@ public class CarController {
 	 @PostMapping(value = "/registerCar")
 	 public ResponseEntity<Car> registerCar(@RequestBody CarDTO carDTO) {
 		 try {
-	        Car savedCar = carService.registeCar(carDTO);
+	        Car savedCar = carService.registerCar(carDTO);
 	        return ResponseEntity.ok().body(savedCar);
 		 } catch (Exception e) {
 		    	System.out.println(e);

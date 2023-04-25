@@ -6,23 +6,25 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService } from './service/auth.service';
-import { LoginComponent } from './view/login/login.component';
-import { Observable, map } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | boolean
-    | UrlTree
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
-    throw new Error('Method not implemented.');
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private location: Location
+  ) {}
+
+  canActivate(): boolean {
+    if (!this.authService.isLoggedIn()) {
+      const currentUrl = this.location.path();
+      this.router.navigate([currentUrl], { queryParams: { openLogin: true } });
+      return false;
+    }
+    return true;
   }
 }

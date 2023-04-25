@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { DialogLoadingComponent } from 'src/app/dialog/loading/loading.component';
+import { DialogSuccessComponent } from 'src/app/dialog/success/success.component';
+import { AuthService } from 'src/app/service/auth.service';
 import { CarService } from 'src/app/service/car.service';
 import { CloudinaryService } from 'src/app/service/cloudinary.service';
 declare const mapboxgl: any;
@@ -17,6 +22,8 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
   latitude: any;
   longitude: any;
   location: any;
+  dialogLoading: MatDialogRef<any> | undefined;
+  dialogSucces: MatDialogRef<any> | undefined;
   @ViewChild('mapContainer', { static: false }) mapContainer: any;
   yearList: number[] = [];
   form = this._formBuilder.group({
@@ -43,7 +50,10 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
     private _formBuilder: FormBuilder,
     private http: HttpClient,
     private CarService: CarService,
-    private cloudinaryService: CloudinaryService
+    private cloudinaryService: CloudinaryService,
+    private authService: AuthService,
+    private dialog: MatDialog,
+    private router: Router
   ) {
     const currentYear = new Date().getFullYear();
     for (let year = 1980; year <= currentYear; year++) {
@@ -129,29 +139,46 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
     console.log(this.images);
   }
   async onSubmit() {
-    const carImages = await this.cloudinaryService.uploadImages(this.imagesCar);
-    const carData = {
-      licensePlates: this.form.value.licensePlates,
-      name: this.form.value.name,
-      yearOfManufacture: this.form.value.yearOfManufacture,
-      color: this.form.value.color,
-      type: this.form.value.type,
-      rentalPrice: this.formSecond.value.rentalPrice,
-      description: this.form.value.description,
-      manufacturerId: this.form.value.manufacturerId,
-      location: this.location,
-      latitude: this.latitude,
-      longitude: this.longitude,
-      carImages: carImages,
-    };
-    console.log(carData);
-    this.CarService.resisterCar(carData).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
+    this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
+      disableClose: true,
     });
+    try {
+      this.authService.decodeToken();
+      const carImages = await this.cloudinaryService.uploadImages(
+        this.imagesCar
+      );
+      const carData = {
+        licensePlates: this.form.value.licensePlates,
+        name: this.form.value.name,
+        yearOfManufacture: this.form.value.yearOfManufacture,
+        color: this.form.value.color,
+        type: this.form.value.type,
+        rentalPrice: this.formSecond.value.rentalPrice,
+        description: this.form.value.description,
+        manufacturerId: this.form.value.manufacturerId,
+        location: this.location,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        carImages: carImages,
+        owner: this.authService.getUserId(),
+      };
+      console.log(carData);
+      this.CarService.resisterCar(carData).subscribe({
+        next: (res) => {
+          this.dialogSucces = this.dialog.open(DialogSuccessComponent, {
+            data: { message: 'Thêm xe thành công' },
+          });
+          this.dialogLoading?.close();
+          this.dialogSucces.afterClosed().subscribe(() => {
+            this.router.navigate(['mycars']);
+          });
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

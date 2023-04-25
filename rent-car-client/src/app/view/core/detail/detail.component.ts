@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
   minreturnDate: Date = new Date();
   diffDays: number = 0;
   sum: number = 0;
+  loading = true;
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -30,6 +31,7 @@ export class DetailComponent implements OnInit {
       this.carService.findCar(carId).subscribe({
         next: (res) => {
           this.car = res;
+          this.loading = false;
           this.onDateSelect(null);
         },
         error: (err) => {
@@ -55,5 +57,8 @@ export class DetailComponent implements OnInit {
     this.router.navigate(['/rent'], {
       queryParams: { rental: JSON.stringify(rental) },
     });
+  }
+  save(url: string) {
+    localStorage.setItem('redirectUrl', url);
   }
 }

@@ -1,0 +1,188 @@
+.list-mycars {
+  background-color: #e8eaef;
+  padding: 50px;
+  height: auto;
+}
+.filter-trips {
+  width: 100%;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  height: auto;
+  z-index: 2;
+  float: left;
+  background-color: #fff;
+  position: relative;
+}
+.rent-car {
+  background-color: #fff;
+  padding: 30px 30px 0;
+}
+.rent-car .line-form {
+  margin-bottom: 20px;
+}
+.filter-trips .rent-car .line-form .label {
+  font-weight: 700;
+}
+.rent-car .line-form label.label {
+  display: block;
+  margin-bottom: 10px;
+  color: #141414;
+  font-size: 0.875em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.wrap-select {
+  display: block;
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 45px;
+  border: 1px solid #e8eaef;
+}
+.wrap-select select {
+  color: #141414;
+  position: relative;
+  z-index: 2;
+  background-color: initial;
+  padding-right: 20px;
+  border: 0;
+  box-shadow: none;
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5385;
+  color: #333;
+  text-align: left;
+  background-color: #f5f5f5;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+.mb-50 {
+  margin-bottom: 50px;
+}
+
+.bg-teal-400 {
+  background-color: #26a69a;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.fa {
+  color: #00a550;
+}
+.listview-car .card {
+  margin-bottom: 24px;
+  padding: 20px;
+}
+.listview-car .card .blog-img {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  padding-bottom: 56.25%;
+  margin-right: 15px;
+  flex-shrink: 0.5;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.listview-car .card .blog-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  -webkit-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.listview-car .card .blog-img :hover img {
+  -webkit-transform: scale(1.15);
+  -moz-transform: scale(1.15);
+  transform: scale(1.15);
+  -webkit-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.blog-list-head {
+  margin-bottom: 15px;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+.blog-list-title h3 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.blog-list-title h6 {
+  font-size: 15px;
+  color: #737373;
+  font-weight: 400;
+  margin: 0;
+}
+.list-rating {
+  margin-bottom: 8px;
+}
+.blog-list-rate h6 {
+  text-align: end;
+  font-weight: 700;
+  font-size: 24px;
+  color: #00a550;
+}
+.blog-list-rate h6 span {
+  font-size: 14px;
+  font-weight: normal;
+  color: #828282;
+  margin-left: 7px;
+}
+.listing-details-group {
+  margin: 0 0 15px;
+  padding: 0 0 15px;
+  border-bottom: 1px solid #f4f4f4;
+}
+.car-gadgets__item {
+  font-size: 0.75rem;
+  color: #6e6e6e;
+  background: #e8eaef;
+  padding: 5px 8px 4px;
+  margin-right: 8px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  border-radius: 4px;
+  line-height: normal;
+}
+.group-label {
+  display: flex;
+  flex-wrap: wrap;
+}
+.listing-button .btn-order {
+  background: #201f1d;
+  color: #ffffff;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.listing-button .btn-order:hover {
+  background-color: #00a550 !important;
+  color: white;
+  border-radius: 5px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.blog-list-head.list-head-bottom {
+  margin: 0;
+  align-items: center;
+}

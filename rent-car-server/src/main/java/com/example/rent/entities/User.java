@@ -48,6 +48,7 @@ public class User {
 	@JoinColumn(name = "drivingLicense_id")
     private DrivingLicense drivingLicense;
     @OneToMany(mappedBy="user")
+    @JsonBackReference
     private List<Car> car;
     @OneToMany(mappedBy="user")
     private List<Contract> contract_user;

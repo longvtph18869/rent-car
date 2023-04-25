@@ -1,10 +1,15 @@
 package com.example.rent.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +24,9 @@ import com.example.rent.auth.AuthenticationRequest;
 import com.example.rent.auth.AuthenticationResponse;
 import com.example.rent.config.MyUserDetails;
 import com.example.rent.config.MyUserDetailsService;
+import com.example.rent.entities.Car;
+import com.example.rent.entities.User;
+import com.example.rent.repositories.UserRepository;
 import com.example.rent.service.UserService;
 import com.example.rent.token.JwtTokenProvider;
 
@@ -62,10 +70,20 @@ public class UserController {
 //		return new ResponseEntity<>(result, result != null? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 //	}
 	
-	@GetMapping("/{username}")
-	public ResponseEntity<UserDTO> getOne(@PathVariable String username) {
-		UserDTO result = userService.getByUserName(username);
-		return new ResponseEntity<>(result, result != null? HttpStatus.OK : HttpStatus.BAD_REQUEST);
-	}
+//	@GetMapping("/{username}")
+//	public ResponseEntity<UserDTO> getOne(@PathVariable String username) {
+//		UserDTO result = userService.getByUserName(username);
+//		return new ResponseEntity<>(result, result != null? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+//	}
+	@GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable int id) {
+        try {
+        	UserDTO result = userService.findById(id);
+	        return ResponseEntity.ok().body(result);
+	    } catch (Exception e) {
+	    	System.out.println(e);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+    }
 	
 }

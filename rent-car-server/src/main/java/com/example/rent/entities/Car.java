@@ -57,6 +57,7 @@ public class Car {
 	private boolean status;
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
+	@JsonManagedReference
 	private User user;
 	@ManyToOne
 	@JoinColumn(name = "manufacturer_id")

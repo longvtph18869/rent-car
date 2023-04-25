@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     private cookieService: CookieService,
     private userService: UserService,
     private messageService: MessageService,
-    private headerComponent: HeaderComponent
+    private headerComponent: HeaderComponent,
+    private router: Router
   ) {}
   ngOnInit(): void {}
 
@@ -37,13 +39,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit(event: Event) {
     event.preventDefault();
-    this.loginService.login(this.account).subscribe({
+    this.authService.login(this.account).subscribe({
       next: (res) => {
         this.loginSuccess.emit(true);
-        this.token = res.tokenType + ' ' + res.accessToken;
-        this.authService.saveToken(this.token);
-        this.authService.setLoggedIn('true');
-        this.headerComponent.isLoggedIn = true;
+        const redirectUrl = localStorage.getItem('redirectUrl');
+        if (redirectUrl != null) {
+          this.router.navigateByUrl(redirectUrl);
+        }
       },
       error: () => {
         this.messageService.add({
@@ -52,19 +54,6 @@ export class LoginComponent implements OnInit {
           detail: 'Vui lòng kiểm tra lại thông tin đăng nhập và mật khẩu!',
         });
       },
-    });
-
-    this.userService.getUserByUserName(this.account.username).subscribe({
-      next: (res) => {
-        this.user = {
-          avatar: res.avatar,
-          fullName: res.fullName
-        };
-        localStorage.setItem('user', JSON.stringify(this.user));
-      },
-      error: (err) => {
-        console.log(err);
-      }
     });
   }
 }

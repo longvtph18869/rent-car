@@ -20,6 +20,7 @@ export class PageComponent implements OnInit {
   prices: number[] = [0, 100];
   show: boolean = true;
   map: any;
+  loading = true;
   constructor(
     private http: HttpClient,
     private carService: CarService,
@@ -59,11 +60,13 @@ export class PageComponent implements OnInit {
     geocoder.on('result', (ev) => {
       const latitude = ev.result.center[1];
       const longitude = ev.result.center[0];
+      this.loading = true;
       this.carService
         .filter(latitude, longitude, this.pickupDate, this.returnDate)
         .subscribe({
           next: (res) => {
             this.cars = res;
+            this.loading = false;
             console.log(this.cars);
           },
           error: (err) => {
@@ -75,6 +78,7 @@ export class PageComponent implements OnInit {
     this.carService.getAllCars().subscribe({
       next: (res) => {
         this.cars = res;
+        this.loading = false;
         console.log(this.cars);
         this.cars.forEach((car) => {
           const el = document.createElement('div');

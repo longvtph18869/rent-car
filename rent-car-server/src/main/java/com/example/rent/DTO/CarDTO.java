@@ -23,6 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CarDTO {
+	private int id;
 	@NotBlank
     private String licensePlates;
     @NotBlank
@@ -47,5 +48,7 @@ public class CarDTO {
     private double longitude;
 	@NotEmpty
     private List<String> carImages;
+	
+	private int owner ;
 
 }
