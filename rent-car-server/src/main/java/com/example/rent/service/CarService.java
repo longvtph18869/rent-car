@@ -70,6 +70,7 @@ public class CarService {
 			carDTO.setName(car.getName());
 			carDTO.setLocation(car.getLocation().getName());
 			carDTO.setOwner(car.getUser().getId());
+			carDTO.setStatus(car.getStatus());
 			List<String> carImages = new ArrayList<>();
 			for (CarImage image : car.getCarImage()) {
 				carImages.add(image.getImage());
@@ -98,7 +99,7 @@ public class CarService {
 			car.setType(convertToCarType(carDTO.getType()));
 			car.setRentalPrice(carDTO.getRentalPrice());
 			car.setDescription(carDTO.getDescription());
-			car.setStatus(false);
+			car.setStatus(1);
 			car.setUser(userRepository.findById(carDTO.getOwner()));
 			car.setManufacturer(manufacturerRepository.findById(carDTO.getManufacturerId())
 					.orElseThrow(() -> new NotFoundException()));

@@ -82,12 +82,18 @@ a {
 }
 .listview-car .card {
   margin-bottom: 24px;
-  padding: 20px;
+  padding: 25px;
+  position: relative;
+}
+.listview-car .card .funtion {
+  position: absolute;
+  top: 7px;
+  right: 5px;
 }
 .listview-car .card .blog-img {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 250px;
   padding-bottom: 56.25%;
   margin-right: 15px;
   flex-shrink: 0.5;
@@ -125,7 +131,7 @@ a {
   margin-bottom: 5px;
 }
 .blog-list-title h6 {
-  font-size: 15px;
+  font-size: 13px;
   color: #737373;
   font-weight: 400;
   margin: 0;
@@ -185,4 +191,28 @@ a {
 .blog-list-head.list-head-bottom {
   margin: 0;
   align-items: center;
+}
+::ng-deep .p-menu.p-menu-overlay {
+  top: 15px !important;
+  left: 8px !important;
+}
+::ng-deep .p-menu {
+  width: auto !important;
+}
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

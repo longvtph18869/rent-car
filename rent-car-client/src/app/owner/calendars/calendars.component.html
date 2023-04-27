@@ -1,1 +1,138 @@
-<p>calendars works!</p>
+<div class="container p-5">
+  <div class="row">
+    <div class="col-3">
+      <div class="filter-map-container form-default">
+        <div class="line-form">
+          <div class="wrap-input has-ico-search">
+            <i class="ic ic-search"></i
+            ><input
+              type="text"
+              placeholder="Lọc theo tên hoặc biển số"
+              #searchInput
+              (input)="handleSearch(searchInput.value)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="row">
+        <div class="col-6">
+          <label>
+            <input type="radio" name="radio" checked />
+            <span>Thiết lập lịch xe</span>
+          </label>
+          <label>
+            <input type="radio" name="radio" />
+            <span>Chọn theo tháng</span>
+          </label>
+        </div>
+        <div class="col-6">
+          <ul class="list-status">
+            <li class="status-1"><span>Ngày trống </span></li>
+            <li class="status-5"><span>Ngày đã đặt</span></li>
+            <li class="status-3"><span>Ngày sẵn sàng</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <div class="flex justify-content-center">
+        <p-listbox
+          [options]="filteredCars"
+          [(ngModel)]="selectedCar"
+          optionLabel="name"
+          [listStyle]="{ 'max-height': '250px' }"
+          [style]="{ width: '15rem' }"
+          (onChange)="onCarChange($event)"
+        >
+          <ng-template let-car pTemplate="item">
+            <div class="row">
+              <div class="col-6">
+                <div class="blog-img">
+                  <img
+                    [src]="car.carImages[0]"
+                    class="img-fluid"
+                    alt="blog-img"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="blog-list-title">
+                  <h6>{{ car.name }}</h6>
+                </div>
+                <div class="price-special">
+                  {{ car.rentalPrice | moneyPipe }}
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-listbox>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="calendar-container">
+        <div class="calendar-header row">
+          <button
+            style="padding-right: 100px"
+            class="col-3"
+            (click)="previousMonth()"
+          >
+            &lt;
+          </button>
+          <div class="col-6">
+            <h1>
+              {{ month }}
+              <button (click)="toggleYearDropdown()">▾</button>
+            </h1>
+            <p>{{ year }}</p>
+            <div class="year-dropdown" *ngIf="yearDropdownVisible">
+              <div *ngFor="let y of years" (click)="selectYear(y)">
+                {{ y }}
+              </div>
+            </div>
+          </div>
+          <button
+            style="padding-left: 100px"
+            class="col-3"
+            (click)="nextMonth()"
+          >
+            &gt;
+          </button>
+        </div>
+        <div class="calendar">
+          <span class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</span>
+          <div
+            class="day"
+            *ngFor="let day of calendarDays"
+            [ngClass]="{
+              'day--disabled': !day,
+              'day--rent': isDayRented(day),
+            }"
+            (click)="onDayClick(day)"
+          >
+            {{ day }}
+            <h3 *ngIf="isDayRented(day)" class="price-speciall">
+              {{ selectedCar.rentalPrice | moneyPipe }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-10"></div>
+      <div class="col-2">
+        <button
+          (click)="saveSchedule()"
+          class="btn btn-success btn--m text-white"
+          style="width: 100%"
+        >
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

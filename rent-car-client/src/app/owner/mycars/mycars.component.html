@@ -8,12 +8,12 @@
               <div class="line-form">
                 <label class="label">Trạng Thái </label>
                 <div class="wrap-select">
-                  <select>
-                    <option value="0">Tất cả</option>
-                    <option value="2">Đang hoạt động</option>
-                    <option value="1">Đang chờ duyệt</option>
-                    <option value="3">Đã bị từ chối</option>
-                    <option value="5">Đang tạm ngừng</option>
+                  <select (change)="filterCarsByStatus($event)">
+                    <option value="4">Tất cả</option>
+                    <option value="1">Đang hoạt động</option>
+                    <option value="0">Đang chờ duyệt</option>
+                    <option value="2">Đã bị từ chối</option>
+                    <option value="3">Đang tạm ngừng</option>
                   </select>
                 </div>
               </div>
@@ -22,8 +22,17 @@
         </div>
       </div>
       <div class="col-9">
-        <div *ngFor="let car of mycars" class="listview-car">
+        <div *ngIf="displayCars.length == 0">Chưa có xe nào</div>
+        <div *ngFor="let car of displayCars" class="listview-car">
           <div class="card">
+            <div class="funtion">
+              <p-menu #menu [model]="funtions" [popup]="true"></p-menu>
+              <i
+                (click)="menu.toggle($event)"
+                class="pi pi-ellipsis-v"
+                style="cursor: pointer"
+              ></i>
+            </div>
             <div class="blog-widget row">
               <div class="col-4">
                 <div class="blog-img">
@@ -82,10 +91,16 @@
                     </div>
                   </div>
                   <div class="listing-button">
-                    <a href="" type="sumit" class="btn btn-order"
-                      ><span><i class="feather-calendar me-2"></i></span>Xem chi
-                      tiết</a
-                    >
+                    <p-button
+                      *ngIf="car.status == 0"
+                      label="Đang chờ duyệt"
+                      styleClass="p-button-danger"
+                    ></p-button>
+                    <p-button
+                      *ngIf="car.status == 1"
+                      label="Đang hoạt động"
+                      styleClass="p-button-success"
+                    ></p-button>
                   </div>
                 </div>
                 <h6

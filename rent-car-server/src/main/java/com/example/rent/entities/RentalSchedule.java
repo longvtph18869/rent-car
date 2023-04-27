@@ -1,7 +1,6 @@
-// Generated with g9.
-
 package com.example.rent.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -12,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name = "rental_schedule")
 public class RentalSchedule {
 	@Id
@@ -19,20 +20,22 @@ public class RentalSchedule {
 	@Column(unique = true, nullable = false, precision = 10)
 	private int id;
 	@Column(name = "start_date")
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	@Column(name = "end_date")
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 	@Column(name = "is_available", length = 1)
 	private boolean isAvailable;
 	@ManyToOne
 	@JoinColumn(name = "car_id")
+	@JsonBackReference
 	private Car car;
 
 	public RentalSchedule() {
 		super();
 	}
 
-	public RentalSchedule(int id, LocalDateTime startDate, LocalDateTime endDate, boolean isAvailable, Car car) {
+
+	public RentalSchedule(int id, LocalDate startDate, LocalDate endDate, boolean isAvailable, Car car) {
 		super();
 		this.id = id;
 		this.startDate = startDate;
@@ -40,6 +43,7 @@ public class RentalSchedule {
 		this.isAvailable = isAvailable;
 		this.car = car;
 	}
+
 
 	public int getId() {
 		return id;
@@ -49,21 +53,27 @@ public class RentalSchedule {
 		this.id = id;
 	}
 
-	public LocalDateTime getStartDate() {
+	
+
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
+
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDateTime getEndDate() {
+
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDateTime endDate) {
+
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+
 
 	public boolean isAvailable() {
 		return isAvailable;

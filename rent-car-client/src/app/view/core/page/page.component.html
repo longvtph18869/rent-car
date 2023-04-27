@@ -185,7 +185,12 @@
       <div [hidden]="show" id="map" style="width: 100%; height: 100%"></div>
       <div [hidden]="!show" class="list-car">
         <div *ngIf="loading; else carList">
-          <div class="loading-spinner"></div>
+          <p-progressSpinner
+            styleClass="w-4rem h-4rem"
+            strokeWidth="4"
+            fill="var(--surface-ground)"
+            animationDuration="1s"
+          ></p-progressSpinner>
         </div>
         <ng-template #carList>
           <div class="row">

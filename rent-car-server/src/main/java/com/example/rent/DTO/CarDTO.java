@@ -49,6 +49,7 @@ public class CarDTO {
 	@NotEmpty
     private List<String> carImages;
 	
+	private int status;
 	private int owner ;
 
 }

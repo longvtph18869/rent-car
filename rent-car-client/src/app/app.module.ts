@@ -58,6 +58,9 @@ import { TokeninterceptorService } from './interceptor/tokeninterceptor.service'
 import { DialogSuccessComponent } from './dialog/success/success.component';
 import { DialogLoadingComponent } from './dialog/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MenuModule } from 'primeng/menu';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ListboxModule } from 'primeng/listbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,6 +119,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ToastModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MenuModule,
+    ProgressSpinnerModule,
+    ListboxModule,
   ],
   providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],

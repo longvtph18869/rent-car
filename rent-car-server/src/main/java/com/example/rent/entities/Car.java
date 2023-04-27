@@ -54,7 +54,7 @@ public class Car {
 	@Column(length = 65535,columnDefinition = "varchar(65535) CHARACTER SET utf8")
 	private String description;
 	@Column(length = 1)
-	private boolean status;
+	private int status;
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
 	@JsonManagedReference
@@ -72,6 +72,7 @@ public class Car {
 	@OneToMany(mappedBy = "car")
 	private List<Contract> contract;
 	@OneToMany(mappedBy = "car")
+	@JsonManagedReference 
 	private List<RentalSchedule> rentalSchedule;
 	@OneToMany(mappedBy = "car")
 	private List<RentCar> rentCar;
