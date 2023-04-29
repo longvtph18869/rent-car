@@ -23,7 +23,7 @@ public class SecurityConfig {
 
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
-	
+
 	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(myUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
@@ -34,12 +34,12 @@ public class SecurityConfig {
 			throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/user/**","/car/**","/find/**","/owner/**", "/user/**","/payment","/schedule/**").permitAll().anyRequest()
-				.authenticated().and().exceptionHandling().and().sessionManagement()
+				.antMatchers("/car/**", "/find/**", "/owner/**", "/user/**", "/payment", "/schedule/**").permitAll()
+				.anyRequest().authenticated().and().exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();

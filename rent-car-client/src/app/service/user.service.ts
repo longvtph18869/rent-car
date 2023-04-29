@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 @Injectable({
@@ -10,5 +10,18 @@ export class UserService {
 
   getUserByUserName(username: string): Observable<any> {
     return this.http.get<any>(environment.apiUrl + '/user/' + username);
+  }
+
+  resisterUser(user: any): Observable<any> {
+    return this.http.post(environment.apiUrl + '/user/register', user);
+  }
+
+  checkUserNameWasUsed(user: any): Observable<any> {
+    return this.http.post(environment.apiUrl + '/user/check/usernameWasUsed', user);
+  }
+
+  changePassword(id: number, changePasswordRequest: any): Observable<any> {
+    const params = new HttpParams().set('id', id);
+    return this.http.post(environment.apiUrl + '/user/changePassword', changePasswordRequest, { params });
   }
 }

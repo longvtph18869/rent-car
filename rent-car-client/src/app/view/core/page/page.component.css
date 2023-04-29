@@ -335,7 +335,7 @@ body {
 }
 .ic {
   display: inline-block;
-  background-image: url(https://www.mioto.vn/static/media/main_sprites.a58f006e.png);
+  background-image: url(../../../../assets/image/main_sprites.a58f006e.png);
   background-repeat: no-repeat;
   background-size: 400px 400px;
   width: 24px;

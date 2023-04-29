@@ -4,7 +4,7 @@
   style="min-width: 10vw"
 >
   <ul>
-    <li><a href="/account">Tài khoản</a></li>
+    <li><a routerLink="/account">Tài khoản</a></li>
     <li><a routerLink="owner/myfavs">Xe yêu thích</a></li>
     <li><a routerLink="owner/mycars">Xe cho thuê</a></li>
     <li>
@@ -12,7 +12,7 @@
     </li>
     <li><a href="/myaddress">Địa chỉ của tôi</a></li>
     <li><a href="/mycard">Thẻ của tôi </a></li>
-    <li><a (click)="showChangePasswordDialog()">Đổi mật khẩu</a></li>
+    <li><a (click)="changePassword($event)">Đổi mật khẩu</a></li>
     <li><a (click)="logout()">Đăng xuất</a></li>
   </ul>
 </div>
@@ -29,5 +29,5 @@
     'overflow-x': 'hidden'
   }"
 >
-  <app-change-password></app-change-password>
+  <app-change-password (click)="onClickChangePassword($event)"></app-change-password>
 </p-dialog>

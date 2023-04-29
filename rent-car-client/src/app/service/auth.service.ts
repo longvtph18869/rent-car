@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import jwt_decode from 'jwt-decode';
+import { Token } from '@angular/compiler';
+import { User } from '../user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +17,9 @@ export class AuthService {
   private accessToken: string | null = null;
   private tokenType = 'Bearer';
   private decodedToken: any;
+  private readonly userSubject = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(loginRequest: any) {
     return this.http
@@ -46,6 +51,9 @@ export class AuthService {
 
   public logout() {
     this.deleteTokens();
+    localStorage.removeItem('redirectUrl');
+    this.router.navigate(['/']);
+    this.decodedToken = null;
   }
 
   private deleteJwtToken() {
@@ -55,19 +63,28 @@ export class AuthService {
   private deleteTokens() {
     this.deleteJwtToken();
   }
+
   decodeToken(): void {
     const token = this.getJwtToken();
     if (token) {
       this.decodedToken = jwt_decode(token);
     }
   }
+
   getUserId() {
     this.decodeToken();
     return this.decodedToken.sub;
   }
-  getUser(): Observable<any> {
+
+  getUser(): Observable<User> {
     this.decodeToken();
     const id = this.decodedToken.sub;
-    return this.http.get(environment.apiUrl + '/user/' + id);
+    return this.http.get<User>(environment.apiUrl + '/user/' + id).pipe(
+      tap(user => this.userSubject.next(user))
+    );
+  }
+
+  getUserValue(): User | null {
+    return this.userSubject.value;
   }
 }

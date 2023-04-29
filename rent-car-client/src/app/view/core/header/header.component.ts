@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener  } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { MenuItem } from 'primeng/api';
@@ -29,28 +29,26 @@ export class HeaderComponent implements OnInit {
         this.showLoginDialog();
       }
     });
-    this.user = this.authService.getUser().subscribe({
-      next: (res) => {
-        this.user = res;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+
+    if(this.isLoggedIn) {
+      this.user = this.authService.getUser().subscribe({
+        next: (res) => {
+          this.user = res;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
-  // ngAfterContentChecked() {
-  //   this.authService.getUser().subscribe(
-  //     (user: any) => {
-  //       this.user = user;
-  //       console.log(user);
-  //     },
-  //     (error: any) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
-  ngAfterViewChecked() {
-    this.isLoggedIn = this.authService.isLoggedIn();
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const isDropDownMenuButton = target.matches('#dropdownMenuButton');
+    if (!isDropDownMenuButton) {
+      this.isShow = false;
+    }
   }
 
   showLoginDialog() {
@@ -63,6 +61,16 @@ export class HeaderComponent implements OnInit {
 
   onLoginSuccess(success: boolean) {
     this.loginDialogVisible = !success;
+    this.isLoggedIn = this.authService.isLoggedIn();
+    console.log(this.authService.getUserValue());
+    this.user = this.authService.getUser().subscribe({
+      next: (res) => {
+        this.user = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   onDisplayRegisterDialog(show: boolean) {

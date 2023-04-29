@@ -61,6 +61,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MenuModule } from 'primeng/menu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ListboxModule } from 'primeng/listbox';
+import { AccountComponent } from './view/account/account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +84,7 @@ import { ListboxModule } from 'primeng/listbox';
     ChangePasswordComponent,
     DialogSuccessComponent,
     DialogLoadingComponent,
+    AccountComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {
