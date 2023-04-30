@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,11 +33,10 @@ public class CarController {
 	@Autowired
 	CarService carService;
 	@GetMapping("/{id}")
-	public ResponseEntity<Car> findById(@PathVariable Integer id) {
+	public ResponseEntity<CarDTO> findById(@PathVariable Integer id) {
 	    try {
-	        Optional<Car> optional= carService.findByID(id);
-	        Car car = optional.get();
-	        return ResponseEntity.ok().body(car);
+	        CarDTO carDTO= carService.findByID(id);
+	        return ResponseEntity.ok().body(carDTO);
 	    } catch (Exception e) {
 	    	System.out.println(e);
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -88,5 +88,24 @@ public class CarController {
 		    	System.out.println(e);
 		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		    }
+	    }
+	 @PutMapping(value = "/updateCar")
+	 public ResponseEntity<Car> updateCar(@RequestBody CarDTO carDTO) {
+		 try {
+	        Car savedCar = carService.updateCar(carDTO);
+	        return ResponseEntity.ok().body(savedCar);
+		 } catch (Exception e) {
+		    	System.out.println(e);
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		    }
+	    }
+	 @PutMapping("/{id}")
+	    public ResponseEntity<Car> updateCarStatus(@PathVariable int id, @RequestParam("status") Integer status) {
+	        try {
+	            Car updatedCar = carService.updateCarStatus(id, status);
+	            return ResponseEntity.ok(updatedCar);
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
 	    }
 }

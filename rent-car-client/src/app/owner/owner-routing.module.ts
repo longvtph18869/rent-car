@@ -4,9 +4,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { CalendarsComponent } from './calendars/calendars.component';
 import { RegisterCarComponent } from './register-car/register-car.component';
 import { AuthGuard } from '../auth.guard';
+import { MyCarDetailComponent } from './my-car-detail/my-car-detail.component';
 
 const routes: Routes = [
-  { path: 'mycars', component: MycarsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'mycars',
+    component: MycarsComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: ':id',
+        component: MyCarDetailComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
   {
     path: 'calendars',
     component: CalendarsComponent,

@@ -29,15 +29,15 @@
           <div class="col-7">
             <div class="car-image">
               <p-carousel
-                [value]="car.carImage"
+                [value]="car.carImages"
                 [numVisible]="1"
                 [numScroll]="1"
                 [circular]="true"
                 [autoplayInterval]="3000"
               >
-                <ng-template let-car pTemplate="item">
+                <ng-template let-image pTemplate="item">
                   <div class="fix-img">
-                    <img class="carousel-img" [src]="car.image" />
+                    <img class="carousel-img" [src]="image" />
                   </div>
                 </ng-template>
               </p-carousel>
@@ -50,7 +50,7 @@
                     <ul class="features">
                       <li>
                         <i class="ic ic-chair"></i> Số ghế:
-                        {{ car.type | seat }}
+                        {{ car.type }}
                       </li>
                       <li>
                         <span

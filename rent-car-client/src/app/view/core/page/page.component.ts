@@ -12,26 +12,71 @@ declare const mapboxgl: any;
 })
 export class PageComponent implements OnInit {
   cars: any[] = [];
+  filteredCars: any[] = [];
   pickupDate: Date = new Date();
   minpickupDate: Date = new Date();
   returnDate: Date = new Date();
   minreturnDate: Date = new Date();
-  sorts!: any[];
+  sorts: any[] = [];
   prices: number[] = [0, 100];
   show: boolean = true;
   map: any;
   loading = true;
+  selectedSort: any;
+  selectedTwoSeater = false;
+  selectedFourSeater = false;
+  selectedFiveSeater = false;
+  selectedSixSeater = false;
+  selectedSevenSeater = false;
+  selectedSixteenSeater = false;
+  vehicles = [
+    {
+      id: 'vt_3',
+      name: 'vt_3',
+      seats: 2,
+      imageUrl: 'https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-mini.png',
+    },
+    {
+      id: 'vt_1',
+      name: 'vt_1',
+      seats: 4,
+      imageUrl: 'https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-sedan.png',
+    },
+    {
+      id: 'vt_4',
+      name: 'vt_4',
+      seats: 5,
+      imageUrl: 'https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-hatchback.png',
+    },
+    {
+      id: 'vt_5',
+      name: 'vt_5',
+      seats: 6,
+      imageUrl: 'https://n1-cstg.mioto.vn/m/vehicle-types/mf-5-suv.png',
+    },
+    {
+      id: 'vt_2',
+      name: 'vt_2',
+      seats: 7,
+      imageUrl: 'https://n1-cstg.mioto.vn/m/vehicle-types/mf-7-suv.png',
+    },
+    {
+      id: 'vt_6',
+      name: 'vt_6',
+      seats: 16,
+      imageUrl: 'https://n1-cstg.mioto.vn/m/vehicle-types/mf-7-mpv.png',
+    },
+  ];
+
   constructor(
-    private http: HttpClient,
     private carService: CarService,
-    private router: Router,
     private moneyPipe: MoneyPipePipe
   ) {
     this.sorts = [
-      { name: 'Khoảng cách gần nhất', code: 1 },
-      { name: 'Giá thấp nhất', code: 2 },
-      { name: 'Giá cao nhất', code: 3 },
-      { name: 'Đánh giá tốt nhất', code: 4 },
+      { name: 'Khoảng cách gần nhất', value: 1 },
+      { name: 'Giá thấp nhất', value: 2 },
+      { name: 'Giá cao nhất', value: 3 },
+      { name: 'Đánh giá tốt nhất', value: 4 },
     ];
   }
   ngOnInit(): void {
@@ -66,6 +111,7 @@ export class PageComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.cars = res;
+            this.filteredCars = this.cars;
             this.loading = false;
             console.log(this.cars);
           },
@@ -78,6 +124,7 @@ export class PageComponent implements OnInit {
     this.carService.getAllCars().subscribe({
       next: (res) => {
         this.cars = res;
+        this.filteredCars = this.cars;
         this.loading = false;
         console.log(this.cars);
         this.cars.forEach((car) => {
@@ -108,7 +155,7 @@ export class PageComponent implements OnInit {
                   <img
                     width="100px"
                     height="100%"
-                    src="${car.carImage[0]?.image}"
+                    src="${car.carImages[0]}"
                     alt=""
                   />
                 </div>
@@ -131,7 +178,7 @@ export class PageComponent implements OnInit {
           );
 
           const marker = new mapboxgl.Marker(el)
-            .setLngLat([car.location.longitude, car.location.latitude])
+            .setLngLat([car.longitude, car.latitude])
             .setPopup(popup)
             .addTo(this.map);
           // popup.getElement().addEventListener('click', () => {
@@ -150,7 +197,66 @@ export class PageComponent implements OnInit {
   visible: boolean = false;
 
   showDialog(car: any) {
-    console.log(car);
     this.visible = true;
+  }
+
+  onSort() {
+    if (this.selectedSort != null) {
+      switch (this.selectedSort.value) {
+        case 1:
+          break;
+        case 2:
+          this.filteredCars.sort((a, b) => a.rentalPrice - b.rentalPrice);
+          break;
+        case 3:
+          this.filteredCars.sort((a, b) => b.rentalPrice - a.rentalPrice);
+          break;
+        case 4:
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  onClearSort() {
+    this.selectedSort = null;
+    this.onSort();
+  }
+  onPriceChange() {
+    const minPrice = this.prices[0] * 30000;
+    const maxPrice = this.prices[1] * 30000;
+    this.filteredCars = this.cars.filter(
+      (car) => car.rentalPrice >= minPrice && car.rentalPrice <= maxPrice
+    );
+  }
+  filterVehicles() {
+    const selectedVehicleTypes: number[] = [];
+    if (this.selectedTwoSeater) {
+      selectedVehicleTypes.push(2);
+    }
+    if (this.selectedFourSeater) {
+      selectedVehicleTypes.push(4);
+    }
+    if (this.selectedFiveSeater) {
+      selectedVehicleTypes.push(5);
+    }
+    if (this.selectedSixSeater) {
+      selectedVehicleTypes.push(6);
+    }
+    if (this.selectedSevenSeater) {
+      selectedVehicleTypes.push(7);
+    }
+    if (this.selectedSixteenSeater) {
+      selectedVehicleTypes.push(16);
+    }
+    this.onPriceChange();
+    this.onSort();
+    if (selectedVehicleTypes.length === 0) {
+      this.filteredCars = this.filteredCars;
+    } else {
+      this.filteredCars = this.filteredCars.filter((car) =>
+        selectedVehicleTypes.includes(car.type)
+      );
+    }
   }
 }

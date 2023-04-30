@@ -35,12 +35,58 @@ public class CarService {
 	@Autowired
 	CarImageRepository carImageRepository;
 
-	public List<Car> getAllCar() {
-		return carRepository.findAll();
+	public List<CarDTO> getAllCar() {
+		List<Car> cars = carRepository.findAll();
+		List<CarDTO> carDTOs = new ArrayList<>();
+		for (Car car : cars) {
+			CarDTO carDTO = new CarDTO();
+			carDTO.setId(car.getId());
+			carDTO.setLicensePlates(car.getLicensePlates());
+			carDTO.setColor(car.getColor());
+			carDTO.setDescription(car.getDescription());
+			carDTO.setLatitude(car.getLocation().getLatitude());
+			carDTO.setLongitude(car.getLocation().getLongitude());
+			carDTO.setManufacturerId(car.getManufacturer().getId());
+			carDTO.setName(car.getName());
+			carDTO.setLocation(car.getLocation().getName());
+			carDTO.setOwner(car.getUser().getId());
+			carDTO.setType(car.getType().getValue());
+			carDTO.setStatus(car.getStatus());
+			List<String> carImages = new ArrayList<>();
+			for (CarImage image : car.getCarImage()) {
+				carImages.add(image.getImage());
+			}
+			carDTO.setRentalPrice(car.getRentalPrice());
+			carDTO.setYearOfManufacture(car.getYearOfManufacture());
+			carDTO.setCarImages(carImages);
+			carDTOs.add(carDTO);
+		}
+		return carDTOs;
 	}
 
-	public Optional<Car> findByID(int id) {
-		return carRepository.findById(id);
+	public CarDTO findByID(int id) {
+		Optional<Car> car= carRepository.findById(id);
+		CarDTO carDTO = new CarDTO();
+		carDTO.setId(car.get().getId());
+		carDTO.setLicensePlates(car.get().getLicensePlates());
+		carDTO.setColor(car.get().getColor());
+		carDTO.setDescription(car.get().getDescription());
+		carDTO.setLatitude(car.get().getLocation().getLatitude());
+		carDTO.setLongitude(car.get().getLocation().getLongitude());
+		carDTO.setManufacturerId(car.get().getManufacturer().getId());
+		carDTO.setName(car.get().getName());
+		carDTO.setLocation(car.get().getLocation().getName());
+		carDTO.setOwner(car.get().getUser().getId());
+		carDTO.setType(car.get().getType().getValue());
+		carDTO.setStatus(car.get().getStatus());
+		List<String> carImages = new ArrayList<>();
+		for (CarImage image : car.get().getCarImage()) {
+			carImages.add(image.getImage());
+		}
+		carDTO.setRentalPrice(car.get().getRentalPrice());
+		carDTO.setYearOfManufacture(car.get().getYearOfManufacture());
+		carDTO.setCarImages(carImages);
+		return carDTO;
 	}
 
 	public List<Car> filter(String latitude, String longitude) {
@@ -70,6 +116,7 @@ public class CarService {
 			carDTO.setName(car.getName());
 			carDTO.setLocation(car.getLocation().getName());
 			carDTO.setOwner(car.getUser().getId());
+			carDTO.setType(car.getType().getValue());
 			carDTO.setStatus(car.getStatus());
 			List<String> carImages = new ArrayList<>();
 			for (CarImage image : car.getCarImage()) {
@@ -90,7 +137,6 @@ public class CarService {
 	@Transactional(rollbackFor = Exception.class)
 	public Car registerCar(CarDTO carDTO) throws Exception {
 		try {
-			// Thực hiện các thao tác trên cơ sở dữ liệu trong một transaction
 			Car car = new Car();
 			car.setLicensePlates(carDTO.getLicensePlates());
 			car.setName(carDTO.getName());
@@ -126,6 +172,53 @@ public class CarService {
 		}
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	public Car updateCar(CarDTO carDTO) throws Exception {
+	    try {
+	        Car car = carRepository.findById(carDTO.getId())
+	                .orElseThrow(() -> new NotFoundException());
+	        car.setLicensePlates(carDTO.getLicensePlates());
+	        car.setName(carDTO.getName());
+	        car.setYearOfManufacture(carDTO.getYearOfManufacture());
+	        car.setColor(carDTO.getColor());
+	        car.setType(convertToCarType(carDTO.getType()));
+	        car.setRentalPrice(carDTO.getRentalPrice());
+	        car.setDescription(carDTO.getDescription());
+	        car.setStatus(carDTO.getStatus());
+	        car.setUser(userRepository.findById(carDTO.getOwner()));
+	        car.setManufacturer(manufacturerRepository.findById(carDTO.getManufacturerId())
+	                .orElseThrow(() -> new NotFoundException()));
+	        carRepository.save(car);
+	        Location location = car.getLocation();
+	        location.setName(carDTO.getLocation());
+	        location.setLatitude(carDTO.getLatitude());
+	        location.setLongitude(carDTO.getLongitude());
+	        locationRepository.save(location);
+	        List<CarImage> carImages = new ArrayList<>();
+	        for (String carImage : carDTO.getCarImages()) {
+	            CarImage carImageNew = new CarImage();
+	            carImageNew.setImage(carImage);
+	            carImageNew.setCar(car);
+	            carImages.add(carImageNew);
+	        }
+	        carImageRepository.deleteByCar(car);
+	        car.setCarImage(carImageRepository.saveAll(carImages));
+	        return car;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
+	}
+    public Car updateCarStatus(Integer id, int status) {
+        Optional<Car> optionalCar = carRepository.findById(id);
+        if (optionalCar.isPresent()) {
+            Car car = optionalCar.get();
+            car.setStatus(status);
+            return carRepository.save(car);
+        } else {
+            throw new RuntimeException("Car not found with id " + id);
+        }
+    }
 	public CarType convertToCarType(int type) {
 		CarType carType = null;
 		switch (type) {
