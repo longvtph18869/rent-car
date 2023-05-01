@@ -1,7 +1,7 @@
 package com.example.rent.enums;
 
 public enum CarType {
-	TWO_SEATER(2), FOUR_SEATER(4), FIVE_SEATER(5), SIX_SEATER(6), SEVEN_SEATER(7);
+	TWO_SEATER(2), FOUR_SEATER(4), FIVE_SEATER(5), SIX_SEATER(6), SEVEN_SEATER(7), SIXTEEN_SEATER(16);
 
 	private final int value;
 

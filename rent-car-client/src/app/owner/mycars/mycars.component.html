@@ -13,7 +13,7 @@
                     <option value="1">Đang hoạt động</option>
                     <option value="0">Đang chờ duyệt</option>
                     <option value="2">Đã bị từ chối</option>
-                    <option value="3">Đang tạm ngừng</option>
+                    <option value="3">Ngừng hoạt động</option>
                   </select>
                 </div>
               </div>
@@ -26,17 +26,33 @@
         <div *ngFor="let car of displayCars" class="listview-car">
           <div class="card">
             <div class="funtion">
-              <p-menu #menu [model]="funtions" [popup]="true"></p-menu>
-              <i
-                (click)="menu.toggle($event)"
-                class="pi pi-ellipsis-v"
-                style="cursor: pointer"
-              ></i>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <i class="pi pi-ellipsis-v" style="cursor: pointer"></i>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button [routerLink]="['/owner/mycars', car.id]" mat-menu-item>
+                  Xem chi tiết
+                </button>
+                <button
+                  *ngIf="car.status != 3"
+                  (click)="delete(car)"
+                  mat-menu-item
+                >
+                  Ngừng hoạt động
+                </button>
+                <button
+                  *ngIf="car.status == 3"
+                  (click)="comeBack(car)"
+                  mat-menu-item
+                >
+                  Hoạt động lại
+                </button>
+              </mat-menu>
             </div>
             <div class="blog-widget row">
               <div class="col-4">
                 <div class="blog-img">
-                  <a href="">
+                  <a [routerLink]="['/owner/mycars', car.id]">
                     <img
                       [src]="car.carImages[0]"
                       class="img-fluid"
@@ -94,6 +110,11 @@
                     <p-button
                       *ngIf="car.status == 0"
                       label="Đang chờ duyệt"
+                      styleClass="p-button-warning"
+                    ></p-button>
+                    <p-button
+                      *ngIf="car.status == 3"
+                      label="Ngừng hoạt động"
                       styleClass="p-button-danger"
                     ></p-button>
                     <p-button
@@ -121,3 +142,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

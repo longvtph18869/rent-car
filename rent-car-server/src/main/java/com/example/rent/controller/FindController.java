@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.rent.DTO.CarDTO;
 import com.example.rent.entities.Car;
 import com.example.rent.service.CarService;
 
@@ -21,9 +22,9 @@ public class FindController {
 	CarService carService;
 	
 	@GetMapping("")
-	public ResponseEntity<List<Car>> getAllCar() {
+	public ResponseEntity<List<CarDTO>> getAllCar() {
 	    try {
-	        List<Car> carList = carService.getAllCar();
+	        List<CarDTO> carList = carService.getAllCar();
 	        return ResponseEntity.ok().body(carList);
 	    } catch (Exception e) {
 	    	System.out.println(e);

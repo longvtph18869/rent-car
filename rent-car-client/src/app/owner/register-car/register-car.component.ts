@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { MessageService } from 'primeng/api';
 import { DialogLoadingComponent } from 'src/app/dialog/loading/loading.component';
 import { DialogSuccessComponent } from 'src/app/dialog/success/success.component';
 import { AuthService } from 'src/app/service/auth.service';
@@ -53,7 +54,8 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
     private cloudinaryService: CloudinaryService,
     private authService: AuthService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     const currentYear = new Date().getFullYear();
     for (let year = 1980; year <= currentYear; year++) {
@@ -136,49 +138,56 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
     if (index >= 0) {
       this.images.splice(index, 1);
     }
-    console.log(this.images);
   }
   async onSubmit() {
-    this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
-      disableClose: true,
-    });
-    try {
-      this.authService.decodeToken();
-      const carImages = await this.cloudinaryService.uploadImages(
-        this.imagesCar
-      );
-      const carData = {
-        licensePlates: this.form.value.licensePlates,
-        name: this.form.value.name,
-        yearOfManufacture: this.form.value.yearOfManufacture,
-        color: this.form.value.color,
-        type: this.form.value.type,
-        rentalPrice: this.formSecond.value.rentalPrice,
-        description: this.form.value.description,
-        manufacturerId: this.form.value.manufacturerId,
-        location: this.location,
-        latitude: this.latitude,
-        longitude: this.longitude,
-        carImages: carImages,
-        owner: this.authService.getUserId(),
-      };
-      console.log(carData);
-      this.CarService.resisterCar(carData).subscribe({
-        next: (res) => {
-          this.dialogSucces = this.dialog.open(DialogSuccessComponent, {
-            data: { message: 'Thêm xe thành công' },
-          });
-          this.dialogLoading?.close();
-          this.dialogSucces.afterClosed().subscribe(() => {
-            this.router.navigate(['mycars']);
-          });
-        },
-        error: (err) => {
-          console.log(err);
-        },
+    if (this.imagesCar.length < 3) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Lỗi',
+        detail: 'Vui lòng upload tối thiểu 3 ảnh',
       });
-    } catch (error) {
-      console.log(error);
+    } else {
+      this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
+        disableClose: true,
+      });
+      try {
+        this.authService.decodeToken();
+        const carImages = await this.cloudinaryService.uploadImages(
+          this.imagesCar
+        );
+        const carData = {
+          licensePlates: this.form.value.licensePlates,
+          name: this.form.value.name,
+          yearOfManufacture: this.form.value.yearOfManufacture,
+          color: this.form.value.color,
+          type: this.form.value.type,
+          rentalPrice: this.formSecond.value.rentalPrice,
+          description: this.form.value.description,
+          manufacturerId: this.form.value.manufacturerId,
+          location: this.location,
+          latitude: this.latitude,
+          longitude: this.longitude,
+          carImages: carImages,
+          owner: this.authService.getUserId(),
+        };
+        console.log(carData);
+        this.CarService.resisterCar(carData).subscribe({
+          next: (res) => {
+            this.dialogSucces = this.dialog.open(DialogSuccessComponent, {
+              data: { message: 'Thêm xe thành công' },
+            });
+            this.dialogLoading?.close();
+            this.dialogSucces.afterClosed().subscribe(() => {
+              this.router.navigate(['mycars']);
+            });
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }

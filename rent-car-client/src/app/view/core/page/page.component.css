@@ -228,7 +228,7 @@ body {
 .map-view {
   position: absolute;
   bottom: 30px;
-  right: 200px;
+  right: 50px;
   font-weight: 600;
   display: inline-flex;
   background-color: #fff;
@@ -259,6 +259,7 @@ body {
   background-position: 50%;
   margin-bottom: 20px;
   border-radius: 5px 5px 0 0;
+  height: 320px;
 }
 .item-car {
   border-radius: 5px;
@@ -383,4 +384,10 @@ body {
 ::ng-deep .p-progress-spinner {
   width: 50px !important;
   height: 50px !important;
+}
+::ng-deep .mapboxgl-ctrl-bottom-left {
+  display: none !important;
+}
+::ng-deep .mapboxgl-ctrl-bottom-right {
+  display: none !important;
 }

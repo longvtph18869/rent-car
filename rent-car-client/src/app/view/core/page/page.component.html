@@ -77,11 +77,18 @@
             placeholder="Sắp xếp"
             optionLabel="name"
             [showClear]="true"
+            [(ngModel)]="selectedSort"
+            (onChange)="onSort()"
+            (onClear)="onClearSort()"
           ></p-dropdown>
         </div>
         <div class="price-filter mb-3">
           <h3 class="title-filter">Mức giá</h3>
-          <p-slider [(ngModel)]="prices" [range]="true"></p-slider>
+          <p-slider
+            [(ngModel)]="prices"
+            [range]="true"
+            (onSlideEnd)="onPriceChange()"
+          ></p-slider>
           <h6 class="text-end mt-2" style="font-size: 12px">
             {{
               prices[0] == 0
@@ -100,82 +107,124 @@
           <h3 class="title-filter">Loại xe</h3>
           <div class="vehicle-type">
             <div class="squaredFour have-label">
-              <input type="checkbox" name="vt_3" id="vt_3" value="3" /><label
-                class="description"
-                for="vt_3"
-                ><div class="thumbnail" style="padding: 0.5rem">
+              <input
+                type="checkbox"
+                name="vt_3"
+                id="vt_3"
+                value="2"
+                [(ngModel)]="selectedTwoSeater"
+                (change)="filterVehicles()"
+              />
+              <label class="description" for="vt_3">
+                <div class="thumbnail" style="padding: 0.5rem">
                   <img
                     src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-mini.png"
                     class="img-fluid"
                   />
                 </div>
-                <span>2 chỗ</span><span class="extra-info"></span
-              ></label>
+                <span>2 chỗ</span>
+                <span class="extra-info"></span>
+              </label>
             </div>
             <div class="squaredFour have-label">
-              <input type="checkbox" name="vt_1" id="vt_1" value="1" /><label
-                class="description"
-                for="vt_1"
-                ><div class="thumbnail" style="padding: 0.5rem">
+              <input
+                type="checkbox"
+                name="vt_4"
+                id="vt_4"
+                value="4"
+                [(ngModel)]="selectedFourSeater"
+                (change)="filterVehicles()"
+              />
+              <label class="description" for="vt_4">
+                <div class="thumbnail" style="padding: 0.5rem">
                   <img
                     src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-sedan.png"
                     class="img-fluid"
                   />
                 </div>
-                <span>4 chỗ</span><span class="extra-info"></span
-              ></label>
+                <span>4 chỗ</span>
+                <span class="extra-info"></span>
+              </label>
             </div>
             <div class="squaredFour have-label">
-              <input type="checkbox" name="vt_4" id="vt_4" value="4" /><label
-                class="description"
-                for="vt_4"
-                ><div class="thumbnail" style="padding: 0.5rem">
-                  <img
-                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-4-hatchback.png"
-                    class="img-fluid"
-                  />
-                </div>
-                <span>5 chỗ</span><span class="extra-info"></span
-              ></label>
-            </div>
-            <div class="squaredFour have-label">
-              <input type="checkbox" name="vt_5" id="vt_5" value="5" /><label
-                class="description"
-                for="vt_5"
-                ><div class="thumbnail" style="padding: 0.5rem">
+              <input
+                type="checkbox"
+                name="vt_5"
+                id="vt_5"
+                value="5"
+                [(ngModel)]="selectedFiveSeater"
+                (change)="filterVehicles()"
+              />
+              <label class="description" for="vt_5">
+                <div class="thumbnail" style="padding: 0.5rem">
                   <img
                     src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-5-suv.png"
                     class="img-fluid"
                   />
                 </div>
-                <span>6 chỗ</span><span class="extra-info"></span
-              ></label>
+                <span>5 chỗ</span>
+                <span class="extra-info"></span>
+              </label>
             </div>
             <div class="squaredFour have-label">
-              <input type="checkbox" name="vt_2" id="vt_2" value="2" /><label
-                class="description"
-                for="vt_2"
-                ><div class="thumbnail" style="padding: 0.5rem">
+              <input
+                type="checkbox"
+                name="vt_6"
+                id="vt_6"
+                value="6"
+                [(ngModel)]="selectedSixSeater"
+                (change)="filterVehicles()"
+              />
+              <label class="description" for="vt_6">
+                <div class="thumbnail" style="padding: 0.5rem">
                   <img
                     src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-7-suv.png"
                     class="img-fluid"
                   />
                 </div>
-                <span>7 chỗ</span><span class="extra-info"></span
-              ></label>
+                <span>6 chỗ</span>
+                <span class="extra-info"></span>
+              </label>
             </div>
             <div class="squaredFour have-label">
-              <input type="checkbox" name="vt_6" id="vt_6" value="6" /><label
-                class="description"
-                for="vt_6"
-                ><div class="thumbnail" style="padding: 0.5rem">
+              <input
+                type="checkbox"
+                name="vt_7"
+                id="vt_7"
+                value="7"
+                [(ngModel)]="selectedSevenSeater"
+                (change)="filterVehicles()"
+              />
+              <label class="description" for="vt_7">
+                <div class="thumbnail" style="padding: 0.5rem">
                   <img
                     src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-7-mpv.png"
                     class="img-fluid"
                   />
                 </div>
-                <span>16 chỗ</span><span class="extra-info"></span
-              ></label>
+                <span>7 chỗ</span>
+                <span class="extra-info"></span>
+              </label>
+            </div>
+            <div class="squaredFour have-label">
+              <input
+                type="checkbox"
+                name="vt_8"
+                id="vt_8"
+                value="16"
+                [(ngModel)]="selectedSixteenSeater"
+                (change)="filterVehicles()"
+              />
+              <label class="description" for="vt_8">
+                <div class="thumbnail" style="padding: 0.5rem">
+                  <img
+                    src="https://n1-cstg.mioto.vn/m/vehicle-types/mf-7-mpv.png"
+                    class="img-fluid"
+                  />
+                </div>
+                <span>16 chỗ</span>
+                <span class="extra-info"></span>
+              </label>
             </div>
           </div>
         </div>
@@ -195,11 +244,11 @@
         <ng-template #carList>
           <div class="row">
             <div *ngIf="cars.length == 0">Không có xe</div>
-            <div *ngFor="let car of cars" class="col-6 mb-3">
+            <div *ngFor="let car of filteredCars" class="col-6 mb-3">
               <a routerLink="/car/{{ car.id }}"
                 ><div class="item-car bg-white">
                   <div class="img-car">
-                    <img [src]="car.carImage[0]?.image" />
+                    <img [src]="car.carImages[0]" />
                     <div class="item-car__detail">
                       <div class="car-name">
                         <h2>{{ car.name }} {{ car.yearOfManufacture }}</h2>
@@ -222,9 +271,7 @@
                       <div class="location">
                         <p>
                           <i class="ic ic-sm-car-location"></i
-                          >{{
-                            car.location.name != null ? car.location.name : ""
-                          }}
+                          >{{ car.location != null ? car.location : "" }}
                         </p>
                       </div>
                     </div>

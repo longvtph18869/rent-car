@@ -1,0 +1,194 @@
+<div #myComponent class="modal-backdrop">
+  <p-dialog
+    [(visible)]="showDialog"
+    [style]="{ width: '80%', height: '90%' }"
+    (onHide)="closeComponent()"
+  >
+    <p-header
+      ><div class="container" style="margin-left: 30px; font-weight: 700">
+        {{ car.name }} -
+        <span class="price"
+          >{{ car.rentalPrice | moneyPipe }}<span class="day">/ Day</span></span
+        >
+      </div></p-header
+    >
+    <div class="container pe-5 ps-5">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-group">
+        <div class="row">
+          <div class="col-6">
+            <div class="row mb-5">
+              <h6 class="register-title">Biển số xe</h6>
+              <div class="col-6 mb-3">
+                <mat-form-field appearance="fill">
+                  <mat-label>Biển số xe</mat-label>
+                  <input matInput formControlName="licensePlates" required />
+                  <mat-hint style="color: red"
+                    >Biển số không được thay đổi</mat-hint
+                  >
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <h6 class="register-title">Thông tin cơ bản</h6>
+                <div class="col-12">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Tên xe</mat-label>
+                    <input matInput formControlName="name" required />
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Hãng xe</mat-label>
+                    <mat-select formControlName="manufacturerId" required>
+                      <mat-option
+                        *ngFor="let manufacturer of manufacturers"
+                        [value]="manufacturer.id"
+                        >{{ manufacturer.name }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Năm sản xuất</mat-label>
+                    <mat-select formControlName="yearOfManufacture" required>
+                      <mat-option *ngFor="let year of yearList" [value]="year"
+                        >{{ year }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Số chỗ</mat-label>
+                    <mat-select formControlName="type" name="type" required>
+                      <mat-option
+                        *ngFor="let seat of enums.seats"
+                        [value]="seat"
+                        >{{ seat }} chỗ</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Màu sắc</mat-label>
+                    <mat-select formControlName="color" name="color" required>
+                      <mat-option
+                        *ngFor="let color of enums.colors"
+                        [value]="color"
+                      >
+                        <span
+                          class="color-square"
+                          [style.background-color]="color"
+                        >
+                        </span>
+                        {{ color }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field appearance="fill" class="des">
+                    <mat-label>Mô tả</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="description"
+                      required
+                      placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+    Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row mb-3">
+              <h6 class="register-title">Thông tin cho thuê</h6>
+              <div class="col-6">
+                <mat-form-field appearance="fill">
+                  <mat-label>Đơn giá thuê</mat-label>
+                  <input matInput formControlName="rentalPrice" required />
+                  <mat-error
+                    *ngIf="
+                      form.controls['rentalPrice'].invalid &&
+                      (form.controls['rentalPrice'].dirty ||
+                        form.controls['rentalPrice'].touched)
+                    "
+                  >
+                    <div
+                      *ngIf="form.controls['rentalPrice'].hasError('required')"
+                    >
+                      Đơn giá là bắt buộc.
+                    </div>
+                    <div
+                      *ngIf="form.controls['rentalPrice'].hasError('pattern')"
+                    >
+                      Đơn giá phải là một số.
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <h6 class="register-title">Địa chỉ xe</h6>
+              <div class="col-12" style="height: 310px">
+                <mat-form-field appearance="fill">
+                  <input
+                    id="location"
+                    matInput
+                    formControlName="location"
+                    required
+                    [readonly]="true"
+                  />
+                </mat-form-field>
+                <div #mapContainer style="width: 100%; height: 100%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <h6 class="register-title">Hình ảnh</h6>
+          <div class="col-12">
+            <div class="upload__img-wrap">
+              <div class="upload__img-box">
+                <div class="upload__btn-box">
+                  <label class="upload__btn">
+                    <span>Chọn hình</span>
+                    <input
+                      class="upload__inputfile"
+                      type="file"
+                      (change)="onFileSelected($event)"
+                      multiple
+                    />
+                  </label>
+                </div>
+              </div>
+              <div *ngFor="let image of images" class="upload__img-box">
+                <div
+                  class="img-bg"
+                  [style.background-image]="'url(' + image + ')'"
+                >
+                  <div
+                    class="upload__img-close"
+                    (click)="removeImage(image)"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-9"></div>
+          <div class="col-3">
+            <button mat-raised-button class="me-3">Back</button>
+            <button type="submit" mat-raised-button color="primary">
+              Lưu thay đổi
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </p-dialog>
+</div>
+<p-toast></p-toast>

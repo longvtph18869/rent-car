@@ -22,6 +22,9 @@ export class SeatPipe implements PipeTransform {
       case 'SEVEN_SEATER':
         seatCount = 7;
         break;
+      case 'SIXTEEN_SEATER':
+        seatCount = 16;
+        break;
     }
     return seatCount;
   }

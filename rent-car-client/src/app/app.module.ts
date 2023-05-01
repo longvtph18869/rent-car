@@ -62,6 +62,11 @@ import { MenuModule } from 'primeng/menu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ListboxModule } from 'primeng/listbox';
 import { AccountComponent } from './view/account/account.component';
+import { MyCarDetailComponent } from './owner/my-car-detail/my-car-detail.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ConfirmComponent } from './dialog/confirm/confirm.component';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,6 +90,8 @@ import { AccountComponent } from './view/account/account.component';
     DialogSuccessComponent,
     DialogLoadingComponent,
     AccountComponent,
+    MyCarDetailComponent,
+    ConfirmComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {
@@ -124,6 +131,9 @@ import { AccountComponent } from './view/account/account.component';
     MenuModule,
     ProgressSpinnerModule,
     ListboxModule,
+    MatMenuModule,
+    MessagesModule,
+    MessageModule,
   ],
   providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],
