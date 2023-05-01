@@ -1,11 +1,15 @@
 package com.example.rent.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.rent.DTO.UserDTO;
 import com.example.rent.entities.User;
 import com.example.rent.repositories.UserRepository;
+import com.example.rent.utils.Constants;
 
 @Service
 public class UserService {
@@ -26,18 +30,61 @@ public class UserService {
 			dto.setAddress(user.getAddress());
 			dto.setRole(user.getRole());
 			dto.setStatus(user.isStatus());
-			dto.setCars(user.getCar());
-			dto.setContract_user(user.getContract_user());
-			dto.setContract_owner(user.getContract_owner());
-			dto.setFeedback(user.getFeedback());
-			dto.setPayments(user.getPayments());
-			dto.setRentCar(user.getRentCar());
-			dto.setDrivingLicense(user.getDrivingLicense());
+//			dto.setCars(user.getCar());
+//			dto.setContract_user(user.getContract_user());
+//			dto.setContract_owner(user.getContract_owner());
+//			dto.setFeedback(user.getFeedback());
+//			dto.setPayments(user.getPayments());
+//			dto.setRentCar(user.getRentCar());
+//			dto.setDrivingLicense(user.getDrivingLicense());
 			return dto;
 		}
 		return null;
 		
 	}
+	
+	public User registeUser(UserDTO userDTO) {
+		User user = new User();
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		user.setUsername(userDTO.getUsername());
+		user.setFullName(userDTO.getFullName());
+		user.setPassword(encoder.encode(userDTO.getPassword()));
+		user.setGender(true);
+		user.setStatus(true);
+		user.setRole(Constants.ROLE_CUSTOMER);
+		user.setJoinDate(LocalDateTime.now());
+		userRepository.save(user);
+
+		return user;
+
+	}
+	
+	public boolean checkUserNameWasUsed(String username) {
+		int countUser = userRepository.countUser(username);
+		if (countUser > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+    public boolean changePassword(int id, String currentPassword, String newPassword) {
+        User user = userRepository.findById(id);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        
+        if (user == null) {
+            return false;
+        }
+
+        if (!encoder.matches(currentPassword, user.getPassword())) {
+            return false;
+        }
+
+        user.setPassword(encoder.encode(newPassword));
+        userRepository.save(user);
+        return true;
+    }
+	
 //	public UserDTO saveOne(UserDTO dto) {
 //		if(dto != null){
 //			User user = null;
@@ -84,13 +131,13 @@ public class UserService {
 			dto.setAddress(user.getAddress());
 			dto.setRole(user.getRole());
 			dto.setStatus(user.isStatus());
-			dto.setCars(user.getCar());
-			dto.setContract_user(user.getContract_user());
-			dto.setContract_owner(user.getContract_owner());
-			dto.setFeedback(user.getFeedback());
-			dto.setPayments(user.getPayments());
-			dto.setRentCar(user.getRentCar());
-			dto.setDrivingLicense(user.getDrivingLicense());
+//			dto.setCars(user.getCar());
+//			dto.setContract_user(user.getContract_user());
+//			dto.setContract_owner(user.getContract_owner());
+//			dto.setFeedback(user.getFeedback());
+//			dto.setPayments(user.getPayments());
+//			dto.setRentCar(user.getRentCar());
+//			dto.setDrivingLicense(user.getDrivingLicense());
 			return dto;
 		}
 		return null;

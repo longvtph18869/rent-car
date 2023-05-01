@@ -61,6 +61,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MenuModule } from 'primeng/menu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ListboxModule } from 'primeng/listbox';
+import { AccountComponent } from './view/account/account.component';
 import { MyCarDetailComponent } from './owner/my-car-detail/my-car-detail.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmComponent } from './dialog/confirm/confirm.component';
@@ -88,6 +89,7 @@ import { MessageModule } from 'primeng/message';
     ChangePasswordComponent,
     DialogSuccessComponent,
     DialogLoadingComponent,
+    AccountComponent,
     MyCarDetailComponent,
     ConfirmComponent,
   ],

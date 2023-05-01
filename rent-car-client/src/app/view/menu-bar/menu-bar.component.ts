@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { HeaderComponent } from '../core/header/header.component';
 import { AuthService } from 'src/app/service/auth.service';
 
@@ -20,7 +20,12 @@ export class MenuBarComponent {
     this.headerComponent.isLoggedIn = false;
   }
 
-  showChangePasswordDialog() {
+  changePassword(event: MouseEvent) {
+    event.stopPropagation();
     this.visible = true;
+  }
+
+  onClickChangePassword(event: MouseEvent) {
+    event.stopPropagation();
   }
 }

@@ -1,0 +1,20 @@
+export interface User {
+    id: number,
+    avatar: string,
+    fullName: string,
+    dateOfBirth: string,
+    gender: boolean,
+    joinDate: string,
+    phoneNumber: string,
+    address: string,
+    username: string,
+    role: string,
+    status: boolean,
+    drivingLicense: any,
+    car: any,
+    contract_user: any,
+    contract_owner: any,
+    feedback: any,
+    payments: any,
+    rentCar: any
+  }

@@ -1,15 +1,11 @@
 package com.example.rent.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +20,10 @@ import com.example.rent.auth.AuthenticationRequest;
 import com.example.rent.auth.AuthenticationResponse;
 import com.example.rent.config.MyUserDetails;
 import com.example.rent.config.MyUserDetailsService;
-import com.example.rent.entities.Car;
 import com.example.rent.entities.User;
-import com.example.rent.repositories.UserRepository;
 import com.example.rent.service.UserService;
 import com.example.rent.token.JwtTokenProvider;
+import com.example.rent.utils.ChangePasswordRequest;
 
 @RestController
 @CrossOrigin
@@ -85,5 +80,34 @@ public class UserController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	    }
     }
+	
+	@PostMapping("/register")
+	public ResponseEntity<User> saveOne(@RequestBody UserDTO userDTO) {
+		try {
+			User savedUser = userService.registeUser(userDTO);
+			return ResponseEntity.ok().body(savedUser);
+		} catch (Exception e) {
+			System.out.println(e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@PostMapping("/check/usernameWasUsed")
+	public Boolean usernameWasUsed(@RequestBody UserDTO userDTO) {
+		boolean result = true;
+		if (userDTO.getUsername() != null && StringUtils.hasText(userDTO.getUsername()))
+			result = userService.checkUserNameWasUsed(userDTO.getUsername());
+		return result;
+	}
+
+	@PostMapping("/changePassword")
+	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request, @RequestParam int id) {
+		boolean result = userService.changePassword(id, request.getCurrentPassword(), request.getNewPassword());
+        if (result) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+	}
 	
 }

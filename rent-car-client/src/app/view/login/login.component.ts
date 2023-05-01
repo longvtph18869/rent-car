@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { HeaderComponent } from '../core/header/header.component';
-import { LoginService } from 'src/app/service/login.service';
+// import { HeaderComponent } from '../core/header/header.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,22 +13,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  username: string = '';
-  password: string = '';
-  token: string = '';
   account: any = { username: '', password: '' };
-  user: any = {};
 
   @Output() loginSuccess = new EventEmitter<boolean>();
   @Output() displayRegisterDialog = new EventEmitter<boolean>();
 
   constructor(
-    private loginService: LoginService,
     private authService: AuthService,
     private cookieService: CookieService,
     private userService: UserService,
     private messageService: MessageService,
-    private headerComponent: HeaderComponent,
     private router: Router
   ) {}
   ngOnInit(): void {}
@@ -37,23 +31,23 @@ export class LoginComponent implements OnInit {
     this.displayRegisterDialog.emit(true);
   }
 
-  onSubmit(event: Event) {
+  async onSubmit(event: Event) {
     event.preventDefault();
-    this.authService.login(this.account).subscribe({
-      next: (res) => {
+    await lastValueFrom(this.authService.login(this.account)).then(
+      resp => {
         this.loginSuccess.emit(true);
         const redirectUrl = localStorage.getItem('redirectUrl');
         if (redirectUrl != null) {
           this.router.navigateByUrl(redirectUrl);
         }
-      },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Đăng nhập không thành công',
-          detail: 'Vui lòng kiểm tra lại thông tin đăng nhập và mật khẩu!',
-        });
-      },
-    });
+        
+      }
+    ).catch(error => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Đăng nhập không thành công',
+        detail: 'Vui lòng kiểm tra lại thông tin đăng nhập và mật khẩu!',
+      });
+    })
   }
 }
