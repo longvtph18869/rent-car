@@ -58,22 +58,27 @@ export class CalendarsComponent implements OnInit {
         this.mycars = res;
         this.filteredCars = res;
         this.selectedCar = this.mycars[0];
-        this.scheduleService.findByCar(this.mycars[0].id).subscribe({
-          next: (res) => {
-            this.scheduleLists = res;
-            for (let x of this.scheduleLists) {
-              const date = new Date(x.date);
-              date.setHours(0, 0, 0, 0);
-              this.schedules.push(date);
-            }
-            this.getDayByMonthAndYear(this.monthCurrent, this.year);
-            console.log(this.calendarCars);
-            this.dialogLoading?.close();
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
+        console.log(this.mycars);
+        if (this.mycars.length > 0) {
+          this.scheduleService.findByCar(this.mycars[0].id).subscribe({
+            next: (res) => {
+              this.scheduleLists = res;
+              for (let x of this.scheduleLists) {
+                const date = new Date(x.date);
+                date.setHours(0, 0, 0, 0);
+                this.schedules.push(date);
+              }
+              this.getDayByMonthAndYear(this.monthCurrent, this.year);
+              console.log(this.calendarCars);
+              this.dialogLoading?.close();
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        } else {
+          this.dialogLoading?.close();
+        }
       },
       error: (err) => {
         console.log(err);

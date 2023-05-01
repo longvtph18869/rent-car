@@ -8,12 +8,30 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RentComponent implements OnInit {
   rental: any;
+  images: any[] = [];
+  responsiveOptions: any[] = [];
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.rental = JSON.parse(params['rental']);
-      console.log(this.rental);
+      this.images = this.rental.car.carImages;
     });
+  }
+  loadImage() {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 5,
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 3,
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+      },
+    ];
   }
 }

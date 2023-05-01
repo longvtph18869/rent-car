@@ -36,7 +36,7 @@ public class Location {
     @Column(length=1)
     private boolean status;
 	@OneToOne
-	@JoinColumn(name = "location_id")
+	@JoinColumn(name = "car_id")
 	@JsonBackReference
 	private Car car;
 

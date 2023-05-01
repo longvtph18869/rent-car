@@ -1,5 +1,6 @@
 package com.example.rent.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,15 +90,38 @@ public class CarService {
 		return carDTO;
 	}
 
-	public List<Car> filter(String latitude, String longitude) {
+	public List<CarDTO> filter(String latitude, String longitude, LocalDate pickupDate,LocalDate returnDate) {
 		double delta = 0.1;
-
 		double minLat = Double.parseDouble(latitude) - delta;
 		double maxLat = Double.parseDouble(latitude) + delta;
 		double minLong = Double.parseDouble(longitude) - delta;
 		double maxLong = Double.parseDouble(longitude) + delta;
-
-		return carRepository.filter(minLat, maxLat, minLong, maxLong);
+		List<Car> cars = carRepository.filter(minLat, maxLat, minLong, maxLong, pickupDate,returnDate);
+		List<CarDTO> carDTOs = new ArrayList<>();
+		for (Car car : cars) {
+			CarDTO carDTO = new CarDTO();
+			carDTO.setId(car.getId());
+			carDTO.setLicensePlates(car.getLicensePlates());
+			carDTO.setColor(car.getColor());
+			carDTO.setDescription(car.getDescription());
+			carDTO.setLatitude(car.getLocation().getLatitude());
+			carDTO.setLongitude(car.getLocation().getLongitude());
+			carDTO.setManufacturerId(car.getManufacturer().getId());
+			carDTO.setName(car.getName());
+			carDTO.setLocation(car.getLocation().getName());
+			carDTO.setOwner(car.getUser().getId());
+			carDTO.setType(car.getType().getValue());
+			carDTO.setStatus(car.getStatus());
+			List<String> carImages = new ArrayList<>();
+			for (CarImage image : car.getCarImage()) {
+				carImages.add(image.getImage());
+			}
+			carDTO.setRentalPrice(car.getRentalPrice());
+			carDTO.setYearOfManufacture(car.getYearOfManufacture());
+			carDTO.setCarImages(carImages);
+			carDTOs.add(carDTO);
+		}
+		return carDTOs;
 	}
 
 	public List<CarDTO> findByUser(Integer userId) {

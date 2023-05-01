@@ -9,10 +9,23 @@ import { RoleGuard } from '../role.guard';
 
 const routes: Routes = [
   { path: '', component: PageComponent },
-  { path: 'find', component: PageComponent },
-  { path: 'car/:id', component: DetailComponent },
+  {
+    path: 'find',
+    component: PageComponent,
+    children: [
+      {
+        path: 'car/:id',
+        component: DetailComponent,
+      },
+    ],
+  },
   { path: 'rent', component: RentComponent, canActivate: [AuthGuard] },
-  { path: 'account', component: AccountComponent, canActivate: [RoleGuard], data: { role: 'ROLE_ADMIN'}}
+  {
+    path: 'account',
+    component: AccountComponent,
+    canActivate: [RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

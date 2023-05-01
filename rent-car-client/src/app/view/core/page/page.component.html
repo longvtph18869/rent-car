@@ -22,6 +22,7 @@
               inputId="basic"
               [minDate]="minpickupDate"
               [(ngModel)]="pickupDate"
+              (onSelect)="filterCars()"
               [readonlyInput]="true"
             ></p-calendar>
           </div>
@@ -33,6 +34,7 @@
             [minDate]="minpickupDate"
             [timeOnly]="true"
             inputId="timeonly"
+            (onSelect)="filterCars()"
             [readonlyInput]="true"
           ></p-calendar>
         </div>
@@ -50,6 +52,7 @@
               inputId="basic"
               [minDate]="minreturnDate"
               [(ngModel)]="returnDate"
+              (onSelect)="filterCars()"
               [readonlyInput]="true"
             ></p-calendar>
           </div>
@@ -60,6 +63,7 @@
             [(ngModel)]="returnDate"
             [minDate]="minreturnDate"
             [timeOnly]="true"
+            (onSelect)="filterCars()"
             inputId="timeonly"
             [readonlyInput]="true"
           ></p-calendar>
@@ -243,9 +247,9 @@
         </div>
         <ng-template #carList>
           <div class="row">
-            <div *ngIf="cars.length == 0">Không có xe</div>
+            <div *ngIf="filteredCars.length == 0">Không có xe</div>
             <div *ngFor="let car of filteredCars" class="col-6 mb-3">
-              <a routerLink="/car/{{ car.id }}"
+              <a routerLink="/find/car/{{ car.id }}"
                 ><div class="item-car bg-white">
                   <div class="img-car">
                     <img [src]="car.carImages[0]" />
@@ -333,3 +337,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

@@ -67,6 +67,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmComponent } from './dialog/confirm/confirm.component';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { GalleriaModule } from 'primeng/galleria';
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +135,7 @@ import { MessageModule } from 'primeng/message';
     MatMenuModule,
     MessagesModule,
     MessageModule,
+    GalleriaModule,
   ],
   providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],
