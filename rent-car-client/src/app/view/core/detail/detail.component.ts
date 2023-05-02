@@ -56,6 +56,8 @@ export class DetailComponent implements OnInit {
       rentalDate: this.pickupDate,
       returnDate: this.returnDate,
       rentalPrice: this.sum,
+      diffDays: this.diffDays,
+      servicePrice: this.servicePrice,
     };
     this.router.navigate(['/rent'], {
       queryParams: { rental: JSON.stringify(rental) },

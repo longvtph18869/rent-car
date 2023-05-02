@@ -1,11 +1,15 @@
 <div class="container">
-  <div class="row mt-5">
-    <div class="col-6">
+  <div class="row mt-5 ps-3">
+    <a class="back-button" routerLink="/find">Trở về trang tìm kiếm</a>
+    <h1 style="font-weight: 700">Đơn hàng</h1>
+  </div>
+  <div class="row mb-3">
+    <div class="col-4">
       <div class="container">
         <p-galleria
           [value]="images"
           [responsiveOptions]="responsiveOptions"
-          [containerStyle]="{ 'max-width': '400px' }"
+          [containerStyle]="{ 'max-width': '300px' }"
           [numVisible]="5"
         >
           <ng-template pTemplate="item" let-item>
@@ -23,6 +27,166 @@
             </div>
           </ng-template>
         </p-galleria>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="blog-list-title">
+        <h3>{{ rental.car.name }}</h3>
+      </div>
+      <div class="ctn-desc-new mt-3">
+        <ul class="features">
+          <li>
+            <i class="ic ic-chair"></i> Số ghế:
+            {{ rental.car.type }}
+          </li>
+          <li>
+            <span
+              style="
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                border: 1px solid rgb(131, 131, 131);
+                margin-right: 10px;
+                margin-left: 7px;
+              "
+              [ngStyle]="{ backgroundColor: rental.car.color }"
+            ></span>
+            Màu sắc: {{ rental.car.color }}
+          </li>
+          <li>
+            <i class="fa fa-industry mx-2" style="font-size: 18px"></i> Hãng xe:
+            {{ rental.car.type }}
+          </li>
+        </ul>
+      </div>
+      <div class="ctn-desc-new">
+        <pre>{{ rental.car.description }}</pre>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="rental-time">
+        <h2 style="font-weight: 700">Thời gian thuê</h2>
+        <ol class="rental-time-ol">
+          <li class="pickup">
+            <div class="icon-pickup"></div>
+            <div class="content-pickup">
+              <h5 class="mb-0">
+                {{ rental.rentalDate | date : "dd-MM-yyyy HH:ss " }}
+              </h5>
+              <h5 style="font-weight: 700">{{ rental.car.location }}</h5>
+            </div>
+          </li>
+          <li class="pickup">
+            <div class="icon-return"></div>
+            <div class="content-pickup">
+              <h5 class="mb-0">
+                {{ rental.returnDate | date : "dd-MM-yyyy HH:ss " }}
+              </h5>
+              <h5 style="font-weight: 700">{{ rental.car.location }}</h5>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <div class="rental-time">
+        <h2 style="font-weight: 700">Thanh toán</h2>
+        <label>
+          <input
+            type="radio"
+            name="paymentOption"
+            value="payOnPickup"
+            [(ngModel)]="selectedOption"
+          />
+          Thanh toán khi nhận xe
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="paymentOption"
+            value="payOnline"
+            [(ngModel)]="selectedOption"
+            (change)="onPaymentOptionChange()"
+          />
+          Thanh toán online
+        </label>
+
+        <div *ngIf="selectedOption === 'payOnline'">
+          <label>
+            <input
+              type="radio"
+              name="paymentMethod"
+              value="creditCard"
+              [(ngModel)]="selectedMethod"
+            />
+            Thẻ tín dụng
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="paymentMethod"
+              value="paypal"
+              [(ngModel)]="selectedMethod"
+            />
+            Paypal
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="rental-time">
+        <h2 style="font-weight: 700">Giá xe</h2>
+        <div class="car-bill">
+          <div class="bill-wrap">
+            <div class="group-bill">
+              <p>Đơn giá thuê</p>
+              <span
+                ><span
+                  >{{ rental.car.rentalPrice | moneyPipe }} / ngày</span
+                ></span
+              >
+            </div>
+            <div class="group-bill">
+              <p>Phí dịch vụ</p>
+              <span
+                ><span
+                  >{{
+                    rental.car.rentalPrice * rental.servicePrice | moneyPipe
+                  }}
+                  / ngày</span
+                ></span
+              >
+            </div>
+            <div class="group-bill has-line">
+              <p>Tổng phí thuê xe</p>
+              <span
+                ><span
+                  >{{
+                    rental.car.rentalPrice -
+                      rental.car.rentalPrice * rental.servicePrice | moneyPipe
+                  }}
+                  x <strong>{{ rental.diffDays }} ngày</strong></span
+                ></span
+              >
+            </div>
+            <div class="group-bill has-line">
+              <p><strong>Tổng cộng</strong></p>
+              <span
+                ><span
+                  ><strong
+                    ><span style="font-size: 24px">{{
+                      rental.rentalPrice | moneyPipe
+                    }}</span></strong
+                  ></span
+                ></span
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

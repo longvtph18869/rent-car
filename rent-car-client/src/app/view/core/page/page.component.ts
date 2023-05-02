@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CarService } from 'src/app/service/car.service';
 import { MoneyPipePipe } from 'src/app/money-pipe.pipe';
-import { Router } from '@angular/router';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogLoadingComponent } from 'src/app/dialog/loading/loading.component';
+import { ActivatedRoute } from '@angular/router';
 declare const mapboxgl: any;
 @Component({
   selector: 'app-page',
@@ -73,7 +74,9 @@ export class PageComponent implements OnInit {
 
   constructor(
     private carService: CarService,
-    private moneyPipe: MoneyPipePipe
+    private moneyPipe: MoneyPipePipe,
+    private dialog: MatDialog,
+    private route: ActivatedRoute
   ) {
     this.sorts = [
       { name: 'Khoảng cách gần nhất', value: 1 },
@@ -82,12 +85,28 @@ export class PageComponent implements OnInit {
       { name: 'Đánh giá tốt nhất', value: 4 },
     ];
   }
+  dialogLoading: MatDialogRef<any> | undefined;
   ngOnInit(): void {
+    this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
+      disableClose: true,
+    });
+    setTimeout(() => {
+      this.dialogLoading!.close();
+    }, 2000);
     this.returnDate.setDate(this.returnDate.getDate() + 1);
     this.minreturnDate.setDate(this.minreturnDate.getDate() + 1);
     // this.carService.getAllCars().subscribe((data) => {
     //   this.cars = data;
     // });
+    console.log(this.pickupDate);
+    this.route.queryParams.subscribe((params) => {
+      this.latitude = Number(params['latitude']);
+      this.longitude = Number(params['longitude']);
+      this.pickupDate = new Date(params['pickupDate']);
+      this.returnDate = new Date(params['returnDate']);
+    });
+    console.log(this.pickupDate);
+
     this.filterCars();
     this.map = new mapboxgl.Map({
       accessToken:

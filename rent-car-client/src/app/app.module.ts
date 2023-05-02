@@ -68,6 +68,7 @@ import { ConfirmComponent } from './dialog/confirm/confirm.component';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { GalleriaModule } from 'primeng/galleria';
+import { HomeComponent } from './view/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,6 +94,7 @@ import { GalleriaModule } from 'primeng/galleria';
     AccountComponent,
     MyCarDetailComponent,
     ConfirmComponent,
+    HomeComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {

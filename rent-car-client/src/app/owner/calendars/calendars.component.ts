@@ -48,6 +48,9 @@ export class CalendarsComponent implements OnInit {
     this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
       disableClose: true,
     });
+    setTimeout(() => {
+      this.dialogLoading!.close();
+    }, 1000);
     const currentDate = new Date();
     this.month = this.getMonthName(currentDate.getMonth());
     this.monthCurrent = currentDate.getMonth();
@@ -70,7 +73,6 @@ export class CalendarsComponent implements OnInit {
               }
               this.getDayByMonthAndYear(this.monthCurrent, this.year);
               console.log(this.calendarCars);
-              this.dialogLoading?.close();
             },
             error: (err) => {
               console.log(err);

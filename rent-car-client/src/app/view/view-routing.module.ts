@@ -6,9 +6,10 @@ import { RentComponent } from './core/rent/rent.component';
 import { AccountComponent } from './account/account.component';
 import { AuthGuard } from '../auth.guard';
 import { RoleGuard } from '../role.guard';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: PageComponent },
+  { path: '', component: HomeComponent },
   {
     path: 'find',
     component: PageComponent,

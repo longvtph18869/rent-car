@@ -63,6 +63,12 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
     }
   }
   ngOnInit(): void {
+    this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
+      disableClose: true,
+    });
+    setTimeout(() => {
+      this.dialogLoading!.close();
+    }, 1000);
     this.CarService.enums().subscribe({
       next: (res) => {
         this.enums = res;

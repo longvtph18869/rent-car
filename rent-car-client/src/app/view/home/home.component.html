@@ -1,0 +1,89 @@
+<div class="banner">
+  <div class="container" style="width: 40vw">
+    <h1 class="slogan">ĐỒNG HÀNH CÙNG BẠN TRÊN MỌI HÀNH TRÌNH</h1>
+    <div class="search">
+      <div class="search-box">
+        <div class="wd-search__wrapper">
+          <div class="line-form location mb-3">
+            <label class="label mb-1">Địa điểm thuê xe</label>
+            <div class="wrap-input wrap-input-transparent">
+              <div class="here-autocomplete">
+                <div id="geocoderhome" class="geocoder"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <div class="line-form has-timer">
+                <label class="label">Ngày bắt đầu</label>
+                <p-calendar
+                  dateFormat="dd/mm/yy"
+                  [style]="{
+                    height: '30px',
+                    marginBottom: '10px',
+                  }"
+                  inputId="basic"
+                  [minDate]="minpickupDate"
+                  [(ngModel)]="pickupDate"
+                  (onSelect)="filterCars()"
+                  [readonlyInput]="true"
+                ></p-calendar>
+                <p-calendar
+                  [style]="{
+                    height: '30px',
+                    width: '100px'
+                  }"
+                  [(ngModel)]="pickupDate"
+                  [minDate]="minpickupDate"
+                  [timeOnly]="true"
+                  inputId="timeonly"
+                  (onSelect)="filterCars()"
+                  [readonlyInput]="true"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="line-form has-timer">
+                <label class="label">Kết thúc</label>
+                <p-calendar
+                  dateFormat="dd/mm/yy"
+                  [style]="{
+                    height: '30px',
+                    marginBottom: '10px',
+                  }"
+                  inputId="basic"
+                  [minDate]="minreturnDate"
+                  [(ngModel)]="returnDate"
+                  (onSelect)="filterCars()"
+                  [readonlyInput]="true"
+                ></p-calendar>
+                <p-calendar
+                  [style]="{
+                    height: '30px',
+                    width: '100px'
+                  }"
+                  [(ngModel)]="returnDate"
+                  [minDate]="minreturnDate"
+                  [timeOnly]="true"
+                  (onSelect)="filterCars()"
+                  inputId="timeonly"
+                  [readonlyInput]="true"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="fn-search">
+                <a (click)="search()" class="btn-search-car"
+                  ><i class="ic ic-search"></i> <span>TÌM XE NGAY</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { DialogLoadingComponent } from 'src/app/dialog/loading/loading.component';
 
 @Component({
   selector: 'app-rent',
@@ -10,13 +12,25 @@ export class RentComponent implements OnInit {
   rental: any;
   images: any[] = [];
   responsiveOptions: any[] = [];
-  constructor(private route: ActivatedRoute) {}
+  dialogLoading: MatDialogRef<any> | undefined;
+  selectedOption: string = 'payOnPickup';
+  selectedMethod!: string | null;
+  constructor(private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit() {
+    this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
+      disableClose: true,
+    });
+    setTimeout(() => {
+      this.dialogLoading!.close();
+    }, 1000);
     this.route.queryParams.subscribe((params) => {
       this.rental = JSON.parse(params['rental']);
       this.images = this.rental.car.carImages;
     });
+  }
+  onPaymentOptionChange() {
+    this.selectedMethod = null;
   }
   loadImage() {
     this.responsiveOptions = [

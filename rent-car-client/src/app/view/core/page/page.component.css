@@ -267,6 +267,7 @@ body {
 .img-car img {
   width: 100%;
   border-radius: 5px;
+  height: 100%;
 }
 .list-car {
   padding: 8px;
