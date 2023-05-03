@@ -15,6 +15,7 @@ export class RentComponent implements OnInit {
   dialogLoading: MatDialogRef<any> | undefined;
   selectedOption: string = 'payOnPickup';
   selectedMethod!: string | null;
+  activeButton: string = 'VNPAY';
   constructor(private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit() {

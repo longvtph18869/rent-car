@@ -160,3 +160,42 @@ pre {
 .has-line {
   border-top: 1px solid #ccc;
 }
+.list-bank-item {
+  padding-top: 53.125%;
+  display: block;
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+}
+.list-bank-item-inner {
+  position: absolute;
+  width: 100%;
+  font-size: 12px;
+  padding: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80% auto;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 1px solid #bfccd9;
+  border-radius: 3px;
+  -webkit-transition: 0.15s all linear;
+  -o-transition: 0.15s all linear;
+  transition: 0.15s all linear;
+  color: #21262c !important;
+}
+.list-bank-item.active {
+  background-color: #34c57a;
+}

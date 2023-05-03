@@ -89,55 +89,126 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-9">
+  <div class="row mb-5">
+    <div class="col-9 mb-5">
       <div class="rental-time">
         <h2 style="font-weight: 700">Thanh toán</h2>
-        <label>
+        <div class="form-check">
           <input
+            class="form-check-input"
             type="radio"
             name="paymentOption"
             value="payOnPickup"
             [(ngModel)]="selectedOption"
+            id="flexRadioDefault1"
           />
-          Thanh toán khi nhận xe
-        </label>
+          <label class="form-check-label" for="flexRadioDefault1">
+            Thanh toán khi nhận xe
+          </label>
+        </div>
 
-        <label>
+        <!-- Default checked radio -->
+        <div class="form-check">
           <input
+            class="form-check-input"
             type="radio"
             name="paymentOption"
             value="payOnline"
             [(ngModel)]="selectedOption"
             (change)="onPaymentOptionChange()"
+            id="flexRadioDefault2"
           />
-          Thanh toán online
-        </label>
-
+          <label class="form-check-label" for="flexRadioDefault2">
+            Thanh toán online
+          </label>
+        </div>
         <div *ngIf="selectedOption === 'payOnline'">
-          <label>
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="creditCard"
-              [(ngModel)]="selectedMethod"
-            />
-            Thẻ tín dụng
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="paypal"
-              [(ngModel)]="selectedMethod"
-            />
-            Paypal
-          </label>
+          <div class="row">
+            <div class="col-2">
+              <button
+                type="submit"
+                value="VNPAY"
+                id="VNPAY"
+                name="paymethod"
+                class="list-bank-item"
+                [class.active]="activeButton === 'VNPAY'"
+                (click)="activeButton = 'VNPAY'"
+              >
+                <div
+                  class="list-bank-item-inner"
+                  style="
+                    background-image: url(https://sandbox.vnpayment.vn/paymentv2/Images/brands/logo.svg);
+                  "
+                ></div>
+              </button>
+            </div>
+            <div class="col-2">
+              <button
+                type="submit"
+                value="MB"
+                id="MB"
+                name="paymethod"
+                class="list-bank-item"
+                [class.active]="activeButton === 'MB'"
+                (click)="activeButton = 'MB'"
+              >
+                <div
+                  class="list-bank-item-inner"
+                  style="
+                    background-image: url(https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/mbbank.svg);
+                  "
+                ></div>
+              </button>
+            </div>
+            <div class="col-2">
+              <button
+                type="submit"
+                value="VCB"
+                id="VCB"
+                name="paymethod"
+                class="list-bank-item"
+                [class.active]="activeButton === 'VCB'"
+                (click)="activeButton = 'VCB'"
+              >
+                <div
+                  class="list-bank-item-inner"
+                  style="
+                    background-image: url(https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/vietcombank.svg);
+                  "
+                ></div>
+              </button>
+            </div>
+            <div class="col-2">
+              <button
+                type="submit"
+                value="BIDV"
+                id="BIDV"
+                name="paymethod"
+                class="list-bank-item"
+                [class.active]="activeButton === 'BIDV'"
+                (click)="activeButton = 'BIDV'"
+              >
+                <div
+                  class="list-bank-item-inner"
+                  style="
+                    background-image: url(https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/bidv.svg);
+                  "
+                ></div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="btn-payment mt-2">
+          <button
+            mat-raised-button
+            style="background-color: #00a550; color: white"
+          >
+            Thanh toán
+          </button>
         </div>
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-3 mb-5">
       <div class="rental-time">
         <h2 style="font-weight: 700">Giá xe</h2>
         <div class="car-bill">

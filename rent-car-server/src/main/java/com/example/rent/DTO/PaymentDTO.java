@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDTO {
-
-	private Long payment_id;
+	private int payment_id;
 	private int amount;
-	private String description;
 	private String bankCode;
 }

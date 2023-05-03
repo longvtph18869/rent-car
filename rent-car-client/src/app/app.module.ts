@@ -69,6 +69,11 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { GalleriaModule } from 'primeng/galleria';
 import { HomeComponent } from './view/home/home.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+export function playerFactory() {
+  return player;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -138,6 +143,7 @@ import { HomeComponent } from './view/home/home.component';
     MessagesModule,
     MessageModule,
     GalleriaModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [MoneyPipePipe, MessageService],
   bootstrap: [AppComponent],
