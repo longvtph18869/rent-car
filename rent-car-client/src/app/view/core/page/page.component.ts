@@ -98,15 +98,24 @@ export class PageComponent implements OnInit {
     // this.carService.getAllCars().subscribe((data) => {
     //   this.cars = data;
     // });
-    console.log(this.pickupDate);
     this.route.queryParams.subscribe((params) => {
-      this.latitude = Number(params['latitude']);
-      this.longitude = Number(params['longitude']);
-      this.pickupDate = new Date(params['pickupDate']);
-      this.returnDate = new Date(params['returnDate']);
+      const latitudeParam = params['latitude'];
+      if (latitudeParam) {
+        this.latitude = Number(latitudeParam);
+      }
+      const longitudeParam = params['longitude'];
+      if (longitudeParam) {
+        this.longitude = Number(longitudeParam);
+      }
+      const pickupDateParam = params['pickupDate'];
+      if (pickupDateParam) {
+        this.pickupDate = new Date(pickupDateParam);
+      }
+      const returnDateParam = params['returnDate'];
+      if (returnDateParam) {
+        this.returnDate = new Date(returnDateParam);
+      }
     });
-    console.log(this.pickupDate);
-
     this.filterCars();
     this.map = new mapboxgl.Map({
       accessToken:

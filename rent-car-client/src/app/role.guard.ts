@@ -8,9 +8,10 @@ import {
 } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { Location } from '@angular/common';
+import { User } from './user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoleGuard implements CanActivate {
   constructor(
@@ -18,15 +19,21 @@ export class RoleGuard implements CanActivate {
     private router: Router,
     private location: Location
   ) {}
-
+  user!: User;
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const user = this.authService.getUserValue();
+    this.authService.getUser().subscribe((user) => {
+      this.user = user;
+    });
     const roles = route.data['roles'] as Array<string>;
-    if (this.authService.isLoggedIn() && user && roles.includes(user.role)) {
+    if (
+      this.authService.isLoggedIn() &&
+      this.user &&
+      roles.includes(this.user.role)
+    ) {
       return true;
     }
 
     this.router.navigate(['access-denied']);
     return false;
-  } 
+  }
 }

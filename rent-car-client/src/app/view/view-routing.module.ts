@@ -15,15 +15,39 @@ import { LoginGuard } from '../login.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'find', component: PageComponent },
-  { path: 'car/:id', component: DetailComponent },
-  { path: 'rent', component: RentComponent, canActivate: [AuthGuard, LoginGuard] },
-  { path: 'account', component: AccountComponent, canActivate: [LoginGuard]},
-  { path: 'access-denied', component: AccessDeniedComponent, canActivate: [LoginGuard]},
-  { path: 'myfavs', component: FavoriteCarComponent, canActivate: [LoginGuard]},
-  { path: 'rentedcars', component: RentedCarComponent, canActivate: [LoginGuard]},
-  { path: 'myaddress', component: AddressComponent, canActivate: [LoginGuard]},
-  { path: 'mycard', component: CardComponent, canActivate: [LoginGuard]}
+  {
+    path: 'find',
+    component: PageComponent,
+    children: [
+      {
+        path: 'car/:id',
+        component: DetailComponent,
+      },
+    ],
+  },
+  {
+    path: 'rent',
+    component: RentComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+  {
+    path: 'access-denied',
+    component: AccessDeniedComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'myfavs',
+    component: FavoriteCarComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'rentedcars',
+    component: RentedCarComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'myaddress', component: AddressComponent, canActivate: [AuthGuard] },
+  { path: 'mycard', component: CardComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

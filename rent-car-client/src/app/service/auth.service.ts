@@ -77,11 +77,7 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    this.decodeToken();
-    const id = this.decodedToken.sub;
-    return this.http.get<User>(environment.apiUrl + '/user/' + id).pipe(
-      tap(user => this.userSubject.next(user))
-    );
+    return this.http.get<User>(environment.apiUrl + '/user/me');
   }
 
   getUserValue(): User | null {

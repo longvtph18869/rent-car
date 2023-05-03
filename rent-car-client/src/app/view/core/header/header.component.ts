@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener  } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { BehaviorSubject } from 'rxjs';
@@ -32,13 +32,13 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    if(this.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.user = this.authService.getUser().subscribe({
         next: (res) => {
           this.user = res;
         },
         error: (err) => {
-          console.log(err);
+          console.log(err.header);
         },
       });
     }
@@ -79,22 +79,20 @@ export class HeaderComponent implements OnInit {
     this.registerDialogVisible = show;
   }
 
-  save(url: string) {
-    localStorage.setItem('redirectUrl', url);
-    if(this.user && this.user.role === 'ROLE_CUSTOMER') {
-      this.user.role = 'ROLE_CAR_OWNER';
-      this.userService.saveUser(this.user!.id, this.user).subscribe({
-        next: (res) => {
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-  }
+  // save(url: string) {
+  //   localStorage.setItem('redirectUrl', url);
+  //   if (this.user && this.user.role === 'ROLE_CUSTOMER') {
+  //     this.user.role = 'ROLE_CAR_OWNER';
+  //     this.userService.saveUser(this.user!.id, this.user).subscribe({
+  //       next: (res) => {},
+  //       error: (err) => {
+  //         console.log(err);
+  //       },
+  //     });
+  //   }
+  // }
   closeLoginDialog() {
     this.loginDialogVisible = false;
-    console.log('long');
     this.router.navigate([], {
       queryParams: {
         openLogin: undefined,

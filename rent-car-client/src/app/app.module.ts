@@ -163,12 +163,14 @@ export function playerFactory() {
     GalleriaModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
-  providers: [MoneyPipePipe, MessageService,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokeninterceptorService,
-    multi: true
-  }
+  providers: [
+    MoneyPipePipe,
+    MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokeninterceptorService,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

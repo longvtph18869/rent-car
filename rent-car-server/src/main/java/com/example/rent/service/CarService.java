@@ -125,8 +125,8 @@ public class CarService {
 	}
 
 	public List<CarDTO> findByUser(Integer userId) {
-		User user = userRepository.findById(userId);
-		List<Car> cars = carRepository.findByUser(user);
+		Optional<User> user = userRepository.findById(userId);
+		List<Car> cars = carRepository.findByUser(user.get());
 		List<CarDTO> carDTOs = new ArrayList<>();
 		for (Car car : cars) {
 			CarDTO carDTO = new CarDTO();

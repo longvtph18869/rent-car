@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DialogLoadingComponent } from 'src/app/dialog/loading/loading.component';
+import { PaymentService } from 'src/app/service/payment.service';
 
 @Component({
   selector: 'app-rent',
@@ -16,7 +17,11 @@ export class RentComponent implements OnInit {
   selectedOption: string = 'payOnPickup';
   selectedMethod!: string | null;
   activeButton: string = 'VNPAY';
-  constructor(private route: ActivatedRoute, private dialog: MatDialog) {}
+  constructor(
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private paymentService: PaymentService
+  ) {}
 
   ngOnInit() {
     this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
@@ -48,5 +53,21 @@ export class RentComponent implements OnInit {
         numVisible: 1,
       },
     ];
+  }
+  payment() {
+    this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
+      disableClose: true,
+    });
+    setTimeout(() => {
+      this.dialogLoading!.close();
+    }, 1000);
+    const payment = {
+      payment_id: 1,
+      amount: 200000,
+      bankCode: this.activeButton,
+    };
+    this.paymentService.payment(payment).subscribe((url) => {
+      // window.location.href = url;
+    });
   }
 }

@@ -12,28 +12,32 @@ const routes: Routes = [
   {
     path: 'mycars',
     component: MycarsComponent,
-    canActivate: [AuthGuard, RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
-    // canActivate: [AuthGuard],
+    // canActivate: [AuthGuard, RoleGuard],
+    // data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
+    canActivate: [AuthGuard],
     children: [
       {
         path: ':id',
         component: MyCarDetailComponent,
-        // canActivate: [AuthGuard],
-        canActivate: [AuthGuard, RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
+        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard, RoleGuard],
+        // data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
       },
     ],
   },
   {
     path: 'calendars',
     component: CalendarsComponent,
-    // canActivate: [AuthGuard],
-    canActivate: [AuthGuard, RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
+    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard, RoleGuard],
+    // data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
   },
   {
     path: 'registerCar',
     component: RegisterCarComponent,
-    // canActivate: [AuthGuard],
-    canActivate: [AuthGuard, RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
+    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard, RoleGuard],
+    // data: { roles: ['ROLE_ADMIN', 'ROLE_CAR_OWNER'] },
   },
 ];
 @NgModule({

@@ -29,7 +29,7 @@ import com.example.rent.enums.CarType;
 import com.example.rent.service.CarService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin()
 @RequestMapping("/car")
 public class CarController {
 	@Autowired
