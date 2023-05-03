@@ -19,13 +19,14 @@ export class RoleGuard implements CanActivate {
     private location: Location
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     const user = this.authService.getUserValue();
-    if (user && user.role === route.data['role']) {
+    const roles = route.data['roles'] as Array<string>;
+    if (this.authService.isLoggedIn() && user && roles.includes(user.role)) {
       return true;
     }
-    const currentUrl = this.location.path();
-    this.router.navigate([currentUrl], { queryParams: { openLogin: true } });
+
+    this.router.navigate(['access-denied']);
     return false;
   } 
 }

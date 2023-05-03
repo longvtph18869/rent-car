@@ -1,0 +1,149 @@
+.body {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.my-card__sect {
+    padding: 30px 0;
+    background: #00a550;
+}
+
+.m-container {
+    padding: 0 200px;
+}
+
+.my-card__wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-card__wrap .n-title {
+    color: #fff;
+    margin-bottom: 0;
+}
+
+h3.n-title {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.my-card__wrap .btn.btn-add-card {
+    color: #00a550;
+}
+
+.btn.btn--m {
+    height: 46px;
+    line-height: 46px;
+    padding: 0 20px;
+    font-size: 1rem;
+}
+
+.btn {
+    text-transform: uppercase;
+    display: inline-block;
+    background-color: #fff;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: 500;
+    border: 0;
+    box-shadow: inset 0 0 0 1px #efefef;
+    border-radius: 3px;
+}
+
+.btn:hover {
+    background-color: #e6e6e6;
+}
+
+.btn, .textAlign-center {
+    text-align: center;
+}
+.btn, .userSelect-none, input[type=checkbox]+label, input[type=radio]+label {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.my-card__wrap .func-filter.plus {
+    top: auto;
+    bottom: 25px;
+    right: 25px;
+    border-radius: 99%;
+    width: 45px;
+    height: 45px;
+    box-shadow: 0 1px 10px rgba(0,168,50,.5);
+}
+
+.func-filter.plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00a550;
+}
+
+.func-filter.plus .ic.plus-o {
+    width: 30px;
+    height: 30px;
+    background-image: url(../../../assets/image/main_sprites.a58f006e.png);
+    background-position: -270px -31px;
+    background-repeat: no-repeat;
+    background-size: 500px;
+}
+
+.ic.ic-plus {
+    background-position: -143px -120px;
+}
+
+.btn .ic {
+    position: relative;
+    top: -1px;
+}
+
+.ic {
+    display: inline-block;
+    background-image: url(../../../assets/image/main_sprites.a58f006e.png);
+    background-repeat: no-repeat;
+    background-size: 400px 400px;
+    margin-right: 3px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    text-indent: -9999px;
+}
+.ic {
+    cursor: pointer;
+}
+
+.list-card__sect.module-trips {
+    padding: 30px 0;
+}
+.module-trips.module-map {
+    padding-left: 0;
+}
+
+.module-trips .trip-container {
+    max-width: 770px;
+    margin: 0 auto;
+}
+
+.box-card__wrap {
+    min-height: 600px;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.fontWeight-6, .group-summary {
+    font-weight: 600;
+}
+.font-14 {
+    font-size: .875rem;
+}
+p {
+    margin: 0;
+}

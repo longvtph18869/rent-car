@@ -35,6 +35,8 @@ public class User {
     @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String phoneNumber;
     @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
+    private String email;
+    @Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
     private String address;
     @Column(length=255)
     private String username;
@@ -66,9 +68,9 @@ public class User {
     }
 
 	public User(int id, String avatar, String fullName, LocalDateTime dateOfBirth, boolean gender,
-			LocalDateTime joinDate, String phoneNumber, String address, String username, String password, String role,
-			boolean status, List<Car> car, List<Contract> contract_user, List<Contract> contract_owner,
-			List<Feedback> feedback, List<Payments> payments, List<RentCar> rentCar, DrivingLicense drivingLicense) {
+			LocalDateTime joinDate, String phoneNumber, String email, String address, String username, String password,
+			String role, boolean status, DrivingLicense drivingLicense, List<Car> car, List<Contract> contract_user,
+			List<Contract> contract_owner, List<Feedback> feedback, List<Payments> payments, List<RentCar> rentCar) {
 		super();
 		this.id = id;
 		this.avatar = avatar;
@@ -77,18 +79,19 @@ public class User {
 		this.gender = gender;
 		this.joinDate = joinDate;
 		this.phoneNumber = phoneNumber;
+		this.email = email;
 		this.address = address;
 		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.status = status;
+		this.drivingLicense = drivingLicense;
 		this.car = car;
 		this.contract_user = contract_user;
 		this.contract_owner = contract_owner;
 		this.feedback = feedback;
 		this.payments = payments;
 		this.rentCar = rentCar;
-		this.drivingLicense = drivingLicense;
 	}
 
 	public int getId() {
@@ -145,6 +148,14 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getAddress() {

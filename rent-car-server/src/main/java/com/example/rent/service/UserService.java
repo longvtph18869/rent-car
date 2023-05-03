@@ -27,6 +27,7 @@ public class UserService {
 			dto.setGender(user.isGender());
 			dto.setJoinDate(user.getJoinDate());
 			dto.setPhoneNumber(user.getPhoneNumber());
+			dto.setEmail(user.getEmail());
 			dto.setAddress(user.getAddress());
 			dto.setRole(user.getRole());
 			dto.setStatus(user.isStatus());
@@ -85,34 +86,33 @@ public class UserService {
         return true;
     }
 	
-//	public UserDTO saveOne(UserDTO dto) {
-//		if(dto != null){
-//			User user = null;
-//			if(id > 0){
-//				if(dto.getId() > 0 && !(dto.getId() == id))
-//					return null;
-//				user = userRepository.findById(id);
-//			}
-//			if(user == null)
-//				user = new User();
-
-			/* Set all the values */
-//			user.setAvatar(dto.getAvatar());
-//			user.setFullName(dto.getFullName());
-//			user.setDateOfBirth(dto.getDateOfBirth());
-//			user.setGender(dto.isGender());
-//			user.setJoinDate(dto.getJoinDate());
-//			user.setPhoneNumber(dto.getPhoneNumber());
-//			user.setAddress(dto.getAddress());
-//			user.setRole(dto.getRole());
-//			user.setStatus(dto.isStatus());
+	public User saveUser(int id, UserDTO dto) {
+		User user = userRepository.findById(id);
+		if(user != null) {
+			user.setAvatar(dto.getAvatar());
+			user.setFullName(dto.getFullName());
+			user.setDateOfBirth(dto.getDateOfBirth());
+			user.setGender(dto.isGender());
+			user.setJoinDate(dto.getJoinDate());
+			user.setPhoneNumber(dto.getPhoneNumber());
+			user.setEmail(dto.getEmail());
+			user.setAddress(dto.getAddress());
+			user.setRole(dto.getRole());
+			user.setStatus(dto.isStatus());
+//			user.setCar(dto.getCar());
+//			user.setContract_user(dto.getContract_user());
+//			user.setContract_owner(dto.getContract_owner());
+//			user.setFeedback(dto.getFeedback());
+//			user.setPayments(dto.getPayments());
+//			user.setRentCar(dto.getRentCar());
 //			user.setDrivingLicense(dto.getDrivingLicense());
-//			if(user != null)
-//				return new UserDTO(user);
-//		}
-//
-//		return null;
-//	}
+			userRepository.save(user);
+
+			return user;
+		}
+
+		return null;
+	}
 	
 	public UserDTO getByUserName(String username) {
 		UserDTO dto;
@@ -128,6 +128,7 @@ public class UserService {
 			dto.setGender(user.isGender());
 			dto.setJoinDate(user.getJoinDate());
 			dto.setPhoneNumber(user.getPhoneNumber());
+			dto.setEmail(user.getEmail());
 			dto.setAddress(user.getAddress());
 			dto.setRole(user.getRole());
 			dto.setStatus(user.isStatus());

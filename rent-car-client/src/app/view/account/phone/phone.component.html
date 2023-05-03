@@ -1,0 +1,28 @@
+<form [formGroup]="phoneForm" (ngSubmit)="onSubmit()" class="modal-content" role="document">
+    <div class="modal-header">
+      <h4 class="modal-title">Cập nhật số điện thoại</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-default form-s">
+        <div class="line-form">
+          <div class="wrap-input has-ico">
+            <input type="text" placeholder="Số điện thoại" formControlName="phoneNumber" [(ngModel)]="user.phoneNumber" />
+          </div>
+          <div *ngIf="phoneForm.get('phoneNumber')?.invalid && (phoneForm.get('phoneNumber')?.dirty || phoneForm.get('phoneNumber')?.touched)" class="error">
+            <div *ngIf="phoneForm.get('phoneNumber')?.errors?.['required']">Số điện thoại không được để trống.</div>
+          </div>
+          <div *ngIf="phoneForm.get('phoneNumber')?.hasError('pattern')">
+            Số điện thoại không đúng định dạng.
+          </div>
+        </div>
+        <div class="clear"></div>
+        <button type="submit" class="btn btn-primary btn--m">CẬP NHẬT</button>
+      </div>
+    </div>
+  </form>
+  <p-toast></p-toast>
+    
+    
+    
+    
+  

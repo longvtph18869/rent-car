@@ -1,0 +1,46 @@
+<form [formGroup]="infoForm" (ngSubmit)="onSubmit()" class="modal-content" role="document">
+    <div class="modal-header">
+      <h4 class="modal-title">Cập nhật thông tin</h4>
+   </div>
+   <div class="modal-body">
+      <div class="form-default form-s">
+         <div class="line-form">
+            <div class="wrap-input has-ico"><i class="ic ic-user-fill"></i><input type="text" placeholder="Tên hiển thị" formControlName="fullName" [(ngModel)]="user.fullName"></div>
+         </div>
+         <div *ngIf="infoForm.get('fullName')?.invalid && (infoForm.get('fullName')?.dirty || infoForm.get('fullName')?.touched)" class="error">
+           <div *ngIf="infoForm.get('fullName')?.errors?.['required']">Tên hiển thị không được để trống.</div>
+         </div>
+         <div class="line-form">
+            <div class="wrap-input has-ico">
+              <i class="ic ic-calendar-fill"></i>
+              <input type="date" class="no-icon" formControlName="dateOfBirth" [(ngModel)]="dateOfBirth">
+            </div>
+            <div *ngIf="infoForm.get('dateOfBirth')?.invalid && (infoForm.get('dateOfBirth')?.dirty || infoForm.get('dateOfBirth')?.touched)" class="error">
+              <div *ngIf="infoForm.get('dateOfBirth')?.errors?.['required']">Ngày sinh không được để trống.</div>
+            </div>
+            <div *ngIf="infoForm.get('dateOfBirth')?.hasError('mismatch')">
+              Ngày sinh không được lớn hơn ngày hiện tại.
+            </div>
+         </div>
+         <div class="line-form">
+            <div class="wrap-select">
+               <select formControlName="gender" [(ngModel)]="gender">
+                  <option value="1">Nam</option>
+                  <option value="0">Nữ</option>
+               </select>
+            </div>
+            <div *ngIf="infoForm.get('gender')?.invalid && (infoForm.get('gender')?.dirty || infoForm.get('gender')?.touched)" class="error">
+              <div *ngIf="infoForm.get('gender')?.errors?.['required']">Giới tính không được để trống.</div>
+            </div>
+         </div>
+         <div class="clear"></div>
+         <button type="submit" class="btn btn-primary btn--m">CẬP NHẬT</button>
+      </div>
+   </div>
+  </form>
+  <p-toast></p-toast>
+    
+    
+    
+    
+  

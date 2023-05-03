@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener  } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 import { BehaviorSubject } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +18,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -62,7 +64,6 @@ export class HeaderComponent implements OnInit {
   onLoginSuccess(success: boolean) {
     this.loginDialogVisible = !success;
     this.isLoggedIn = this.authService.isLoggedIn();
-    console.log(this.authService.getUserValue());
     this.user = this.authService.getUser().subscribe({
       next: (res) => {
         this.user = res;
@@ -80,6 +81,16 @@ export class HeaderComponent implements OnInit {
 
   save(url: string) {
     localStorage.setItem('redirectUrl', url);
+    if(this.user && this.user.role === 'ROLE_CUSTOMER') {
+      this.user.role = 'ROLE_CAR_OWNER';
+      this.userService.saveUser(this.user!.id, this.user).subscribe({
+        next: (res) => {
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
   closeLoginDialog() {
     this.loginDialogVisible = false;
