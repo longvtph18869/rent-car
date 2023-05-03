@@ -8,7 +8,6 @@ import {
 } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { Location } from '@angular/common';
-import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -23,11 +22,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     if (!this.authService.isLoggedIn()) {
       const currentUrl = this.location.path(true);
-      const newParams = new HttpParams().set('openLogin', 'true');
-      const newUrl = `${encodeURIComponent(
-        currentUrl
-      )}?${newParams.toString()}`;
-      this.router.navigateByUrl(newUrl);
+      this.router.navigate([currentUrl], { queryParams: { openLogin: true } });
       return false;
     }
     return true;
