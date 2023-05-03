@@ -76,6 +76,13 @@ import { EmailComponent } from './view/account/email/email.component';
 import { InfoComponent } from './view/account/info/info.component';
 import { PhoneComponent } from './view/account/phone/phone.component';
 import { AccessDeniedComponent } from './view/access-denied/access-denied.component';
+import { GalleriaModule } from 'primeng/galleria';
+import { HomeComponent } from './view/home/home.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+export function playerFactory() {
+  return player;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,6 +117,7 @@ import { AccessDeniedComponent } from './view/access-denied/access-denied.compon
     InfoComponent,
     PhoneComponent,
     AccessDeniedComponent,
+    HomeComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {
@@ -152,6 +160,8 @@ import { AccessDeniedComponent } from './view/access-denied/access-denied.compon
     MatMenuModule,
     MessagesModule,
     MessageModule,
+    GalleriaModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [MoneyPipePipe, MessageService,
   {

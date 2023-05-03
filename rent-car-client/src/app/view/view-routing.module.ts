@@ -10,10 +10,11 @@ import { AddressComponent } from './address/address.component';
 import { CardComponent } from './card/card.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AuthGuard } from '../auth.guard';
+import { HomeComponent } from './home/home.component';
 import { LoginGuard } from '../login.guard';
 
 const routes: Routes = [
-  { path: '', component: PageComponent },
+  { path: '', component: HomeComponent },
   { path: 'find', component: PageComponent },
   { path: 'car/:id', component: DetailComponent },
   { path: 'rent', component: RentComponent, canActivate: [AuthGuard, LoginGuard] },

@@ -1,6 +1,7 @@
 package com.example.rent.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,11 +22,11 @@ public class RentCar  {
     @Column(unique=true, nullable=false, precision=10)
     private int id;
     @Column(name="rental_date")
-    private LocalDateTime rentalDate;
+    private LocalDate rentalDate;
     @Column(name="return_date")
-    private LocalDateTime returnDate;
-    @Column(name="rental_duration")
-    private LocalDateTime rentalDuration;
+    private LocalDate returnDate;
+    @Column(name="pickup_date")
+    private LocalDate pickupDate;
     @Column(name="pickup_location", length=255)
     private String pickupLocation;
     @Column(name="return_location", length=255)

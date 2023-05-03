@@ -5,6 +5,7 @@
 .info-car {
   display: flex;
   align-items: center;
+  color: wheat;
 }
 .title-car {
   font-size: 30px;

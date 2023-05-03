@@ -1,5 +1,6 @@
 package com.example.rent.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,12 +46,17 @@ public class CarController {
 	}
 	
 	@GetMapping("/filter")
-	public ResponseEntity<List<Car>> filter(@RequestParam String latitude, @RequestParam String longitude) {
+	public ResponseEntity<List<CarDTO>> filter(
+	    @RequestParam("latitude") String latitude,
+	    @RequestParam("longitude") String longitude,
+	    @RequestParam("pickupDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDate pickupDate,
+	    @RequestParam("returnDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDate returnDate
+	) {
 	    try {
-	    	List<Car> carList = carService.filter(latitude,longitude);
+	        List<CarDTO> carList = carService.filter(latitude, longitude, pickupDate, returnDate);
 	        return ResponseEntity.ok().body(carList);
 	    } catch (Exception e) {
-	    	System.out.println(e);
+	        System.out.println(e);
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	    }
 	}

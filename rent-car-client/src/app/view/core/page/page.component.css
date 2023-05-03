@@ -233,7 +233,7 @@ body {
   display: inline-flex;
   background-color: #fff;
   border-radius: 999px;
-  z-index: 99;
+  z-index: 5;
   padding: 5px 10px 5px 5px;
   cursor: pointer;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
@@ -267,6 +267,7 @@ body {
 .img-car img {
   width: 100%;
   border-radius: 5px;
+  height: 100%;
 }
 .list-car {
   padding: 8px;

@@ -19,11 +19,24 @@ export class CarService {
     pickupDate: Date,
     returnDate: Date
   ): Observable<any> {
+    const formatDateTime = (date: Date): string => {
+      const yyyy = date.getFullYear();
+      const MM = String(date.getMonth() + 1).padStart(2, '0');
+      const dd = String(date.getDate()).padStart(2, '0');
+      const hh = String(date.getHours()).padStart(2, '0');
+      const mm = String(date.getMinutes()).padStart(2, '0');
+      const ss = String(date.getSeconds()).padStart(2, '0');
+      return `${yyyy}-${MM}-${dd} ${hh}:${mm}:${ss}`;
+    };
+
     const params = new HttpParams()
       .set('latitude', lat.toString())
       .set('longitude', lng.toString())
-      .set('pickupDate', pickupDate.toLocaleDateString())
-      .set('returnDate', returnDate.toLocaleDateString());
+      .set('pickupDate', formatDateTime(pickupDate))
+      .set('returnDate', formatDateTime(returnDate));
+
+    console.log(formatDateTime(pickupDate));
+    console.log(formatDateTime(returnDate));
 
     return this.http.get(environment.apiUrl + '/car/filter', { params });
   }

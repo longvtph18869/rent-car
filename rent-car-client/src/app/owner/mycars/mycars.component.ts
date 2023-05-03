@@ -25,13 +25,15 @@ export class MycarsComponent implements OnInit {
     this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
       disableClose: true,
     });
+    setTimeout(() => {
+      this.dialogLoading!.close();
+    }, 1000);
     const id = this.authService.getUserId();
     this.ownerService.myCars(id).subscribe({
       next: (res) => {
         this.mycars = res;
         this.displayCars = this.mycars;
         console.log(this.mycars);
-        this.dialogLoading?.close();
       },
       error: (err) => {
         console.log(err);

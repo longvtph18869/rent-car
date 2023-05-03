@@ -41,6 +41,9 @@ export class DetailComponent implements OnInit {
     }
   }
   onDateSelect(event: any) {
+    if (this.returnDate <= this.pickupDate) {
+      this.returnDate = new Date(this.pickupDate.getTime() + 86400000);
+    }
     const timeDiff = Math.abs(
       this.pickupDate.getTime() - this.returnDate.getTime()
     );
@@ -53,6 +56,8 @@ export class DetailComponent implements OnInit {
       rentalDate: this.pickupDate,
       returnDate: this.returnDate,
       rentalPrice: this.sum,
+      diffDays: this.diffDays,
+      servicePrice: this.servicePrice,
     };
     this.router.navigate(['/rent'], {
       queryParams: { rental: JSON.stringify(rental) },
