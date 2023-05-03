@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,12 +59,16 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(new AuthenticationResponse(jwt));
 	}
 	
-//	@PostMapping(value = "")
-//	public ResponseEntity<UserDTO> saveOne(@RequestBody UserDTO dto) {
-//		UserDTO result = userService.saveOne(dto);
-//
-//		return new ResponseEntity<>(result, result != null? HttpStatus.OK : HttpStatus.BAD_REQUEST);
-//	}
+	@PutMapping()
+	public ResponseEntity<User> saveUser(@RequestBody UserDTO userDTO, @RequestParam int id) {
+		try {
+			User savedUser = userService.saveUser(id, userDTO);
+			return ResponseEntity.ok().body(savedUser);
+		} catch (Exception e) {
+			System.out.println(e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 	
 //	@GetMapping("/{username}")
 //	public ResponseEntity<UserDTO> getOne(@PathVariable String username) {

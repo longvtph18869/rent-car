@@ -1,1 +1,104 @@
-<p>account works!</p>
+<section class="body">
+    <div class="cover-profile new-profile"></div>
+    <div class="profile__sect">
+       <div class="content-profile--new">
+          <div class="desc-profile desc-account">
+             <div class="avatar-box">
+                <div class="avatar avatar--xl has-edit"  (click)="selectAvatar()">
+                    <div class="avatar-img" [ngStyle]="{'background-image': 'url(' + avatarUrl + ')'}">
+                        <input type="file" (change)="onFileSelected($event)" #fileInput [ngStyle]="{'display':'none'}">
+                    </div>
+                </div>
+                <div class="update-avatar" (click)="saveAvatar()">CẬP NHẬT</div>
+             </div>
+             <div class="snippet">
+                <div class="profile-info">
+                   <div class="item-content">
+                      <div class="item-title">
+                         <p class="fullname">{{ user?.fullName }}</p>
+                         <a class="func-edit" title="Chỉnh sửa" (click)="showUpdateInfoDialog()"><i class="ic ic-edit"></i></a>
+                      </div>
+                      <div class="d-flex">
+                         <span class="join">Tham gia: {{ user?.joinDate | date: 'dd/MM/yyyy' }}</span>
+                         <span class="sum-trips">Chưa có xe thuê</span>
+                      </div>
+                      <div></div>
+                   </div>
+                </div>
+                <div class="line-info">
+                   <div class="d-flex">
+                      <div class="info"><span class="label">Ngày sinh </span><span class="ctn">{{ user?.dateOfBirth | date: 'dd/MM/yyyy' }}</span></div>
+                      <div class="info"><span class="label">Giới tính </span><span class="ctn">{{ user?.gender ? 'Nam' : 'Nữ' }}</span></div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="desc-profile">
+             <div class="information information--acc">
+                <div class="inside">
+                   <ul>
+                      <li><span class="label">Điện thoại</span><span class="ctn"><span>{{ user?.phoneNumber }}</span><a class="func-edit" title="Edit" (click)="showUpdatePhoneDialog()"><i class="ic ic-edit"></i></a></span></li>
+                      <li><span class="label">GPLX</span><span class="ctn"><a class="func-edit" title="Edit"><i class="ic ic-edit"></i></a></span></li>
+                      <li><span class="label">Email</span><span class="ctn"><span><i class="ic ic-verify"></i>{{ user?.email }}</span><a class="func-edit" title="Edit" (click)="showUpdateEmailDialog()"><i class="ic ic-edit"></i></a></span></li>
+                      <li><span class="label">Facebook</span><span class="ctn"><a class="func-edit"><i class="ic ic-link"></i></a></span></li>
+                      <li><span class="label">Google</span><span class="ctn"><a class="func-edit"><i class="ic ic-link"></i></a></span></li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="profile__wrap">
+          <div class="review__sect">
+             <div class="review-container"></div>
+          </div>
+       </div>
+    </div>
+ </section>
+
+ <p-dialog
+ [(visible)]="infoVisible"
+ *ngIf="infoVisible"
+ [modal]="true"
+ [style]="{ width: '500px' }"
+ [draggable]="false"
+ [resizable]="false"
+ [contentStyle]="{
+   'overflow-y': 'hidden',
+   'overflow-x': 'hidden'
+ }"
+>
+<app-info></app-info>
+</p-dialog>
+
+ <p-dialog
+ [(visible)]="phoneVisible"
+ *ngIf="phoneVisible"
+ [modal]="true"
+ [style]="{ width: '500px' }"
+ [draggable]="false"
+ [resizable]="false"
+ [contentStyle]="{
+   'overflow-y': 'hidden',
+   'overflow-x': 'hidden'
+ }"
+>
+<app-phone></app-phone>
+</p-dialog>
+
+<p-dialog
+[(visible)]="emailVisible"
+*ngIf="emailVisible"
+[modal]="true"
+[style]="{ width: '500px' }"
+[draggable]="false"
+[resizable]="false"
+[contentStyle]="{
+  'overflow-y': 'hidden',
+  'overflow-x': 'hidden'
+}"
+>
+<app-email></app-email>
+</p-dialog>
+
+
+

@@ -21,6 +21,7 @@ public class UserDTO {
     private boolean gender;
     private LocalDateTime joinDate;
     private String phoneNumber;
+    private String email;
     private String address;
     private String username;
     private String password;
@@ -45,10 +46,10 @@ public class UserDTO {
 	}
 
 	public UserDTO(int id, String avatar, String fullName, LocalDateTime dateOfBirth, boolean gender,
-			LocalDateTime joinDate, String phoneNumber, String address, String username, String password, String role,
-			boolean status, DrivingLicenseDTO drivingLicense, List<CarDTO> car, List<ContractDTO> contract_user,
-			List<ContractDTO> contract_owner, List<FeedbackDTO> feedback, List<PaymentDTO> payments,
-			List<RentCarDTO> rentCar) {
+			LocalDateTime joinDate, String phoneNumber, String email, String address, String username, String password,
+			String role, boolean status, DrivingLicenseDTO drivingLicense, List<CarDTO> car,
+			List<ContractDTO> contract_user, List<ContractDTO> contract_owner, List<FeedbackDTO> feedback,
+			List<PaymentDTO> payments, List<RentCarDTO> rentCar) {
 		super();
 		this.id = id;
 		this.avatar = avatar;
@@ -57,6 +58,7 @@ public class UserDTO {
 		this.gender = gender;
 		this.joinDate = joinDate;
 		this.phoneNumber = phoneNumber;
+		this.email = email;
 		this.address = address;
 		this.username = username;
 		this.password = password;
@@ -125,6 +127,14 @@ public class UserDTO {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getAddress() {

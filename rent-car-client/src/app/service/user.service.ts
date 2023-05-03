@@ -24,4 +24,9 @@ export class UserService {
     const params = new HttpParams().set('id', id);
     return this.http.post(environment.apiUrl + '/user/changePassword', changePasswordRequest, { params });
   }
+
+  saveUser(id: number, user: any): Observable<any> {
+    const params = new HttpParams().set('id', id);
+    return this.http.put(environment.apiUrl + '/user', user, { params });
+  }
 }

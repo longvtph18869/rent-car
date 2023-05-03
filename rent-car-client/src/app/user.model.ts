@@ -6,6 +6,7 @@ export interface User {
     gender: boolean,
     joinDate: string,
     phoneNumber: string,
+    email: string,
     address: string,
     username: string,
     role: string,

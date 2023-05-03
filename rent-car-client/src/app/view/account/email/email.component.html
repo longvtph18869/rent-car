@@ -1,0 +1,28 @@
+<form [formGroup]="emailForm" (ngSubmit)="onSubmit()" class="modal-content" role="document">
+    <div class="modal-header">
+      <h4 class="modal-title">Cập nhật email</h4>
+    </div>
+    <div class="modal-body">
+      <div class="form-default form-s">
+        <div class="line-form">
+          <div class="wrap-input has-ico">
+            <input type="text" placeholder="Email" formControlName="email" [(ngModel)]="user.email" />
+          </div>
+          <div *ngIf="emailForm.get('email')?.invalid && (emailForm.get('email')?.dirty || emailForm.get('email')?.touched)" class="error">
+            <div *ngIf="emailForm.get('email')?.errors?.['required']">Email không được để trống.</div>
+          </div>
+          <div *ngIf="emailForm.get('email')?.hasError('pattern')">
+            Email không hợp lệ.
+          </div>
+        </div>
+        <div class="clear"></div>
+        <button type="submit" class="btn btn-primary btn--m">CẬP NHẬT</button>
+      </div>
+    </div>
+  </form>
+  <p-toast></p-toast>
+  
+  
+  
+  
+

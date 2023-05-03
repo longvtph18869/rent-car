@@ -67,6 +67,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmComponent } from './dialog/confirm/confirm.component';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { FavoriteCarComponent } from './view/favorite-car/favorite-car.component';
+import { RentedCarComponent } from './view/rented-car/rented-car.component';
+import { AddressComponent } from './view/address/address.component';
+import { CardComponent } from './view/card/card.component';
+import { DrivingLicenseComponent } from './view/account/driving-license/driving-license.component';
+import { EmailComponent } from './view/account/email/email.component';
+import { InfoComponent } from './view/account/info/info.component';
+import { PhoneComponent } from './view/account/phone/phone.component';
+import { AccessDeniedComponent } from './view/access-denied/access-denied.component';
 import { GalleriaModule } from 'primeng/galleria';
 import { HomeComponent } from './view/home/home.component';
 import { LottieModule } from 'ngx-lottie';
@@ -99,6 +108,15 @@ export function playerFactory() {
     AccountComponent,
     MyCarDetailComponent,
     ConfirmComponent,
+    FavoriteCarComponent,
+    RentedCarComponent,
+    AddressComponent,
+    CardComponent,
+    DrivingLicenseComponent,
+    EmailComponent,
+    InfoComponent,
+    PhoneComponent,
+    AccessDeniedComponent,
     HomeComponent,
   ],
   imports: [
@@ -145,7 +163,13 @@ export function playerFactory() {
     GalleriaModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
-  providers: [MoneyPipePipe, MessageService],
+  providers: [MoneyPipePipe, MessageService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokeninterceptorService,
+    multi: true
+  }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
