@@ -59,7 +59,6 @@
 }
 .pickup {
   position: relative;
-  padding-block-end: 24px;
   padding-inline-start: 40px;
 }
 .icon-pickup {

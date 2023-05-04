@@ -12,6 +12,9 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AuthGuard } from '../auth.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginGuard } from '../login.guard';
+import { PaymentComponent } from './core/payment/payment.component';
+import { RentedComponent } from './rented-car/rented/rented.component';
+import { LeaseComponent } from './rented-car/lease/lease.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -42,12 +45,23 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'rentedcars',
+    path: 'mytrips',
     component: RentedCarComponent,
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'rented',
+        component: RentedComponent,
+      },
+      {
+        path: 'lease',
+        component: LeaseComponent,
+      },
+    ],
   },
   { path: 'myaddress', component: AddressComponent, canActivate: [AuthGuard] },
   { path: 'mycard', component: CardComponent, canActivate: [AuthGuard] },
+  { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

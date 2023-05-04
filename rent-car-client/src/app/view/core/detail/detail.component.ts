@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from 'src/app/service/car.service';
+import { RentService } from 'src/app/service/rent.service';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -9,6 +10,7 @@ import { CarService } from 'src/app/service/car.service';
 })
 export class DetailComponent implements OnInit {
   car: any = {};
+  rentCars: any = {};
   servicePrice: number = 0.1;
   pickupDate: Date = new Date();
   minpickupDate: Date = new Date();
@@ -17,11 +19,13 @@ export class DetailComponent implements OnInit {
   diffDays: number = 0;
   sum: number = 0;
   loading = true;
+  disabledDates: Date[] = [];
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private carService: CarService,
-    private router: Router
+    private router: Router,
+    private rentService: RentService
   ) {}
   ngOnInit() {
     this.returnDate.setDate(this.returnDate.getDate() + 1);
@@ -31,6 +35,20 @@ export class DetailComponent implements OnInit {
       this.carService.findCar(carId).subscribe({
         next: (res) => {
           this.car = res;
+          this.rentService.getRentalsByCar(res.id).subscribe({
+            next: (res) => {
+              this.rentCars = res;
+              res.forEach((rental: any) => {
+                var start = new Date(rental.pickupDate);
+                var end = new Date(rental.returnDate);
+                while (start <= end) {
+                  this.disabledDates.push(new Date(start.getTime()));
+                  start.setDate(start.getDate() + 1);
+                }
+              });
+              console.log(this.disabledDates);
+            },
+          });
           this.loading = false;
           this.onDateSelect(null);
         },
@@ -58,6 +76,8 @@ export class DetailComponent implements OnInit {
       rentalPrice: this.sum,
       diffDays: this.diffDays,
       servicePrice: this.servicePrice,
+      pickupLocation: this.car.location,
+      returnLocation: this.car.location,
     };
     this.router.navigate(['/rent'], {
       queryParams: { rental: JSON.stringify(rental) },

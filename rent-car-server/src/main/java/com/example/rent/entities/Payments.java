@@ -19,7 +19,7 @@ public class Payments {
 	@Column(unique = true, nullable = false, precision = 10)
 	private int id;
 	@Column(precision = 10)
-	private BigDecimal amount;
+	private int amount;
 	@Column(name = "payment_date")
 	private LocalDateTime paymentDate;
 	@Column(name = "payment_method", length = 255)
@@ -35,7 +35,7 @@ public class Payments {
 		super();
 	}
 
-	public Payments(int id, BigDecimal amount, LocalDateTime paymentDate, String paymentMethod, RentCar rentCar,
+	public Payments(int id, int amount, LocalDateTime paymentDate, String paymentMethod, RentCar rentCar,
 			User user) {
 		super();
 		this.id = id;
@@ -54,11 +54,11 @@ public class Payments {
 		this.id = id;
 	}
 
-	public BigDecimal getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(BigDecimal amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 

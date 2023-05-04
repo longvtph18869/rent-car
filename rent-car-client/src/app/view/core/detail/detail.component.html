@@ -107,6 +107,9 @@
                         [(ngModel)]="pickupDate"
                         inputId="basic"
                         [readonlyInput]="true"
+                        [disabledDates]="disabledDates"
+                        [showOtherMonths]="false"
+                        [showIcon]="true"
                         (onSelect)="onDateSelect($event)"
                       ></p-calendar>
                     </div>
@@ -142,6 +145,9 @@
                         [(ngModel)]="returnDate"
                         inputId="basic"
                         [readonlyInput]="true"
+                        [disabledDates]="disabledDates"
+                        [showOtherMonths]="false"
+                        [showIcon]="true"
                         (onSelect)="onDateSelect($event)"
                       ></p-calendar>
                     </div>

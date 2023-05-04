@@ -87,10 +87,10 @@ public class CarController {
 		    }
 		}
 	 @PostMapping(value = "/registerCar")
-	 public ResponseEntity<Car> registerCar(@RequestBody CarDTO carDTO) {
+	 public ResponseEntity<CarDTO> registerCar(@RequestBody CarDTO carDTO) {
 		 try {
 	        Car savedCar = carService.registerCar(carDTO);
-	        return ResponseEntity.ok().body(savedCar);
+	        return ResponseEntity.ok().body(carDTO);
 		 } catch (Exception e) {
 		    	System.out.println(e);
 		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

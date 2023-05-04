@@ -1,0 +1,36 @@
+.sidebar-control {
+  position: relative;
+  z-index: 2;
+}
+.sidebar-settings {
+  display: flex;
+  background-color: #fff;
+  padding: 20px 50px;
+  width: 100%;
+  margin-bottom: 0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  justify-content: center;
+  border-bottom: 1px solid #f7f8f7;
+}
+.sidebar-settings ul {
+  display: flex;
+  max-width: 1260px;
+  margin: 0 auto;
+  width: 100%;
+}
+.sidebar-settings li:not(:last-child) {
+  border-right: 1px solid #e8e8e8;
+}
+.sidebar-settings li {
+  position: relative;
+  padding: 0 40px;
+  list-style: none;
+}
+.sidebar-settings span {
+  padding-left: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.sidebar-settings li.active a {
+  color: #00a550;
+}

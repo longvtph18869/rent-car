@@ -7,10 +7,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.rent.DTO.CarDTO;
+import com.example.rent.DTO.UserDTO;
 import com.example.rent.entities.Car;
 import com.example.rent.entities.CarImage;
 import com.example.rent.entities.Location;
@@ -35,7 +39,8 @@ public class CarService {
 	UserRepository userRepository;
 	@Autowired
 	CarImageRepository carImageRepository;
-
+	@Autowired
+	private UserService userService;
 	public List<CarDTO> getAllCar() {
 		List<Car> cars = carRepository.findAll();
 		List<CarDTO> carDTOs = new ArrayList<>();
@@ -90,38 +95,46 @@ public class CarService {
 		return carDTO;
 	}
 
-	public List<CarDTO> filter(String latitude, String longitude, LocalDate pickupDate,LocalDate returnDate) {
-		double delta = 0.1;
-		double minLat = Double.parseDouble(latitude) - delta;
-		double maxLat = Double.parseDouble(latitude) + delta;
-		double minLong = Double.parseDouble(longitude) - delta;
-		double maxLong = Double.parseDouble(longitude) + delta;
-		List<Car> cars = carRepository.filter(minLat, maxLat, minLong, maxLong, pickupDate,returnDate);
-		List<CarDTO> carDTOs = new ArrayList<>();
-		for (Car car : cars) {
-			CarDTO carDTO = new CarDTO();
-			carDTO.setId(car.getId());
-			carDTO.setLicensePlates(car.getLicensePlates());
-			carDTO.setColor(car.getColor());
-			carDTO.setDescription(car.getDescription());
-			carDTO.setLatitude(car.getLocation().getLatitude());
-			carDTO.setLongitude(car.getLocation().getLongitude());
-			carDTO.setManufacturerId(car.getManufacturer().getId());
-			carDTO.setName(car.getName());
-			carDTO.setLocation(car.getLocation().getName());
-			carDTO.setOwner(car.getUser().getId());
-			carDTO.setType(car.getType().getValue());
-			carDTO.setStatus(car.getStatus());
-			List<String> carImages = new ArrayList<>();
-			for (CarImage image : car.getCarImage()) {
-				carImages.add(image.getImage());
-			}
-			carDTO.setRentalPrice(car.getRentalPrice());
-			carDTO.setYearOfManufacture(car.getYearOfManufacture());
-			carDTO.setCarImages(carImages);
-			carDTOs.add(carDTO);
-		}
-		return carDTOs;
+	public List<CarDTO> filter(String latitude, String longitude, LocalDate pickupDate, LocalDate returnDate) {
+	    double delta = 0.1;
+	    double minLat = Double.parseDouble(latitude) - delta;
+	    double maxLat = Double.parseDouble(latitude) + delta;
+	    double minLong = Double.parseDouble(longitude) - delta;
+	    double maxLong = Double.parseDouble(longitude) + delta;
+	    List<Car> cars = carRepository.filter(minLat, maxLat, minLong, maxLong, pickupDate, returnDate);
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserDTO userDTO = new UserDTO();
+	    if (authentication != null && authentication.isAuthenticated()) {
+	    	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			userDTO = userService.getByUserName(userDetails.getUsername());
+	    }
+	    List<CarDTO> carDTOs = new ArrayList<>();
+	    for (Car car : cars) {
+	        if (userDTO == null || !(car.getUser().getId() == userDTO.getId())) {
+	            CarDTO carDTO = new CarDTO();
+	            carDTO.setId(car.getId());
+	            carDTO.setLicensePlates(car.getLicensePlates());
+	            carDTO.setColor(car.getColor());
+	            carDTO.setDescription(car.getDescription());
+	            carDTO.setLatitude(car.getLocation().getLatitude());
+	            carDTO.setLongitude(car.getLocation().getLongitude());
+	            carDTO.setManufacturerId(car.getManufacturer().getId());
+	            carDTO.setName(car.getName());
+	            carDTO.setLocation(car.getLocation().getName());
+	            carDTO.setOwner(car.getUser().getId());
+	            carDTO.setType(car.getType().getValue());
+	            carDTO.setStatus(car.getStatus());
+	            List<String> carImages = new ArrayList<>();
+	            for (CarImage image : car.getCarImage()) {
+	                carImages.add(image.getImage());
+	            }
+	            carDTO.setRentalPrice(car.getRentalPrice());
+	            carDTO.setYearOfManufacture(car.getYearOfManufacture());
+	            carDTO.setCarImages(carImages);
+	            carDTOs.add(carDTO);
+	        }
+	    }
+	    return carDTOs;
 	}
 
 	public List<CarDTO> findByUser(Integer userId) {
@@ -262,7 +275,6 @@ public class CarService {
 			carType = CarType.SEVEN_SEATER;
 			break;
 		default:
-			// handle the case where the input type is not a valid CarType
 			break;
 		}
 		return carType;

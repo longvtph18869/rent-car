@@ -22,7 +22,10 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     if (!this.authService.isLoggedIn()) {
       const currentUrl = this.location.path(true);
-      this.router.navigate([currentUrl], { queryParams: { openLogin: true } });
+
+      this.router.navigate([currentUrl], {
+        queryParams: { openLogin: true },
+      });
       return false;
     }
     return true;

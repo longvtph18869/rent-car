@@ -80,6 +80,12 @@ import { GalleriaModule } from 'primeng/galleria';
 import { HomeComponent } from './view/home/home.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { PaymentComponent } from './view/core/payment/payment.component';
+import { RentedComponent } from './view/rented-car/rented/rented.component';
+import { LeaseComponent } from './view/rented-car/lease/lease.component';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
 export function playerFactory() {
   return player;
 }
@@ -118,6 +124,9 @@ export function playerFactory() {
     PhoneComponent,
     AccessDeniedComponent,
     HomeComponent,
+    PaymentComponent,
+    RentedComponent,
+    LeaseComponent,
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, {
@@ -162,6 +171,9 @@ export function playerFactory() {
     MessageModule,
     GalleriaModule,
     LottieModule.forRoot({ player: playerFactory }),
+    TableModule,
+    TagModule,
+    RatingModule,
   ],
   providers: [
     MoneyPipePipe,

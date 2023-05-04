@@ -7,7 +7,7 @@
     <li><a routerLink="/account">Tài khoản</a></li>
     <li><a routerLink="/myfavs">Xe yêu thích</a></li>
     <li><a routerLink="owner/mycars">Xe cho thuê</a></li>
-    <li><a routerLink="/rentedcars">Xe đã thuê</a></li>
+    <li><a routerLink="/mytrips/rented">Chuyến của tôi</a></li>
     <li><a routerLink="/myaddress">Địa chỉ của tôi</a></li>
     <li><a routerLink="/mycard">Thẻ của tôi </a></li>
     <li><a (click)="changePassword($event)">Đổi mật khẩu</a></li>
@@ -27,5 +27,7 @@
     'overflow-x': 'hidden'
   }"
 >
-  <app-change-password (click)="onClickChangePassword($event)"></app-change-password>
+  <app-change-password
+    (click)="onClickChangePassword($event)"
+  ></app-change-password>
 </p-dialog>

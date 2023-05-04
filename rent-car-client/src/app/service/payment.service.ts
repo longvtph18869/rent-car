@@ -12,4 +12,10 @@ export class PaymentService {
   payment(payment: any): Observable<any> {
     return this.http.post(environment.apiUrl + '/payment', payment);
   }
+  response(payment: any): Observable<any> {
+    return this.http.post(environment.apiUrl + '/response', payment);
+  }
+  save(payment: any): Observable<any> {
+    return this.http.post(environment.apiUrl + '/payment/save', payment);
+  }
 }

@@ -17,6 +17,7 @@ import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,8 @@ public class VnpayService {
 		String vnp_CurrCode = "VND";
 		String vnp_IpAddr = "127.0.0.1";
 		String vnp_Locale = "vn";
-		String vnp_OrderInfo = "Thanh toan don hang: " + paymentDTO.getPayment_id();
-		String vnp_TxnRef = vnp_TmnCode + "-" + paymentDTO.getPayment_id() + "-" + vnp_CreateDate;
+		String vnp_OrderInfo = "Thanh toan don hang: " + paymentDTO.getOrderCode();
+		String vnp_TxnRef = vnp_TmnCode + "-" + paymentDTO.getOrderCode() + "-" + vnp_CreateDate;
 		String vnp_Version = "2.1.0";
 		String bankCode = paymentDTO.getBankCode();
 
@@ -58,6 +59,7 @@ public class VnpayService {
 		vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
 		vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
 		vnp_Params.put("vnp_Version", vnp_Version);
+		vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
 		if (bankCode != null && !bankCode.isEmpty()) {
             vnp_Params.put("vnp_BankCode", bankCode);
         }
@@ -95,7 +97,72 @@ public class VnpayService {
 		String paymentUrl = Url + "?" + queryUrl;
 		return paymentUrl;
 	}
+	public boolean verifyPaymentResponse(Map<String, String> responseParams) throws Exception {
+        String vnp_SecureHash = responseParams.get("vnp_SecureHash");
+        if (vnp_SecureHash == null) {
+            throw new Exception("Missing vnp_SecureHash parameter");
+        }
 
+        String vnp_TxnRef = responseParams.get("vnp_TxnRef");
+        if (vnp_TxnRef == null) {
+            throw new Exception("Missing vnp_TxnRef parameter");
+        }
+
+        String vnp_Amount = responseParams.get("vnp_Amount");
+        if (vnp_Amount == null) {
+            throw new Exception("Missing vnp_Amount parameter");
+        }
+
+        String vnp_ResponseCode = responseParams.get("vnp_ResponseCode");
+        if (vnp_ResponseCode == null) {
+            throw new Exception("Missing vnp_ResponseCode parameter");
+        }
+
+        String vnp_TransactionNo = responseParams.get("vnp_TransactionNo");
+        if (vnp_TransactionNo == null) {
+            throw new Exception("Missing vnp_TransactionNo parameter");
+        }
+
+        String vnp_TmnCode = responseParams.get("vnp_TmnCode");
+        if (vnp_TmnCode == null) {
+            throw new Exception("Missing vnp_TmnCode parameter");
+        }
+
+        String vnp_BankCode = responseParams.get("vnp_BankCode");
+        if (vnp_BankCode == null) {
+            throw new Exception("Missing vnp_BankCode parameter");
+        }
+
+        String vnp_PayDate = responseParams.get("vnp_PayDate");
+        if (vnp_PayDate == null) {
+            throw new Exception("Missing vnp_PayDate parameter");
+        }
+
+        String vnp_OrderInfo = responseParams.get("vnp_OrderInfo");
+        if (vnp_OrderInfo == null) {
+            throw new Exception("Missing vnp_OrderInfo parameter");
+        }
+
+        String vnp_TransactionStatus = responseParams.get("vnp_TransactionStatus");
+        if (vnp_TransactionStatus == null) {
+            throw new Exception("Missing vnp_TransactionStatus parameter");
+        }
+
+        String originalData = "vnp_Amount=" + vnp_Amount +
+                "&vnp_BankCode=" + vnp_BankCode +
+                "&vnp_OrderInfo=" + vnp_OrderInfo +
+                "&vnp_PayDate=" + vnp_PayDate +
+                "&vnp_ResponseCode=" + vnp_ResponseCode +
+                "&vnp_TmnCode=" + vnp_TmnCode +
+                "&vnp_TransactionNo=" + vnp_TransactionNo +
+                "&vnp_TransactionStatus=" + vnp_TransactionStatus +
+                "&vnp_TxnRef=" + vnp_TxnRef +
+                "&" + vnp_HashSecret;
+
+        String expectedSignature = DigestUtils.sha512Hex(originalData);
+
+        return vnp_SecureHash.equals(expectedSignature);
+    }
 	public static String hmacSHA512(final String key, final String data) {
 		try {
 

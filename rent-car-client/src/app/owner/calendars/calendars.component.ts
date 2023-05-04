@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { DialogLoadingComponent } from 'src/app/dialog/loading/loading.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { OwnerService } from 'src/app/service/owner.service';
+import { RentService } from 'src/app/service/rent.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
 
 @Component({
@@ -19,12 +20,15 @@ export class CalendarsComponent implements OnInit {
   isClicked: boolean = false;
   clickedIndex!: number;
   dialogLoading: MatDialogRef<any> | undefined;
+  rentCars: any = {};
+  disabledDates: number[] = [];
   constructor(
     private scheduleService: ScheduleService,
     private authService: AuthService,
     private ownerService: OwnerService,
     private dialog: MatDialog,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private rentService: RentService
   ) {}
   mycars: any[] = [];
   filteredCars: any[] = [];
@@ -61,7 +65,6 @@ export class CalendarsComponent implements OnInit {
         this.mycars = res;
         this.filteredCars = res;
         this.selectedCar = this.mycars[0];
-        console.log(this.mycars);
         if (this.mycars.length > 0) {
           this.scheduleService.findByCar(this.mycars[0].id).subscribe({
             next: (res) => {
@@ -76,6 +79,19 @@ export class CalendarsComponent implements OnInit {
             },
             error: (err) => {
               console.log(err);
+            },
+          });
+          this.rentService.getRentalsByCar(this.mycars[0].id).subscribe({
+            next: (res) => {
+              this.rentCars = res;
+              res.forEach((rental: any) => {
+                var start = new Date(rental.pickupDate);
+                var end = new Date(rental.returnDate);
+                while (start <= end) {
+                  this.disabledDates.push(start.getDate());
+                  start.setDate(start.getDate() + 1);
+                }
+              });
             },
           });
         } else {
@@ -95,8 +111,16 @@ export class CalendarsComponent implements OnInit {
         this.calendarCars.push(x.getDate());
     }
   }
-  isDayRented(day: number): boolean {
+  isDayRent(day: number): boolean {
     for (let rentedDay of this.calendarCars) {
+      if (rentedDay == day) {
+        return true;
+      }
+    }
+    return false;
+  }
+  isDayRented(day: number): boolean {
+    for (let rentedDay of this.disabledDates) {
       if (rentedDay == day) {
         return true;
       }

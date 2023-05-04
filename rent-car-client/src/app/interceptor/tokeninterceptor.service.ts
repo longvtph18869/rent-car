@@ -20,12 +20,16 @@ export class TokeninterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const token = this.authService.getJwtToken();
 
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `${token}`,
-        },
-      });
+    if (
+      request.url !== 'https://api.cloudinary.com/v1_1/dyje74rxj/image/upload'
+    ) {
+      if (token) {
+        request = request.clone({
+          setHeaders: {
+            Authorization: `${token}`,
+          },
+        });
+      }
     }
     return next.handle(request);
   }

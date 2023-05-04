@@ -109,7 +109,8 @@
             *ngFor="let day of calendarDays"
             [ngClass]="{
               'day--disabled': !day,
-              'day--rent': isDayRented(day),
+              'day--rent': isDayRent(day) && !isDayRented(day),
+              'day--rented': isDayRented(day)
             }"
             (click)="onDayClick(day)"
           >

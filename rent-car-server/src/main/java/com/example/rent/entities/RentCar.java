@@ -1,7 +1,5 @@
 package com.example.rent.entities;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,26 +13,39 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity(name="rent_car")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class RentCar  {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false, precision=10)
     private int id;
     @Column(name="rental_date")
-    private LocalDate rentalDate;
+    private LocalDateTime rentalDate;
     @Column(name="return_date")
-    private LocalDate returnDate;
+    private LocalDateTime returnDate;
     @Column(name="pickup_date")
-    private LocalDate pickupDate;
+    private LocalDateTime pickupDate;
     @Column(name="pickup_location", length=255)
     private String pickupLocation;
     @Column(name="return_location", length=255)
     private String returnLocation;
-    @Column(name="rental_price", precision=10)
-    private BigDecimal rentalPrice;
-    @Column(name="rental_status", length=1)
-    private boolean rentalStatus;
+    @Column(name="rental_price")
+    private int rentalPrice;
+    @Column(name="rental_status")
+    private int rentalStatus;
+    @Column(name="payment_status")
+    private int paymentStatus;
     @OneToMany(mappedBy="rentCar")
     private List<Contract> contract;
     @OneToMany(mappedBy="rentCar")
@@ -45,11 +56,10 @@ public class RentCar  {
     @JoinColumn(name="user_id")
     private User user;
     @ManyToOne
+    @JoinColumn(name="owner_id")
+    private User owner;
+    @ManyToOne
     @JoinColumn(name="car_id")
     private Car car;
-
-    public RentCar() {
-        super();
-    }
 
 }
