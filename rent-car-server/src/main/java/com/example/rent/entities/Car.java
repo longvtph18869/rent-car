@@ -51,7 +51,7 @@ public class Car {
 	private CarType type;
 	@Column(name = "rental_price", precision = 10)
 	private BigDecimal rentalPrice;
-	@Column(length = 65535,columnDefinition = "varchar(65535) CHARACTER SET utf8")
+	@Column(columnDefinition = "varchar(255) CHARACTER SET utf8")
 	private String description;
 	@Column(length = 1)
 	private int status;
@@ -72,7 +72,7 @@ public class Car {
 	@OneToMany(mappedBy = "car")
 	private List<Contract> contract;
 	@OneToMany(mappedBy = "car")
-	@JsonManagedReference 
+	@JsonManagedReference
 	private List<RentalSchedule> rentalSchedule;
 	@OneToMany(mappedBy = "car")
 	private List<RentCar> rentCar;

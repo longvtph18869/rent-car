@@ -58,8 +58,18 @@
                 [severity]="getSeverity(rentCar.rentalStatus).color"
               ></p-tag>
             </div>
+            <p-tag severity="success" *ngIf="rentCar.paymentStatus == 1">
+              Đã thanh toán !
+            </p-tag>
             <div *ngIf="rentCar.rentalStatus == 0">
-              <button class="mt-3" mat-raised-button color="warn">Hủy</button>
+              <button
+                class="mt-3"
+                mat-raised-button
+                color="warn"
+                (click)="cancel(rentCar.id)"
+              >
+                Hủy
+              </button>
               <button
                 class="mt-3"
                 mat-raised-button
