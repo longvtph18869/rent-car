@@ -68,6 +68,8 @@ export class CalendarsComponent implements OnInit {
         if (this.mycars.length > 0) {
           this.scheduleService.findByCar(this.mycars[0].id).subscribe({
             next: (res) => {
+              console.log(this.scheduleLists);
+
               this.scheduleLists = res;
               for (let x of this.scheduleLists) {
                 const date = new Date(x.date);
@@ -272,7 +274,6 @@ export class CalendarsComponent implements OnInit {
       const month = ('0' + (x.getMonth() + 1)).slice(-2);
       const day = ('0' + x.getDate()).slice(-2);
       const dateString = `${year}-${month}-${day}`;
-      console.log(dateString);
 
       const isDateDuplicate = this.scheduleLists.some(
         (s) => s.date === dateString
@@ -286,6 +287,8 @@ export class CalendarsComponent implements OnInit {
       }
     }
     if (this.scheduleLists.length === 0) {
+      console.log(this.selectedCar.id);
+
       this.scheduleLists.push({
         date: null,
         available: null,
@@ -294,6 +297,8 @@ export class CalendarsComponent implements OnInit {
     }
     this.scheduleService.saveSchedule(this.scheduleLists).subscribe({
       next: (res) => {
+        console.log(res);
+
         this.dialogLoading?.close();
         this.messageService.add({
           severity: 'success',

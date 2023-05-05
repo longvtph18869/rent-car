@@ -45,7 +45,7 @@ public class ScheduleService {
 	    	RentalSchedule schedule = new RentalSchedule();
 		    schedule.setStartDate(date);
 		    schedule.setAvailable(scheduleDTO.isAvailable());
-		    schedule.setCar(null);
+		    schedule.setCar(car.get());
 		    return scheduleRepository.save(schedule);
 		}
 	    return existingSchedule;

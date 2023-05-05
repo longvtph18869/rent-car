@@ -156,9 +156,6 @@ export class RegisterCarComponent implements OnInit, AfterViewInit {
       this.dialogLoading = this.dialog.open(DialogLoadingComponent, {
         disableClose: true,
       });
-      setTimeout(() => {
-        this.dialogLoading!.close();
-      }, 1000);
       try {
         this.authService.decodeToken();
         const carImages = await this.cloudinaryService.uploadImages(
