@@ -104,9 +104,9 @@ public class CarService {
 	    List<Car> cars = carRepository.filter(minLat, maxLat, minLong, maxLong, pickupDate, returnDate);
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    UserDTO userDTO = new UserDTO();
-	    if (authentication != null && authentication.isAuthenticated()) {
-	    	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-			userDTO = userService.getByUserName(userDetails.getUsername());
+	    if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails) {
+	        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+	        userDTO = userService.getByUserName(userDetails.getUsername());
 	    }
 	    List<CarDTO> carDTOs = new ArrayList<>();
 	    for (Car car : cars) {
